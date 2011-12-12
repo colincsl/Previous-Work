@@ -1,0 +1,12 @@
+<launch>
+	<node name="generator" pkg="kinect_anaglyph" type="np_generate_anaglyph.py" output="screen"/>
+
+	<node name="image" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+	<remap from="image" to="anaglyph_img"/>
+	</node>
+
+	<node name="image2" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+	<remap from="image" to="/kinect/depth/image_raw"/>
+	</node>
+
+</launch>

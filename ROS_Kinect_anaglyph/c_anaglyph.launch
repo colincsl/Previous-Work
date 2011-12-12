@@ -1,0 +1,8 @@
+<launch>
+	<node name="generator" pkg="kinect_anaglyph" type="generate_anaglyph.cpp" output="screen"/>
+
+	<node name="image" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+	<remap from="image" to="anaglyph_img"/>
+	</node>
+
+</launch>
