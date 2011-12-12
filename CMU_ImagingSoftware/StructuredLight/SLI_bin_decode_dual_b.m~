@@ -1,0 +1,220 @@
+function [model_out, im_depth] = SLI_bin_decode_dual_b(im_, im_dec_x, im_dec_y, im_diff)
+% Use: Decode the image from decimal stripe values to a 3D model
+% Input: im_ (image for color registration), im_dec_x, im_dec_y (decimal stripe values)
+% Output: model (3xn point cloud), im_depth (mapping of x/y/z dimensions of
+% point cloud; used for debugging)
+% 
+% Author: Colin lea
+% Date: July 1, 2010
+
+disp('Decode and triangulate')
+
+% Resolution of the stripes
+% rez_x = 1280;
+% rez_y = 1024;
+rez_x = 512;
+rez_y = 512;
+% Resolution of the projector
+rez_proj_x = 1280;
+rez_proj_y = 1024;
+% rez_proj_x = 512;
+% rez_proj_y = 256;
+
+% Image parameters
+[im_y, im_x] = size(im_dec_x); %Camera resolution
+model = zeros(rez_x*rez_y, 4); %init model
+im_depth = zeros(rez_y, rez_x, 4); %init depth map
+
+% Init values sent to the stereo triangulation function
+x_cam = zeros(rez_x*rez_y, 1);
+y_cam = zeros(rez_x*rez_y, 1);
+x_proj = zeros(rez_x*rez_y, 1);
+y_proj = zeros(rez_x*rez_y, 1);
+
+% g is the inverse mapping of striped location [0:rez_x X 0:rez_x] to pixel
+% location
+g = zeros(rez_y, rez_x, 2);
+% Also check to make sure there is a big enough of a difference between the
+% light and dark values (im_diff > n)
+for y = 1:im_y
+    for x = 1:im_x
+        if im_dec_y(y, x) < rez_y && im_dec_x(y,x) < rez_x
+            if x > g(im_dec_y(y, x), im_dec_x(y, x),2)% && im_diff(y, x) > 10000
+                g(im_dec_y(y, x), im_dec_x(y, x),:) = [y, x];
+            end
+        end
+    end
+end
+
+% imtool(g(:,:,2), []);
+% imtool(g(:,:,1), []);
+
+% relate the projector resolution with stripe resolution
+k_x = rez_proj_x / rez_x;
+k_y = rez_proj_y / rez_y;
+
+
+% Fill data points for left and right view (for stereo_triangulation
+% function
+i=1;
+
+y_min = 1;
+y_max = rez_y;
+x_min = 1;
+x_max = rez_x;
+
+for y = y_min:y_max
+    for x = x_min:x_max   
+        if g(y, x, 1) ~= 0 && g(y,x,2) ~= 0 
+            x_cam(i) = g(y, x, 2);
+            y_cam(i) = g(y, x, 1);
+            x_proj(i) = x*k_x;
+            y_proj(i) = y*k_y;
+        else
+            x_cam(i) = -1;
+            y_cam(i) = -1;
+            x_proj(i) = -1;
+            y_proj(i) = -1;
+        end                   
+        i = i+1;
+    end
+end
+
+% stereo_pts = [x_cam, y_cam, x_proj, y_proj];
+
+clear g im_dec_x im_dec_y
+
+% px_sent = zeros(rez_y, rez_x, 2);
+% i = 1;
+% for y = 1:rez_y
+%     for x = 1:rez_x  
+%         if g(y,x,1) ~= 0 || g(y,x,2) ~= 0
+%             px_sent(g(y,x,1), g(y,x,2), :) = [x_cam(i), y_cam(i)];
+%             i = i+1;
+%         end
+%     end
+% end
+% imtool(px_sent(:,:,2));
+
+
+%Load Projector-Camera calibrations
+% ProCam_params_save 
+[dim_c, KK_c, kc_c, dim_p, KK_p, kc_p, om, trans_p] = parse_yaml_calib('SL_Oct_14_5.yaml');
+% [dim_c, KK_c, kc_c, dim_p, KK_p, kc_p, om, trans_p] = parse_yaml_calib('sept_08_556pm.yaml');
+
+kc_p(5) = 0;
+kc_c(5) = 0;
+trans_p = trans_p' * 30/200;
+fc_c = [KK_c(1,1); KK_c(2,2)];
+fc_p = [KK_p(1,1); KK_p(2,2)];
+cc_c = [KK_c(1,3); KK_c(2,3)];
+cc_p = [KK_p(1,3); KK_p(2,3)];
+alpha_c_p = 0;
+alpha_c_c = 0;
+om = rodrigues(om');
+% stereo triangulation function takes in the rotation in rodrigues notation
+% om = rodrigues(rot_p');
+% trans_p
+% find the depth from the left and right points (from Camera Calibration Toolbox)
+[XL, XR] = stereo_triangulation([x_proj'; y_proj'], [x_cam'; y_cam'], om, -trans_p, fc_p, cc_p, kc_p*1, alpha_c_p,      fc_c, cc_c, kc_c, alpha_c_c);        
+
+% create depth map from all the points
+for y = 1:rez_y
+    for x = 1:rez_x %150 is the bottom left corner
+        i = (y-1)*rez_x + x;
+        if round(XL(3,i)) ~= 0 && round(XL(1,i)) ~=0 && round(XL(2, i)) ~=0 && XL(3,i) > 0
+%             XL(3,i)
+        if x_cam(i) > 0 && y_cam(i) > 0 && x_proj(i) > 0 && y_proj(i) > 0
+            im_depth(y,x, 1) = XL(1,i);
+            im_depth(y,x, 2) = XL(2,i);
+            im_depth(y,x, 3) = XL(3,i);
+        end
+            
+            if y_cam(i) > 0 || x_cam(i) > 0
+                color = double(im_(y_cam(i), x_cam(i)))/65536;
+            else
+                color = 0;
+            end
+            
+            im_depth(y,x, 4) = color;
+%             im_depth(y,x, 2) = XR(3,i);
+        end
+    end
+end
+
+
+% % Try to interpolate values
+% for y = 2:rez_y-1
+%     for x = 2:rez_x-1
+%         if im_depth(y,x,3) == 0
+%             avgZ = 0;
+%             avgColor = 0;
+%             avgCount = 0;
+%             for i = -1:1
+%                 for j = -1:1
+%                     if i ~= 0 && j ~= 0 && im_depth(y+i,x+j,3) ~= 0
+%                         avgZ = avgZ + im_depth(y+i,x+j,3);
+%                         avgColor = avgColor + im_depth(y+i,x+j, 4);
+%                         avgCount = avgCount + 1;
+%                     end
+%                 end
+%             end
+%             new_depth = avgZ/avgCount;
+%             if ~isnan(new_depth) && avgCount > 0
+%                 im_depth(y,x,3) = new_depth; 
+%                 im_depth(y,x,4) = avgColor/avgCount; 
+%             end
+%         end
+%     end
+% end
+
+% [x, y] = gradient(im_depth(:,:,1));
+% a_x = sqrt(x.^2 + y.^2);
+% [x, y] = gradient(im_depth(:,:,2));
+% a_y = sqrt(x.^2 + y.^2);
+% [x, y] = gradient(im_depth(:,:,3));
+% a_z = sqrt(x.^2 + y.^2);
+% 
+% a_d = a_z;
+% for y = 1:rez_y
+%     for x = 1:rez_x
+%         a_d(y,x) = sqrt(a_x(y,x)^2+a_y(y,x)^2+a_z(y,x)^2);
+%     end
+% end
+
+% imtool(a_x, [])
+% imtool(a_y, [])
+% imtool(a_z, [])
+% imtool(a_d, [])
+% m = max(max(a_d));
+
+k=1;
+for y = 1:rez_y
+    for x = 1:rez_x %150 is the bottom left corner
+%         d = sqrt(a_x(y,x)^2+a_y(y,x)^2+a_z(y,x)^2);
+        if XL(1,i) ~= 0 && XL(2,i) ~= 0 && XL(3,i) ~= 0 %&& (a_d(y,x) > 2820 || a_d(y,x) < 2450)
+            model(k,:) = [im_depth(y,x,1), im_depth(y,x,2), im_depth(y,x,3), im_depth(y,x,4)];
+%             model(k,:) = [im_depth(y,x,1), im_depth(y,x,2), im_depth(y,x,3), a_d(y,x)/m];            
+            k=k+1;
+        end
+    end
+end
+% k
+
+% eliminate all of the zeros at the end of the model
+% x = 1;
+% i = 1;
+% while(x ~= 0)
+%     i = i+1;
+%     if model(i, 1) == 0 && model(i, 2) == 0 && model(i, 3) == 0 && model(i, 4) == 0
+%         x = 0;
+%     else
+%         x = 1;
+%     end
+% end
+% i
+% model_out = model(1:k-1,:);
+
+model_out = unique(model, 'rows');
+
+'Done Triangulating'

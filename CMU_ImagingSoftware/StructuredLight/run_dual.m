@@ -1,0 +1,150 @@
+%root_folder = 'C:\Users\colin\Desktop\subterranean_summer_scholars';
+root_folder = '~\Documements\CMU';
+output_url = ['Checkers_', datestr(now,'yyyymmddTHHMMSS')];
+% Use: Main structured light file (non-HDR)
+% Input: vid (camera) 
+% Output: model (point cloud), im_depth (x/y/z depth map)
+% Camera must be plugged in and the projector should be set at 1280x1024
+% (1024x764 output also possible: see lines 53-56)
+% must be setup
+% Data (inc. images) is stored in a .mat file with the same name as the output url. 
+% 
+% Author: Colin lea
+% Date: July 12, 2010
+clearvars -except vid root_folder output_url
+% % % % % % % % Inputs % % % % % % % 
+%Number of patterns
+n_patterns = 11;
+% % % % % % % % % % % % % % % % % % % 
+
+if ~exist('vid', 'var')
+    camera_setup
+end
+
+close all
+clc
+
+% load Calib_Results
+ProCam_params_save
+
+total_time = tic;
+
+%Start the camera
+if isrunning(vid)
+    stop(vid);
+    pause(.5);
+    start(vid);
+else
+    start(vid);
+end
+
+% Initialize vars
+im_x = cell(n_patterns,1);
+im_y = cell(n_patterns,1);
+pattern = cell(n_patterns*2, 1);
+% pattern_y = cell(n_patterns, 1);
+
+% % Get all patterns
+dir = 0;
+j=1;
+for i = 0:2:40
+%     pattern{j} = zeros(768, 1024,3, 'uint8');
+        pattern{j} = zeros(1024, 1280,3, 'uint8');
+    if i < 10
+%             filename = [root_folder\trunk\graycodes\pattern-1024x768-00', num2str(i), '.bmp'];
+        filename = [root_folder, '\trunk\graycodes\pattern-1280x1024-00', num2str(i), '.bmp'];            
+    else
+%             filename = [root_folder\trunk\graycodes\pattern-1024x768-0',num2str(i), '.bmp'];
+        filename = [root_folder, '\trunk\graycodes\pattern-1280x1024-0',num2str(i), '.bmp'];
+    end
+    img = imread(filename);
+    % Set grayscale color to the RGB values of the pattern 
+    % [RGB required for fullscreen function ]
+    pattern{j}(:, :, 1) = img;  
+    pattern{j}(:, :, 2) = img;  
+    pattern{j}(:, :, 3) = img;
+    j=j+1;
+end
+
+% Create full light and no light references
+[pattern{'w'}] = display_pattern(-1);
+[pattern{'b'}] = display_pattern(0);
+
+% Get black and white reference images
+fullscreen(pattern{'w'}, 2);  
+pause(.25)
+im{'w'} = getImage(vid);
+pause(.25)
+fullscreen(pattern{'b'}, 2);    
+pause(.25)
+im{'b'} = getImage(vid);
+pause(.25)
+
+
+% Display patterns & record images
+fprintf('Display pattern #');
+for i = 1:21%(n_patterns*2)
+    fullscreen(pattern{i}, 2) % Put onto external projector
+    fprintf('%d...', i);
+    pause(.25); %it takes time to project
+    if i <= 11
+        im_x{i} = getImage(vid);
+    elseif i > 11
+        im_y{i-n_patterns} = getImage(vid);        
+    end
+    pause(.1)
+end
+fprintf('\n', i);
+clear pattern img
+
+% Stop the camera from recording and clear screen
+stop(vid)
+closescreen()
+
+im_gray_x = zeros(size(im{'w'}, 1), size(im{'w'}, 2), n_patterns); %Initialize for graycode values
+im_gray_y = zeros(size(im{'w'}, 1), size(im{'w'}, 2), n_patterns); %Initialize for graycode values
+
+% Undistort
+fprintf('Decoding patterns\n');
+
+im_diff = im{'w'} - im{'b'};
+for i = 1:n_patterns
+    im_gray_x = SLI_bin_decode_a(im_x{i}, im_gray_x, im{'w'}, im_diff, i); %Get graycode values from image intensity
+end
+for i = 1:n_patterns-1
+    im_gray_y = SLI_bin_decode_a(im_y{i}, im_gray_y, im{'w'}, im_diff, i+1); %Get graycode values from image intensity
+end
+
+
+% Convert to binary code. Decode image
+im_dec_x = gray2dec(im_gray_x); %get decimal value from graycode for each pixel; Courtesy Siggraph paper: http://mesh.brown.edu/byo3d/
+im_dec_y = gray2dec(im_gray_y); %get decimal value from graycode for each pixel; Courtesy Siggraph paper: http://mesh.brown.edu/byo3d/
+
+% Save variables
+% output_url = ['Bruceton_0deg_postproc', datestr(now,'yyyymmddTHHMMSS')];
+save([root_folder, '\trunk\Data\', output_url], 'im_x', 'im_y', 'im_gray_x', 'im_gray_y', 'im');
+% clear im_x im_y im_gray_x im_gray_y im_diff
+clearvars -except im_dec_x im_dec_y im output_url total_time im_diff root_folder
+
+if ~exist('im_diff', 'var')
+    im_diff = im{'w'} - im{'b'};
+end
+
+fprintf('Decoding image\n');
+[model, im_depth] = SLI_bin_decode_dual_b(im{'w'}, im_dec_x, im_dec_y, im_diff); %generate 3D model from decoded values
+
+% % cleanup model
+% model2 = cleanupModel(im_depth, model);
+
+% save images im im depth model     % % Save for remote testing
+fprintf('%10.0f points generated\n', size(model,1));
+disp('Start writing to X3D file')
+
+outputModel(output_url, model);
+disp('Save .mat file')
+save([root_folder, '\trunk\Data\', output_url], 'model', 'im_depth', '-append');
+
+disp('File complete')
+toc(total_time)
+
+% matlabpool close

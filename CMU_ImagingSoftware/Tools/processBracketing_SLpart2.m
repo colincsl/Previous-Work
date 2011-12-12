@@ -1,0 +1,66 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % SL: Process hdr images % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% addpath('C:\Users\colin\Desktop\subterranean_summer_scholars\trunk\Data')
+% addpath('C:\Users\colin\Desktop\subterranean_summer_scholars\trunk\StructuredLight\')
+clear all
+n_patterns = 22;
+% load rgb.mat
+% addpath(url_base);
+
+for i = 1:n_patterns-1
+    rgb{i} = imread(['hdr_p', num2str(i), '.jpg']);
+end
+rgb{'w'} = imread('hdr_w.jpg');
+rgb{'b'} = imread('hdr_b.jpg');
+rgb{'d'} = rgb{'w'}-rgb{'b'};
+
+im_gray_x = zeros(size(rgb{'w'}, 1), size(rgb{'w'}, 2), round(n_patterns/2)-2); %Initialize for graycode values
+im_gray_y = zeros(size(rgb{'w'}, 1), size(rgb{'w'}, 2), round(n_patterns/2)-2); %Initialize for graycode values
+
+% Undistort
+fprintf('Decoding patterns\n');
+
+for i = 1:round(n_patterns/2)-2
+%     im_gray_x = SLI_bin_decode_a_hdr(rgb{i}, im_gray_x, rgb{'w'}, i); %Get graycode values from image intensity
+    im_gray_x = SLI_bin_decode_a(rgb{i}, im_gray_x, rgb{'w'}, rgb{'d'}, i); %Get graycode values from image intensity    
+end
+for i = round(n_patterns/2)+1:n_patterns-2
+%     im_gray_y = SLI_bin_decode_a_hdr(rgb{i}, im_gray_y, rgb{'w'}, i-round(n_patterns/2)); %Get graycode values from image intensity
+    im_gray_y = SLI_bin_decode_a(rgb{i}, im_gray_y, rgb{'w'}, rgb{'d'}, i-round(n_patterns/2)); %Get graycode values from image intensity
+end
+
+
+% Convert to binary code. Decode image
+im_dec_x = gray2dec(im_gray_x); %get decimal value from graycode for each pixel; Courtesy Siggraph paper: http://mesh.brown.edu/byo3d/
+im_dec_y = gray2dec(im_gray_y); %get decimal value from graycode for each pixel; Courtesy Siggraph paper: http://mesh.brown.edu/byo3d/
+max(max(im_dec_x))
+max(max(im_dec_y))
+% scale output
+
+im_white = rgb{'w'};
+clear im_gray_x im_gray_y rgb
+
+fprintf('Decoding image\n');
+[model, im_depth] = SLI_bin_decode_dual_b(im_white, im_dec_x, im_dec_y); %generate 3D model from decoded values
+
+model(:,4) = model(:,4)*65536;
+% Output raw model
+
+outputModel_dir('SLmodel', model);
+save('SL_processed', 'model', 'im_depth', 'im_dec_x', 'im_dec_y');
+
+% % cleanup model
+im_interp = interpImage(im_depth, 12);
+model2 = cleanupModel(im_interp, model);
+model2(:,4) = model2(:,4)*65536;
+
+% save images im im depth model     % % Save for remote testing
+fprintf('%10.0f points generated\n', size(model,1));
+disp('Start writing to X3D file')
+
+outputModel_dir('SLmodel_cleanup', model2);
+disp('Save .mat file')
+
+disp('File complete')
+
