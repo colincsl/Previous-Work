@@ -1,0 +1,60 @@
+
+function set(obj, varargin)
+% SET  Set output port object properties
+% 
+%   V = SET(OBJ, 'P', V) sets the property P of the outputPort object OBJ
+%   to the value V.
+%
+%   SET(OBJ) displays a list of recognized properties, as well the 
+%   range of allowed values for each property.
+%
+%   The list of properties recognized by SET:
+%
+%   Property    Description
+%   ----------------------------------------------
+%   'Power'     The power setpoint used when the start() command is used.
+%               This should be an integer between -100 and +100 (negative
+%               values specify reverse motion). The power is initially set 
+%               to +10.
+%
+%   'StopType'  Specifies how the stop() command should stop the motor. 
+%               Possible values are 'brake' (use power to actively maintain 
+%               the stopped position) or 'coast' (turn off power to the
+%               motor). The StopType is initially set to 'coast'.
+%
+% See also outputPort/get, outputPort/start, outputPort/stop
+
+%   Copyright 2007 The MathWorks, Inc.
+%   Revision: 1.0 Date: 2007/11/30
+
+if numel(varargin)==0,
+    fprintf('	Power: integer between -100 and +100\n');
+    fprintf('	StopType: [ brake | coast ]\n');
+    return;
+end
+
+p = inputParser;
+p.FunctionName = 'outputPort/set';
+p.CaseSensitive = false;
+p.addParamValue('Power', []);
+p.addParamValue('StopType', []);
+p.parse(varargin{:});
+
+if ~isempty(p.Results.Power)
+    try
+        obj.setDefault('Power', p.Results.Power);
+    catch
+        customError('replacetop', 'outputPort/set: Unable to set default power');
+    end
+end
+
+if ~isempty(p.Results.StopType)
+    try
+        obj.setDefault('StopType', p.Results.StopType);
+    catch
+        customError('replacetop', 'outputPort/set: Unable to set default StopType');
+    end
+end
+
+
+
