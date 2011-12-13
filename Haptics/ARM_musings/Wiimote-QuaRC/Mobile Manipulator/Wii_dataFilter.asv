@@ -1,0 +1,4 @@
+global WiimoteData
+
+
+plot(WiimoteData(:,1), WiimoteData(:,2),)

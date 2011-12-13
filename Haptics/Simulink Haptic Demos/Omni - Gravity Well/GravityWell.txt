@@ -1,0 +1,52 @@
+#VRML V2.0 utf8 
+DEF Avatar Transform{ 
+	 translation	0 0 0 
+	 scale	0.01 0.01 0.01 
+	 children Shape { 
+	 	 appearance	Appearance { 
+	 	 	 material	Material { 
+	 	 	 	 ambientIntensity	0.2 
+	 	 	 	 diffuseColor	0.8 0.0643941 0.0488021 
+	 	 	 	 } 
+	 	 	 } 
+	 	 	 geometry	Sphere { 
+	 	 	 	 radius	1 
+	 	 	 } 
+	 } 
+ } 
+ Viewpoint { 
+	 fieldOfView	0.785398 
+	 jump	TRUE 
+	 position	0 0 0.5 
+	 description	"" 
+ } 
+DEF W Transform{ 
+translation -0.08 0.00 0.15
+scale 0.03 0.03 0.03 
+children Shape { 
+ 	 appearance Appearance { 
+ 	 	 material Material { 
+ 	 	 	 ambientIntensity 0.2 
+ 	 	 	 diffuseColor 0.017 0.84 0.88 
+ 	 	 	 transparency	0.5 
+ 	 	 } 
+ 	 } 
+ 	 geometry	Sphere { 
+ 	 }
+ 	} 
+} 
+DEF W1 Transform{ 
+translation 0.05 0.00 0.15
+scale 0.02 0.02 0.02 
+children Shape { 
+ 	 appearance Appearance { 
+ 	 	 material Material { 
+ 	 	 	 ambientIntensity 0.2 
+ 	 	 	 diffuseColor 1 0.84 1 
+ 	 	 	 transparency	0.5 
+ 	 	 } 
+ 	 } 
+ 	 geometry	Sphere { 
+ 	 }
+ 	} 
+} 

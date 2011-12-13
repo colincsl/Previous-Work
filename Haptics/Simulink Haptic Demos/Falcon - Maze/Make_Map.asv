@@ -1,0 +1,82 @@
+global map
+global map_x
+global map_y
+
+map = zeros(100,100);
+
+Build_Map()
+
+map = map';
+
+map_x = zeros(100,100);
+map_y = zeros(100,100);
+
+% init map x and y
+% for i = 1:100
+%     for j = 1:100
+%         map_x(i,j) = 5;
+%         map_y(i,j) = 5;
+%     end
+% end
+
+force = 3;
+
+for i = 4:96
+    for j = 4:96
+        if map(i,j) == 1
+            map_x(j, i) = force;
+            map_y(j, i) = force;
+            
+            for ii = -1:1
+                for jj = -1:1
+                    
+                    if map_x(j, i+ii) == 0
+                        map_x(j, i+ii) = ii*force;
+                    end
+                    
+                    if map_y(j+jj, i) == 0
+                        map_y(j+jj, i) = jj*force/abs(jj);
+                    end
+                end
+            end
+        end
+    end
+end
+
+% for i = 1:100
+%     for j = 1:100
+% figure(3)
+% plot(map_x(:,100), map_y(:,100)); hold on
+% axis([0 100 0 100])
+% 
+% figure(4)
+% plot(map_y); hold on
+% axis([0 100 0 100])
+map = map'
+
+figure(5)
+for i = 1:100
+    for j = 1:100
+        if map(i,j) > 0
+            plot(i, j, 'ob'); hold on;
+        end
+        
+        if map_x(i,j) > 0
+            plot(i,j, 'dr'); hold on;
+        end
+        
+        if map_x(i,j) < 0
+            plot(i,j, 'dy'); hold on;
+        end
+
+        if map_y(i,j) > 0
+            plot(i,j, 'xc'); hold on;
+        end
+        
+        if map_y(i,j) < 0
+            plot(i,j, 'xg'); hold on;
+        end        
+        
+    end
+end
+axis([0 100 0 100]);

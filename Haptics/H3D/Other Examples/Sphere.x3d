@@ -1,0 +1,40 @@
+<Group>
+  <Viewpoint position="0 0 1" />
+  
+<Transform>
+  <Transform translation = "0.5 0.0 0.0" >
+  <Shape>
+    <Appearance>
+      <Material DEF="MATERIAL" diffuseColor="1 1 1"/>
+	<SmoothSurface stiffness="2.0"/>
+    </Appearance>
+    <Sphere radius="0.12" />
+  </Shape>
+  </Transform>
+
+  <Transform translation = "-.5 0 0" >
+  <Shape>
+    <Appearance>
+      <Material DEF="MATERIAL" diffuseColor="0 0 1" />
+	<FrictionalSurface />
+    </Appearance>
+    <Box size="0.15 0.15 0.15" />
+  </Shape>
+  </Transform>
+</Transform>
+
+
+
+</Group>
+
+
+
+
+
+<!--  <PythonScript DEF="PS" url="Sphere.py" />
+  <MouseSensor DEF="MS" />
+
+  <ROUTE fromNode="MS" fromField="leftButton" 
+         toNode="PS" toField="color" />
+  <ROUTE fromNode="PS" fromField="color" 
+         toNode="MATERIAL" toField="diffuseColor" /> -->

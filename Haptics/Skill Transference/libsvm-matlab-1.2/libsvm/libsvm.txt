@@ -1,0 +1,3 @@
+
+This directory must contain LIBSVM 2.8 (or maybe a later
+version). Please put at least "svm.cpp" and "svm.h" here.

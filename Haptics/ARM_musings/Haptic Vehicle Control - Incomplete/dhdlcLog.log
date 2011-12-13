@@ -1,0 +1,26 @@
+[dhdlcImp::dhdlcImp():15.26.05.0007] - Constructor called
+[dhdlcImp::init():15.26.05.0009] - init(Default Falcon,(null))
+[dhdlcImp::init():15.27.07.2945] - dhdOpen() returned -4
+[dhdlcImp::init():15.27.08.4979] - dhdOpen() returned 0
+[dhdlcImp::init():15.28.12.2929] - dhdOpenWithReset() returned -4
+[dhdlcImp::init():15.28.50.6825] - dhdOpenWithReset() returned -1
+[dhdlcImp::init():15.28.51.9006] - dhdOpenWithReset() returned -1
+[dhdlcImp::init():15.28.52.9535] - dhdOpenWithReset() returned -1
+[dhdlcImp::init():15.28.54.0150] - dhdOpenWithReset() returned -1
+[dhdlcImp::init():15.28.56.0932] - dhdOpen() returned -1
+[dhdlcImp::init():15.28.57.1088] - dhdOpen() returned -1
+[dhdlcImp::init():15.28.58.1399] - dhdOpen() returned -1
+[dhdlcImp::init():15.28.59.2494] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.02.0616] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.03.0773] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.04.1086] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.05.1397] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.07.9521] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.08.9676] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.09.9990] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.11.0302] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.13.8430] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.14.8583] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.15.8896] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.16.9208] - dhdOpen() returned -1
+[dhdlcImp::init():15.29.18.7287] - Returning -1

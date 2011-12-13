@@ -1,0 +1,121 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDefines(block,system) void
+   %openfile chartConstBuf
+   %closefile chartConstBuf
+   %return chartConstBuf
+%endfunction %% ChartDefines
+%function ChartFunctions(block,system) void
+   %openfile chartFcnsBuf
+     %assign junkVal = LibGenMathFcnCall("abs",FcnGetDataTypeIdFromName("double"),"0.0","")
+            
+            
+            
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartFunctions
+%function ChartFunctionProtos(block,system,oFile) void
+   %openfile prototypesBuf
+   %closefile prototypesBuf
+   %<SLibSetModelFileAttribute(oFile,"FcnPrototypes",prototypesBuf)>
+%endfunction %% ChartFunctionProtos
+%function ChartSharedFunctions(block,system) void
+   %openfile chartFcnsBuf
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartSharedFunctions
+%function Outputs(block,system) void
+   %openfile codeBuf
+    
+{
+int32_T eml_k;
+real_T eml_x[3];
+real_T eml_total;
+/* %<" Smart Saturation: allows channels to go up to 1.6A "> */
+/* %<" unless the total exceeds 2.2A in which case all channels"> */
+/* %<" are scaled so that the cumulative current is equal to 2.2A."> */
+/* %<" Define the maximum cumulative current here"> */
+for(eml_k = 0; eml_k < 3; eml_k++) {
+eml_x[eml_k] = fabs(%<LibSFInputs(block, 0, "eml_k")>);
+}
+eml_total = eml_x[0];
+for(eml_k = 2; eml_k < 4; eml_k++) {
+eml_total += eml_x[eml_k - 1];
+}
+if(eml_total > 2.2) {
+eml_total = 2.2 / eml_total;
+for(eml_k = 0; eml_k < 3; eml_k++) {
+%<LibSFAssignOutput(block, 1, "eml_k", "eml_total * %<LibSFInputs(block, 0, "eml_k")>")>
+}
+} else {
+for(eml_k = 0; eml_k < 3; eml_k++) {
+%<LibSFAssignOutput(block, 1, "eml_k", "%<LibSFInputs(block, 0, "eml_k")>")>
+}
+}
+}
+   %closefile codeBuf
+   %return codeBuf
+%endfunction  %% Outputs
+%function InlinedInitializerCode(block,system) Output
+   %<SLibResetSFChartInstanceAccessed(block)>\
+   %openfile initBodyBuf
+      %<LibSFAssignDWork(block, 1, "0", "0U")>
+
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Initialize code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+
+%function EnableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Enable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DisableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Disable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DumpSharedUtils(block,system) void
+%endfunction
+
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    UnifiedDWork   1\
+    NumChartData   2 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "doneDoubleBufferReInit"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_active_c3_Puncture_Through_Wall"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

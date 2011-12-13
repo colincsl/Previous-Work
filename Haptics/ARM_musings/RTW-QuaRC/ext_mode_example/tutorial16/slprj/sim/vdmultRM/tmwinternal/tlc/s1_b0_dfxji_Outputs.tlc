@@ -1,0 +1,6 @@
+%implements s1_b0_dfxji_Outputs "C"
+
+%function Outputs(block, system) Output
+
+%<SLibCGIRGenReusableSysCall(0, 0, 3, 0, 3)>\
+%endfunction

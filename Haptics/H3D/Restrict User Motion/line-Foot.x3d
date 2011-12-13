@@ -1,0 +1,26 @@
+<X3D profile='MedX3D' version='1.0'>
+
+<Group>
+      <Viewpoint DEF="VP" position='0 0 0.6'  />
+
+	<PositionFunctionEffect>
+		<GeneralFunction containerField="xFunction" function="-400*x" params="x,y,z"/>
+		<GeneralFunction containerField="yFunction" function="-00*y" params="x,y,z"/>
+		<GeneralFunction containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+      <Background DEF="BG"  />
+      <Transform scale="0.117188 0.117188 0.117188">
+        <Shape>
+          <Appearance>
+            <Material />
+		<SmoothSurface stiffness="2"/>
+          </Appearance>
+          <MarchingCubes isovalue='0.02'  >
+            <ImageTexture3D containerField="voxels" url='"C:\H3D\CLEA\Line\data\foot.nrrd"' />
+          </MarchingCubes>
+        </Shape>
+      </Transform>
+
+</Group>
+</X3D>

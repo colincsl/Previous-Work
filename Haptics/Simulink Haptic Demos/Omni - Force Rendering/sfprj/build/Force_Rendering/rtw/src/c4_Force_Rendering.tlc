@@ -1,0 +1,107 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDefines(block,system) void
+   %openfile chartConstBuf
+   %closefile chartConstBuf
+   %return chartConstBuf
+%endfunction %% ChartDefines
+%function ChartFunctions(block,system) void
+   %openfile chartFcnsBuf
+     
+            
+            
+            
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartFunctions
+%function ChartFunctionProtos(block,system,oFile) void
+   %openfile prototypesBuf
+   %closefile prototypesBuf
+   %<SLibSetModelFileAttribute(oFile,"FcnPrototypes",prototypesBuf)>
+%endfunction %% ChartFunctionProtos
+%function ChartSharedFunctions(block,system) void
+   %openfile chartFcnsBuf
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartSharedFunctions
+%function Outputs(block,system) void
+   %openfile codeBuf
+    
+{
+int32_T eml_i0;
+/* %<" Smart Saturation: allows channels to go up to 1.6A "> */
+/* %<" unless the total exceeds 2.2A in which case all channels"> */
+/* %<" are scaled so that the cumulative current is equal to 2.2A."> */
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+%<LibSFAssignOutput(block, 1, "eml_i0", "0.0")>
+}
+%<LibSFAssignOutput(block, 1, "0", "%<LibSFInputs(block, 0, 0)>")>
+%<LibSFAssignOutput(block, 1, "2", "%<LibSFInputs(block, 0, 2)>")>
+%<LibSFAssignOutput(block, 1, "1", "%<LibSFInputs(block, 0, 1)> - %<LibSFInputs(block, 0, 2)>")>
+}
+   %closefile codeBuf
+   %return codeBuf
+%endfunction  %% Outputs
+%function InlinedInitializerCode(block,system) Output
+   %<SLibResetSFChartInstanceAccessed(block)>\
+   %openfile initBodyBuf
+      %<LibSFAssignDWork(block, 1, "0", "0U")>
+
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Initialize code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+
+%function EnableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Enable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DisableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Disable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DumpSharedUtils(block,system) void
+%endfunction
+
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    UnifiedDWork   1\
+    NumChartData   2 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "doneDoubleBufferReInit"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_active_c4_Force_Rendering"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

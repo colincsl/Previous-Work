@@ -1,0 +1,91 @@
+[dhdlcImp::dhdlcImp():10.24.45.0012] - Constructor called
+[dhdlcImp::init():10.24.45.0015] - init(Default Falcon,(null))
+[dhdlcImp::init():10.24.45.1020] - dhdOpen() returned 0
+[dhdlcImp::init():10.24.50.2338] - dhdOpenWithReset() returned 99
+[dhdlcImp::init():10.24.50.2541] - DeviceSN = 14101537
+[dhdlcImp::init():10.24.50.2542] - Returning
+[dhdlcImp::tryCalibration():10.24.50.4755] - HomeEnabled, LED Red
+[dhdlcImp::shutdown():10.25.45.3600] - shutdown sequence
+[dhdlcImp::shutdown():10.25.45.3622] - update returned
+[dhdlcImp::shutdown():10.25.45.4068] - dhdClose() returned
+[dhdlcImp::shutdown():10.25.45.4069] - Returning
+[dhdlcImp::init():10.30.01.5459] - init(Default Falcon,(null))
+[dhdlcImp::init():10.30.01.6307] - dhdOpen() returned 0
+[dhdlcImp::init():10.30.01.7971] - DeviceSN = 14101537
+[dhdlcImp::init():10.30.01.7972] - Returning
+[dhdlcImp::shutdown():10.32.08.6796] - shutdown sequence
+[dhdlcImp::shutdown():10.32.08.6802] - update returned
+[dhdlcImp::shutdown():10.32.08.7468] - dhdClose() returned
+[dhdlcImp::shutdown():10.32.08.7472] - Returning
+[dhdlcImp::init():10.34.07.6688] - init(Default Falcon,(null))
+[dhdlcImp::init():10.34.07.7557] - dhdOpen() returned 0
+[dhdlcImp::init():10.34.07.9101] - DeviceSN = 14101537
+[dhdlcImp::init():10.34.07.9102] - Returning
+[dhdlcImp::tryCalibration():10.34.08.1392] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():10.35.28.3247] - shutdown sequence
+[dhdlcImp::shutdown():10.35.28.3250] - update returned
+[dhdlcImp::shutdown():10.35.28.4094] - dhdClose() returned
+[dhdlcImp::shutdown():10.35.28.4095] - Returning
+[dhdlcImp::init():10.36.32.8314] - init(Default Falcon,(null))
+[dhdlcImp::init():10.36.32.9170] - dhdOpen() returned 0
+[dhdlcImp::init():10.36.33.1182] - DeviceSN = 14101537
+[dhdlcImp::init():10.36.33.1182] - Returning
+[dhdlcImp::tryCalibration():10.36.33.3652] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():10.37.57.9311] - shutdown sequence
+[dhdlcImp::shutdown():10.37.57.9326] - update returned
+[dhdlcImp::shutdown():10.37.58.3692] - dhdClose() returned
+[dhdlcImp::shutdown():10.37.58.3693] - Returning
+[dhdlcImp::init():10.38.51.5568] - init(Default Falcon,(null))
+[dhdlcImp::init():10.38.51.6432] - dhdOpen() returned 0
+[dhdlcImp::init():10.38.51.8111] - DeviceSN = 14101537
+[dhdlcImp::init():10.38.51.8112] - Returning
+[dhdlcImp::tryCalibration():10.38.52.0560] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():10.40.21.9720] - shutdown sequence
+[dhdlcImp::shutdown():10.40.21.9729] - update returned
+[dhdlcImp::shutdown():10.40.22.0277] - dhdClose() returned
+[dhdlcImp::shutdown():10.40.22.0278] - Returning
+[dhdlcImp::init():11.07.18.0422] - init(Default Falcon,(null))
+[dhdlcImp::init():11.07.18.1376] - dhdOpen() returned 0
+[dhdlcImp::init():11.07.18.3132] - DeviceSN = 14101537
+[dhdlcImp::init():11.07.18.3133] - Returning
+[dhdlcImp::tryCalibration():11.07.18.5556] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():11.08.26.0344] - shutdown sequence
+[dhdlcImp::shutdown():11.08.26.0657] - update returned
+[dhdlcImp::shutdown():11.08.26.2372] - dhdClose() returned
+[dhdlcImp::shutdown():11.08.26.2376] - Returning
+[dhdlcImp::init():11.08.39.0895] - init(Default Falcon,(null))
+[dhdlcImp::init():11.08.39.1743] - dhdOpen() returned 0
+[dhdlcImp::init():11.08.39.3696] - DeviceSN = 14101537
+[dhdlcImp::init():11.08.39.3697] - Returning
+[dhdlcImp::tryCalibration():11.08.39.6083] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():11.12.00.8985] - shutdown sequence
+[dhdlcImp::shutdown():11.12.00.8988] - update returned
+[dhdlcImp::shutdown():11.12.00.9593] - dhdClose() returned
+[dhdlcImp::shutdown():11.12.00.9594] - Returning
+[dhdlcImp::init():11.22.27.7214] - init(Default Falcon,(null))
+[dhdlcImp::init():11.22.27.8060] - dhdOpen() returned 0
+[dhdlcImp::init():11.22.28.0649] - DeviceSN = 14101537
+[dhdlcImp::init():11.22.28.0650] - Returning
+[dhdlcImp::tryCalibration():11.22.28.3502] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():11.24.07.8510] - shutdown sequence
+[dhdlcImp::shutdown():11.24.07.8515] - update returned
+[dhdlcImp::shutdown():11.24.07.8980] - dhdClose() returned
+[dhdlcImp::shutdown():11.24.07.8982] - Returning
+[dhdlcImp::init():11.24.18.6358] - init(Default Falcon,(null))
+[dhdlcImp::init():11.24.18.7358] - dhdOpen() returned 0
+[dhdlcImp::init():11.24.18.9137] - DeviceSN = 14101537
+[dhdlcImp::init():11.24.18.9138] - Returning
+[dhdlcImp::tryCalibration():11.24.19.1346] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():11.24.58.1393] - shutdown sequence
+[dhdlcImp::shutdown():11.24.58.1542] - update returned
+[dhdlcImp::shutdown():11.24.58.2235] - dhdClose() returned
+[dhdlcImp::shutdown():11.24.58.2236] - Returning
+[dhdlcImp::init():11.26.34.4703] - init(Default Falcon,(null))
+[dhdlcImp::init():11.26.34.5573] - dhdOpen() returned 0
+[dhdlcImp::init():11.26.34.7248] - DeviceSN = 14101537
+[dhdlcImp::init():11.26.34.7249] - Returning
+[dhdlcImp::tryCalibration():11.26.34.9609] - HomeDisabled, LED Blue
+[dhdlcImp::shutdown():11.26.40.6495] - shutdown sequence
+[dhdlcImp::shutdown():11.26.40.6499] - update returned
+[dhdlcImp::shutdown():11.26.40.7064] - dhdClose() returned
+[dhdlcImp::shutdown():11.26.40.7065] - Returning

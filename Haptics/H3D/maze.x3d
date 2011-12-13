@@ -1,0 +1,282 @@
+<Scene>
+  <OrthoViewpoint fieldOfView = "-.07,-.07,.07,.07" position = "0 0 1"/>
+  <NavigationInfo type="NONE" />
+
+
+<!--BACKGROUND-->
+	<Transform translation="0 0 -.17">
+		<Shape>
+			<Box size="30 30 .2"/>
+			<Appearance>
+				<Material diffuseColor=".5 .5 .5"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+<FitToBoxTransform boxSize="100 .1 5" boxCenter="0 0 0" uniformScalingOnly="TRUE" active="TRUE">
+
+
+<!--TOP-->
+	<Transform translation="0 3 0">
+		<Shape>
+			<Box size="10 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+<!--Bottom-->
+	<Transform translation="0 -3 0">
+		<Shape>
+			<Box size="10 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+<!--Left-->
+	<Transform translation="-5 -.75 0">
+		<Shape>
+			<Box size=".1 4.5 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+<!--Right-->
+	<Transform translation="5 .75 0">
+		<Shape>
+			<Box size=".1 4.5 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+
+<!--MID SECTION-->
+
+	<!--Left-->
+	<Transform translation="-3.5 .75 0">
+		<Shape>
+			<Box size=".1 4.5 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+	<!--Left-->
+	<Transform translation="-.25 .1 0" rotation = "0 0 1 -.8">
+		<Shape>
+			<Box size=".1 6 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+	<Transform translation=".7 -2 0">
+		<Shape>
+			<Box size="6.1 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+	<Transform translation="1.68 -.1 0">
+		<Shape>
+			<Box size="4.22 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--MidRight-->
+	<Transform translation="2.6 -1.05 0">
+		<Shape>
+			<Box size="4.8 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopRight-->
+	<Transform translation="3.9 1.9 0" rotation="0 0 1 .8">
+		<Shape>
+			<Box size="3.1 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopRight-->
+	<Transform translation="1.6 1 0" rotation="0 0 1 .8">
+		<Shape>
+			<Box size="3.1 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopMid-->
+	<Transform translation="-1.55 1 0" rotation="0 0 1 -.8">
+		<Shape>
+			<Box size="3.1 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopBeam-->
+	<Transform translation="-.38 2.16 0">
+		<Shape>
+			<Box size="4.6 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopBeam-->
+	<Transform translation="-.42 1.5 0">
+		<Shape>
+			<Box size="3.25 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="0 1 0"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--TopBeam-->
+	<Transform translation="-.45 .75 0">
+		<Shape>
+			<Box size="1.7 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="0 1 0"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BottomBeam-->
+	<Transform translation="0 -2.5 0" rotation="0 0 1 -.2">
+		<Shape>
+			<Box size="5 .1 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-bottom-->
+	<Transform translation="-2.5 -.5 0">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-top-->
+	<Transform translation="-2.5 .5 0">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-left-->
+	<Transform translation="-3 0 0" rotation="0 0 1 1.5705">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-right-->
+	<Transform translation="-2 0 0" rotation="0 0 1 1.5705">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 1 1"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+<!--BOX-midleft-->
+	<Transform translation="-2.75 0 0" rotation="0 0 1 1.5705">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 0 0"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-midright-->
+	<Transform translation="-2.25 0 0" rotation="0 0 1 1.5705">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 0 0"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+<!--BOX-mid-->
+	<Transform translation="-2.5 0 0" rotation="0 0 1 1.5705">
+		<Shape>
+			<Box size="1 .05 10"/>
+			<Appearance>
+				<Material diffuseColor="1 0 0"/>	
+				<SmoothSurface stiffness="2"/>
+			</Appearance>
+		</Shape>				
+	</Transform>
+
+
+</FitToBoxTransform>
+</Scene>

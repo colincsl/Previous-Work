@@ -1,0 +1,480 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - vdptop.c </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT=#1122aa onload="if (top && top.rtwFileOnLoad) top.rtwFileOnLoad(window);">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop.c" TARGET="rtwreport_document_frame">D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop.c</A></H4>
+<PRE id="RTWcode">
+<SPAN><SPAN class="LN"><A NAME=1>    1   </A></SPAN><SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">    2   </SPAN><SPAN class="CT"> * vdptop.c</SPAN>
+</SPAN><SPAN><SPAN class="LN">    3   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    4   </SPAN><SPAN class="CT"> * Real-Time Workshop code generation for Simulink model &quot;vdptop.mdl&quot;.</SPAN>
+</SPAN><SPAN><SPAN class="LN">    5   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    6   </SPAN><SPAN class="CT"> * Model Version              : 1.6</SPAN>
+</SPAN><SPAN><SPAN class="LN">    7   </SPAN><SPAN class="CT"> * Real-Time Workshop version : 7.0  (R2007b)  02-Aug-2007</SPAN>
+</SPAN><SPAN><SPAN class="LN">    8   </SPAN><SPAN class="CT"> * C source code generated on : Wed Jun 10 17:28:57 2009</SPAN>
+</SPAN><SPAN><SPAN class="LN">    9   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   10   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   11   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;vdptop.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   12   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;vdptop_private.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   13   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   14   </SPAN><SPAN class="CT">/* Block signals (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   15   </SPAN>BlockIO_vdptop vdptop_B;
+</SPAN><SPAN><SPAN class="LN">   16   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   17   </SPAN><SPAN class="CT">/* Continuous states */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   18   </SPAN>ContinuousStates_vdptop vdptop_X;
+</SPAN><SPAN><SPAN class="LN">   19   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   20   </SPAN><SPAN class="CT">/* Solver Matrices */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   21   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   22   </SPAN><SPAN class="CT">/* A and B matrices used by ODE3 fixed-step solver */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   23   </SPAN><SPAN class="DT">static</SPAN> <SPAN class="DT">const</SPAN> real_T <A NAME=var_rt_ODE3_A>rt_ODE3_A</A>[3] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">   24   </SPAN>  1.0/2.0, 3.0/4.0, 1.0
+</SPAN><SPAN><SPAN class="LN">   25   </SPAN><B>}</B>;
+</SPAN><SPAN><SPAN class="LN">   26   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   27   </SPAN><SPAN class="DT">static</SPAN> <SPAN class="DT">const</SPAN> real_T <A NAME=var_rt_ODE3_B>rt_ODE3_B</A>[3][3] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">   28   </SPAN>  <B>{</B> 1.0/2.0, 0.0, 0.0 <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">   29   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   30   </SPAN>  <B>{</B> 0.0, 3.0/4.0, 0.0 <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">   31   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   32   </SPAN>  <B>{</B> 2.0/9.0, 1.0/3.0, 4.0/9.0 <B>}</B>
+</SPAN><SPAN><SPAN class="LN">   33   </SPAN><B>}</B>;
+</SPAN><SPAN><SPAN class="LN">   34   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   35   </SPAN><SPAN class="CT">/* Block states (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   36   </SPAN>D_Work_vdptop vdptop_DWork;
+</SPAN><SPAN><SPAN class="LN">   37   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   38   </SPAN><SPAN class="CT">/* External outputs (root outports fed by signals with auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   39   </SPAN>ExternalOutputs_vdptop vdptop_Y;
+</SPAN><SPAN><SPAN class="LN">   40   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   41   </SPAN><SPAN class="CT">/* Real-time model */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   42   </SPAN>RT_MODEL_vdptop vdptop_M_;
+</SPAN><SPAN><SPAN class="LN">   43   </SPAN>RT_MODEL_vdptop *vdptop_M = &amp;vdptop_M_;
+</SPAN><SPAN><SPAN class="LN">   44   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   45   </SPAN><SPAN class="CT">/* This function updates continuous states using the ODE3 fixed-step</SPAN>
+</SPAN><SPAN><SPAN class="LN">   46   </SPAN><SPAN class="CT"> * solver algorithm</SPAN>
+</SPAN><SPAN><SPAN class="LN">   47   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   48   </SPAN><SPAN class="DT">static</SPAN> <SPAN class="DT">void</SPAN> <A NAME=fcn_rt_ertODEUpdateContinuousStates>rt_ertODEUpdateContinuousStates</A>(RTWSolverInfo *si )
+</SPAN><SPAN><SPAN class="LN">   49   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">   50   </SPAN>  time_T t = rtsiGetT(si);
+</SPAN><SPAN><SPAN class="LN">   51   </SPAN>  time_T tnew = rtsiGetSolverStopTime(si);
+</SPAN><SPAN><SPAN class="LN">   52   </SPAN>  time_T h = rtsiGetStepSize(si);
+</SPAN><SPAN><SPAN class="LN">   53   </SPAN>  real_T *x = rtsiGetContStates(si);
+</SPAN><SPAN><SPAN class="LN">   54   </SPAN>  ODE3_IntgData *id = (ODE3_IntgData *)rtsiGetSolverData(si);
+</SPAN><SPAN><SPAN class="LN">   55   </SPAN>  real_T *y = id-&gt;y;
+</SPAN><SPAN><SPAN class="LN">   56   </SPAN>  real_T *f0 = id-&gt;f[0];
+</SPAN><SPAN><SPAN class="LN">   57   </SPAN>  real_T *f1 = id-&gt;f[1];
+</SPAN><SPAN><SPAN class="LN">   58   </SPAN>  real_T *f2 = id-&gt;f[2];
+</SPAN><SPAN><SPAN class="LN">   59   </SPAN>  real_T hB[3];
+</SPAN><SPAN><SPAN class="LN">   60   </SPAN>  int_T i;
+</SPAN><SPAN><SPAN class="LN">   61   </SPAN>  int_T nXc = 2;
+</SPAN><SPAN><SPAN class="LN">   62   </SPAN>  rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
+</SPAN><SPAN><SPAN class="LN">   63   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   64   </SPAN>  <SPAN class="CT">/* Save the state values at time t in y, we'll use x as ynew. */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   65   </SPAN>  (<SPAN class="DT">void</SPAN>) memcpy(y,x,
+</SPAN><SPAN><SPAN class="LN">   66   </SPAN>                nXc*<SPAN class="KW">sizeof</SPAN>(real_T));
+</SPAN><SPAN><SPAN class="LN">   67   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   68   </SPAN>  <SPAN class="CT">/* Assumes that rtsiSetT and ModelOutputs are up-to-date */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   69   </SPAN>  <SPAN class="CT">/* f0 = f(t,y) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   70   </SPAN>  rtsiSetdX(si, f0);
+</SPAN><SPAN><SPAN class="LN">   71   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_derivatives TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_derivatives</FONT></A>();
+</SPAN><SPAN><SPAN class="LN">   72   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   73   </SPAN>  <SPAN class="CT">/* f(:,2) = feval(odefile, t + hA(1), y + f*hB(:,1), args(:)(*)); */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   74   </SPAN>  hB[0] = h * <A HREF=vdptop_c.html#var_rt_ODE3_B TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ODE3_B</FONT></A>[0][0];
+</SPAN><SPAN><SPAN class="LN">   75   </SPAN>  <SPAN class="KW">for</SPAN> (i = 0; i &lt; nXc; i++) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">   76   </SPAN>    x[i] = y[i] + (f0[i]*hB[0]);
+</SPAN><SPAN><SPAN class="LN">   77   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">   78   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   79   </SPAN>  rtsiSetT(si, t + h*<A HREF=vdptop_c.html#var_rt_ODE3_A TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ODE3_A</FONT></A>[0]);
+</SPAN><SPAN><SPAN class="LN">   80   </SPAN>  rtsiSetdX(si, f1);
+</SPAN><SPAN><SPAN class="LN">   81   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_output TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_output</FONT></A>(0);
+</SPAN><SPAN><SPAN class="LN">   82   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_derivatives TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_derivatives</FONT></A>();
+</SPAN><SPAN><SPAN class="LN">   83   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   84   </SPAN>  <SPAN class="CT">/* f(:,3) = feval(odefile, t + hA(2), y + f*hB(:,2), args(:)(*)); */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   85   </SPAN>  <SPAN class="KW">for</SPAN> (i = 0; i &lt;= 1; i++)
+</SPAN><SPAN><SPAN class="LN">   86   </SPAN>    hB[i] = h * <A HREF=vdptop_c.html#var_rt_ODE3_B TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ODE3_B</FONT></A>[1][i];
+</SPAN><SPAN><SPAN class="LN">   87   </SPAN>  <SPAN class="KW">for</SPAN> (i = 0; i &lt; nXc; i++) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">   88   </SPAN>    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1]);
+</SPAN><SPAN><SPAN class="LN">   89   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">   90   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   91   </SPAN>  rtsiSetT(si, t + h*<A HREF=vdptop_c.html#var_rt_ODE3_A TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ODE3_A</FONT></A>[1]);
+</SPAN><SPAN><SPAN class="LN">   92   </SPAN>  rtsiSetdX(si, f2);
+</SPAN><SPAN><SPAN class="LN">   93   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_output TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_output</FONT></A>(0);
+</SPAN><SPAN><SPAN class="LN">   94   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_derivatives TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_derivatives</FONT></A>();
+</SPAN><SPAN><SPAN class="LN">   95   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   96   </SPAN>  <SPAN class="CT">/* tnew = t + hA(3);</SPAN>
+</SPAN><SPAN><SPAN class="LN">   97   </SPAN><SPAN class="CT">     ynew = y + f*hB(:,3); */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   98   </SPAN>  <SPAN class="KW">for</SPAN> (i = 0; i &lt;= 2; i++)
+</SPAN><SPAN><SPAN class="LN">   99   </SPAN>    hB[i] = h * <A HREF=vdptop_c.html#var_rt_ODE3_B TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ODE3_B</FONT></A>[2][i];
+</SPAN><SPAN><SPAN class="LN">  100   </SPAN>  <SPAN class="KW">for</SPAN> (i = 0; i &lt; nXc; i++) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  101   </SPAN>    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1] + f2[i]*hB[2]);
+</SPAN><SPAN><SPAN class="LN">  102   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  103   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  104   </SPAN>  rtsiSetT(si, tnew);
+</SPAN><SPAN><SPAN class="LN">  105   </SPAN>  rtsiSetSimTimeStep(si,MAJOR_TIME_STEP);
+</SPAN><SPAN><SPAN class="LN">  106   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  107   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  108   </SPAN><SPAN class="CT">/* Model output function */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  109   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_vdptop_output>vdptop_output</A>(int_T tid)
+</SPAN><SPAN><SPAN class="LN">  110   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  111   </SPAN>  <SPAN class="CT">/* Update absolute time of base rate at minor time step */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  112   </SPAN>  <SPAN class="KW">if</SPAN> (rtmIsMinorTimeStep(vdptop_M)) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  113   </SPAN>    vdptop_M-&gt;Timing.t[0] = rtsiGetT(&amp;vdptop_M-&gt;solverInfo);
+</SPAN><SPAN><SPAN class="LN">  114   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  115   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  116   </SPAN>  <SPAN class="KW">if</SPAN> (rtmIsMajorTimeStep(vdptop_M)) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  117   </SPAN>    <SPAN class="CT">/* set solver stop time */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  118   </SPAN>    rtsiSetSolverStopTime(&amp;vdptop_M-&gt;solverInfo,
+</SPAN><SPAN><SPAN class="LN">  119   </SPAN>                          ((vdptop_M-&gt;Timing.clockTick0+1)*
+</SPAN><SPAN><SPAN class="LN">  120   </SPAN>      vdptop_M-&gt;Timing.stepSize0));
+</SPAN><SPAN><SPAN class="LN">  121   </SPAN>  <B>}</B>                                    <SPAN class="CT">/* end MajorTimeStep */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  122   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  123   </SPAN>  <SPAN class="CT">/* Integrator: '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  124   </SPAN>  vdptop_B.x1 = vdptop_X.x1_CSTATE;
+</SPAN><SPAN><SPAN class="LN">  125   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  126   </SPAN>  <SPAN class="CT">/* Outport: '&lt;Root&gt;/Out1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  127   </SPAN>  vdptop_Y.Out1 = vdptop_B.x1;
+</SPAN><SPAN><SPAN class="LN">  128   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  129   </SPAN>  <SPAN class="CT">/* Integrator: '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  130   </SPAN>  vdptop_B.x2 = vdptop_X.x2_CSTATE;
+</SPAN><SPAN><SPAN class="LN">  131   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  132   </SPAN>  <SPAN class="CT">/* Outport: '&lt;Root&gt;/Out2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  133   </SPAN>  vdptop_Y.Out2 = vdptop_B.x2;
+</SPAN><SPAN><SPAN class="LN">  134   </SPAN>  <SPAN class="KW">if</SPAN> (rtmIsMajorTimeStep(vdptop_M) &amp;&amp;
+</SPAN><SPAN><SPAN class="LN">  135   </SPAN>      vdptop_M-&gt;Timing.TaskCounters.TID[1] == 0) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  136   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  137   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  138   </SPAN>  <SPAN class="CT">/* OutputUpdate for ModelReference Block: '&lt;Root&gt;/vdpmult' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  139   </SPAN>  mr_vdmultRM(&amp;vdptop_B.x1, &amp;vdptop_B.x2, &amp;vdptop_B.vdpmult);
+</SPAN><SPAN><SPAN class="LN">  140   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  141   </SPAN>  <SPAN class="CT">/* Sum: '&lt;Root&gt;/Sum' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  142   </SPAN>  vdptop_B.Sum = vdptop_B.vdpmult - vdptop_B.x1;
+</SPAN><SPAN><SPAN class="LN">  143   </SPAN>  UNUSED_PARAMETER(tid);
+</SPAN><SPAN><SPAN class="LN">  144   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  145   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  146   </SPAN><SPAN class="CT">/* Model update function */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  147   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_vdptop_update>vdptop_update</A>(int_T tid)
+</SPAN><SPAN><SPAN class="LN">  148   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  149   </SPAN>  <SPAN class="KW">if</SPAN> (rtmIsMajorTimeStep(vdptop_M)) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  150   </SPAN>    <A HREF=vdptop_c.html#fcn_rt_ertODEUpdateContinuousStates TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">rt_ertODEUpdateContinuousStates</FONT></A>(&amp;vdptop_M-&gt;solverInfo);
+</SPAN><SPAN><SPAN class="LN">  151   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  152   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  153   </SPAN>  <SPAN class="CT">/* Update absolute time for base rate */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  154   </SPAN>  <SPAN class="KW">if</SPAN> (!(++vdptop_M-&gt;Timing.clockTick0))
+</SPAN><SPAN><SPAN class="LN">  155   </SPAN>    ++vdptop_M-&gt;Timing.clockTickH0;
+</SPAN><SPAN><SPAN class="LN">  156   </SPAN>  vdptop_M-&gt;Timing.t[0] = vdptop_M-&gt;Timing.clockTick0 *
+</SPAN><SPAN><SPAN class="LN">  157   </SPAN>    vdptop_M-&gt;Timing.stepSize0 + vdptop_M-&gt;Timing.clockTickH0 *
+</SPAN><SPAN><SPAN class="LN">  158   </SPAN>    vdptop_M-&gt;Timing.stepSize0 * 4294967296.0;
+</SPAN><SPAN><SPAN class="LN">  159   </SPAN>  <SPAN class="KW">if</SPAN> (rtmIsMajorTimeStep(vdptop_M) &amp;&amp;
+</SPAN><SPAN><SPAN class="LN">  160   </SPAN>      vdptop_M-&gt;Timing.TaskCounters.TID[1] == 0) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  161   </SPAN>    <SPAN class="CT">/* Update absolute timer for sample time: [0.4s, 0.0s] */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  162   </SPAN>    <SPAN class="KW">if</SPAN> (!(++vdptop_M-&gt;Timing.clockTick1))
+</SPAN><SPAN><SPAN class="LN">  163   </SPAN>      ++vdptop_M-&gt;Timing.clockTickH1;
+</SPAN><SPAN><SPAN class="LN">  164   </SPAN>    vdptop_M-&gt;Timing.t[1] = vdptop_M-&gt;Timing.clockTick1 *
+</SPAN><SPAN><SPAN class="LN">  165   </SPAN>      vdptop_M-&gt;Timing.stepSize1 + vdptop_M-&gt;Timing.clockTickH1 *
+</SPAN><SPAN><SPAN class="LN">  166   </SPAN>      vdptop_M-&gt;Timing.stepSize1 * 4294967296.0;
+</SPAN><SPAN><SPAN class="LN">  167   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  168   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  169   </SPAN>  UNUSED_PARAMETER(tid);
+</SPAN><SPAN><SPAN class="LN">  170   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  171   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  172   </SPAN><SPAN class="CT">/* Derivatives for root system: '&lt;Root&gt;' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  173   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_vdptop_derivatives>vdptop_derivatives</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  174   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  175   </SPAN>  <SPAN class="CT">/* Derivatives for Integrator: '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  176   </SPAN>  ((StateDerivatives_vdptop *) vdptop_M-&gt;ModelData.derivs)-&gt;x1_CSTATE =
+</SPAN><SPAN><SPAN class="LN">  177   </SPAN>    vdptop_B.x2;
+</SPAN><SPAN><SPAN class="LN">  178   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  179   </SPAN>  <SPAN class="CT">/* Derivatives for Integrator: '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  180   </SPAN>  ((StateDerivatives_vdptop *) vdptop_M-&gt;ModelData.derivs)-&gt;x2_CSTATE =
+</SPAN><SPAN><SPAN class="LN">  181   </SPAN>    vdptop_B.Sum;
+</SPAN><SPAN><SPAN class="LN">  182   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  183   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  184   </SPAN><SPAN class="CT">/* Model initialize function */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  185   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_vdptop_initialize>vdptop_initialize</A>(boolean_T firstTime)
+</SPAN><SPAN><SPAN class="LN">  186   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  187   </SPAN>  (<SPAN class="DT">void</SPAN>)firstTime;
+</SPAN><SPAN><SPAN class="LN">  188   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  189   </SPAN>  <SPAN class="CT">/* Registration code */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  190   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  191   </SPAN>  <SPAN class="CT">/* initialize non-finites */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  192   </SPAN>  rt_InitInfAndNaN(<SPAN class="KW">sizeof</SPAN>(real_T));    <SPAN class="CT">/* initialize real-time model */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  193   </SPAN>  (<SPAN class="DT">void</SPAN>) memset((char_T *)vdptop_M,0,
+</SPAN><SPAN><SPAN class="LN">  194   </SPAN>                <SPAN class="KW">sizeof</SPAN>(RT_MODEL_vdptop));
+</SPAN><SPAN><SPAN class="LN">  195   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  196   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  197   </SPAN>    <SPAN class="CT">/* Setup solver object */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  198   </SPAN>    rtsiSetSimTimeStepPtr(&amp;vdptop_M-&gt;solverInfo, &amp;vdptop_M-&gt;Timing.simTimeStep);
+</SPAN><SPAN><SPAN class="LN">  199   </SPAN>    rtsiSetTPtr(&amp;vdptop_M-&gt;solverInfo, &amp;rtmGetTPtr(vdptop_M));
+</SPAN><SPAN><SPAN class="LN">  200   </SPAN>    rtsiSetStepSizePtr(&amp;vdptop_M-&gt;solverInfo, &amp;vdptop_M-&gt;Timing.stepSize0);
+</SPAN><SPAN><SPAN class="LN">  201   </SPAN>    rtsiSetdXPtr(&amp;vdptop_M-&gt;solverInfo, &amp;vdptop_M-&gt;ModelData.derivs);
+</SPAN><SPAN><SPAN class="LN">  202   </SPAN>    rtsiSetContStatesPtr(&amp;vdptop_M-&gt;solverInfo, &amp;vdptop_M-&gt;ModelData.contStates);
+</SPAN><SPAN><SPAN class="LN">  203   </SPAN>    rtsiSetNumContStatesPtr(&amp;vdptop_M-&gt;solverInfo,
+</SPAN><SPAN><SPAN class="LN">  204   </SPAN>      &amp;vdptop_M-&gt;Sizes.numContStates);
+</SPAN><SPAN><SPAN class="LN">  205   </SPAN>    rtsiSetErrorStatusPtr(&amp;vdptop_M-&gt;solverInfo, (&amp;rtmGetErrorStatus(vdptop_M)));
+</SPAN><SPAN><SPAN class="LN">  206   </SPAN>    rtsiSetRTModelPtr(&amp;vdptop_M-&gt;solverInfo, vdptop_M);
+</SPAN><SPAN><SPAN class="LN">  207   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  208   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  209   </SPAN>  rtsiSetSimTimeStep(&amp;vdptop_M-&gt;solverInfo, MAJOR_TIME_STEP);
+</SPAN><SPAN><SPAN class="LN">  210   </SPAN>  vdptop_M-&gt;ModelData.intgData.y = vdptop_M-&gt;ModelData.odeY;
+</SPAN><SPAN><SPAN class="LN">  211   </SPAN>  vdptop_M-&gt;ModelData.intgData.f[0] = vdptop_M-&gt;ModelData.odeF[0];
+</SPAN><SPAN><SPAN class="LN">  212   </SPAN>  vdptop_M-&gt;ModelData.intgData.f[1] = vdptop_M-&gt;ModelData.odeF[1];
+</SPAN><SPAN><SPAN class="LN">  213   </SPAN>  vdptop_M-&gt;ModelData.intgData.f[2] = vdptop_M-&gt;ModelData.odeF[2];
+</SPAN><SPAN><SPAN class="LN">  214   </SPAN>  vdptop_M-&gt;ModelData.contStates = ((real_T *) &amp;vdptop_X);
+</SPAN><SPAN><SPAN class="LN">  215   </SPAN>  rtsiSetSolverData(&amp;vdptop_M-&gt;solverInfo, (<SPAN class="DT">void</SPAN> *)&amp;vdptop_M-&gt;ModelData.intgData);
+</SPAN><SPAN><SPAN class="LN">  216   </SPAN>  rtsiSetSolverName(&amp;vdptop_M-&gt;solverInfo,<FONT COLOR=#1122ff>&quot;ode3&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  217   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  218   </SPAN>  <SPAN class="CT">/* Initialize timing info */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  219   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  220   </SPAN>    int_T *mdlTsMap = vdptop_M-&gt;Timing.sampleTimeTaskIDArray;
+</SPAN><SPAN><SPAN class="LN">  221   </SPAN>    mdlTsMap[0] = 0;
+</SPAN><SPAN><SPAN class="LN">  222   </SPAN>    mdlTsMap[1] = 1;
+</SPAN><SPAN><SPAN class="LN">  223   </SPAN>    vdptop_M-&gt;Timing.sampleTimeTaskIDPtr = (&amp;mdlTsMap[0]);
+</SPAN><SPAN><SPAN class="LN">  224   </SPAN>    vdptop_M-&gt;Timing.sampleTimes = (&amp;vdptop_M-&gt;Timing.sampleTimesArray[0]);
+</SPAN><SPAN><SPAN class="LN">  225   </SPAN>    vdptop_M-&gt;Timing.offsetTimes = (&amp;vdptop_M-&gt;Timing.offsetTimesArray[0]);
+</SPAN><SPAN><SPAN class="LN">  226   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  227   </SPAN>    <SPAN class="CT">/* task periods */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  228   </SPAN>    vdptop_M-&gt;Timing.sampleTimes[0] = (0.0);
+</SPAN><SPAN><SPAN class="LN">  229   </SPAN>    vdptop_M-&gt;Timing.sampleTimes[1] = (0.4);
+</SPAN><SPAN><SPAN class="LN">  230   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  231   </SPAN>    <SPAN class="CT">/* task offsets */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  232   </SPAN>    vdptop_M-&gt;Timing.offsetTimes[0] = (0.0);
+</SPAN><SPAN><SPAN class="LN">  233   </SPAN>    vdptop_M-&gt;Timing.offsetTimes[1] = (0.0);
+</SPAN><SPAN><SPAN class="LN">  234   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  235   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  236   </SPAN>  rtmSetTPtr(vdptop_M, &amp;vdptop_M-&gt;Timing.tArray[0]);
+</SPAN><SPAN><SPAN class="LN">  237   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  238   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  239   </SPAN>    int_T *mdlSampleHits = vdptop_M-&gt;Timing.sampleHitArray;
+</SPAN><SPAN><SPAN class="LN">  240   </SPAN>    mdlSampleHits[0] = 1;
+</SPAN><SPAN><SPAN class="LN">  241   </SPAN>    mdlSampleHits[1] = 1;
+</SPAN><SPAN><SPAN class="LN">  242   </SPAN>    vdptop_M-&gt;Timing.sampleHits = (&amp;mdlSampleHits[0]);
+</SPAN><SPAN><SPAN class="LN">  243   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  244   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  245   </SPAN>  rtmSetTFinal(vdptop_M, 20.0);
+</SPAN><SPAN><SPAN class="LN">  246   </SPAN>  vdptop_M-&gt;Timing.stepSize0 = 0.4;
+</SPAN><SPAN><SPAN class="LN">  247   </SPAN>  vdptop_M-&gt;Timing.stepSize1 = 0.4;
+</SPAN><SPAN><SPAN class="LN">  248   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  249   </SPAN>  <SPAN class="CT">/* Setup for data logging */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  250   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  251   </SPAN>    <SPAN class="DT">static</SPAN> RTWLogInfo rt_DataLoggingInfo;
+</SPAN><SPAN><SPAN class="LN">  252   </SPAN>    vdptop_M-&gt;rtwLogInfo = &amp;rt_DataLoggingInfo;
+</SPAN><SPAN><SPAN class="LN">  253   </SPAN>    rtliSetLogFormat(vdptop_M-&gt;rtwLogInfo, 0);
+</SPAN><SPAN><SPAN class="LN">  254   </SPAN>    rtliSetLogMaxRows(vdptop_M-&gt;rtwLogInfo, 0);
+</SPAN><SPAN><SPAN class="LN">  255   </SPAN>    rtliSetLogDecimation(vdptop_M-&gt;rtwLogInfo, 1);
+</SPAN><SPAN><SPAN class="LN">  256   </SPAN>    rtliSetLogVarNameModifier(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;rt_&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  257   </SPAN>    rtliSetLogT(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;tout&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  258   </SPAN>    rtliSetLogX(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  259   </SPAN>    rtliSetLogXFinal(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  260   </SPAN>    rtliSetSigLog(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  261   </SPAN>    rtliSetLogXSignalInfo(vdptop_M-&gt;rtwLogInfo, NULL);
+</SPAN><SPAN><SPAN class="LN">  262   </SPAN>    rtliSetLogXSignalPtrs(vdptop_M-&gt;rtwLogInfo, NULL);
+</SPAN><SPAN><SPAN class="LN">  263   </SPAN>    rtliSetLogY(vdptop_M-&gt;rtwLogInfo, <FONT COLOR=#1122ff>&quot;yout&quot;</FONT>);
+</SPAN><SPAN><SPAN class="LN">  264   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  265   </SPAN>    <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  266   </SPAN><SPAN class="CT">     * Set pointers to the data and signal info for each output</SPAN>
+</SPAN><SPAN><SPAN class="LN">  267   </SPAN><SPAN class="CT">     */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  268   </SPAN>    <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  269   </SPAN>      <SPAN class="DT">static</SPAN> <SPAN class="DT">void</SPAN> * rt_LoggedOutputSignalPtrs[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  270   </SPAN>        &amp;vdptop_Y.Out1,
+</SPAN><SPAN><SPAN class="LN">  271   </SPAN>        &amp;vdptop_Y.Out2
+</SPAN><SPAN><SPAN class="LN">  272   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  273   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  274   </SPAN>      rtliSetLogYSignalPtrs(vdptop_M-&gt;rtwLogInfo, ((LogSignalPtrsType)
+</SPAN><SPAN><SPAN class="LN">  275   </SPAN>        rt_LoggedOutputSignalPtrs));
+</SPAN><SPAN><SPAN class="LN">  276   </SPAN>    <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  277   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  278   </SPAN>    <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  279   </SPAN>      <SPAN class="DT">static</SPAN> int_T rt_LoggedOutputWidths[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  280   </SPAN>        1,
+</SPAN><SPAN><SPAN class="LN">  281   </SPAN>        1
+</SPAN><SPAN><SPAN class="LN">  282   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  283   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  284   </SPAN>      <SPAN class="DT">static</SPAN> int_T rt_LoggedOutputNumDimensions[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  285   </SPAN>        1,
+</SPAN><SPAN><SPAN class="LN">  286   </SPAN>        1
+</SPAN><SPAN><SPAN class="LN">  287   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  288   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  289   </SPAN>      <SPAN class="DT">static</SPAN> int_T rt_LoggedOutputDimensions[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  290   </SPAN>        1,
+</SPAN><SPAN><SPAN class="LN">  291   </SPAN>        1
+</SPAN><SPAN><SPAN class="LN">  292   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  293   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  294   </SPAN>      <SPAN class="DT">static</SPAN> boolean_T rt_LoggedOutputIsVarDims[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  295   </SPAN>        0,
+</SPAN><SPAN><SPAN class="LN">  296   </SPAN>        0
+</SPAN><SPAN><SPAN class="LN">  297   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  298   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  299   </SPAN>      <SPAN class="DT">static</SPAN> int_T* rt_LoggedCurrentSignalDimensions[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  300   </SPAN>        NULL,
+</SPAN><SPAN><SPAN class="LN">  301   </SPAN>        NULL
+</SPAN><SPAN><SPAN class="LN">  302   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  303   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  304   </SPAN>      <SPAN class="DT">static</SPAN> BuiltInDTypeId rt_LoggedOutputDataTypeIds[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  305   </SPAN>        SS_DOUBLE,
+</SPAN><SPAN><SPAN class="LN">  306   </SPAN>        SS_DOUBLE
+</SPAN><SPAN><SPAN class="LN">  307   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  308   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  309   </SPAN>      <SPAN class="DT">static</SPAN> int_T rt_LoggedOutputComplexSignals[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  310   </SPAN>        0,
+</SPAN><SPAN><SPAN class="LN">  311   </SPAN>        0
+</SPAN><SPAN><SPAN class="LN">  312   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  313   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  314   </SPAN>      <SPAN class="DT">static</SPAN> <SPAN class="DT">const</SPAN> char_T *rt_LoggedOutputLabels[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  315   </SPAN>        <FONT COLOR=#1122ff>&quot;x1&quot;</FONT>,
+</SPAN><SPAN><SPAN class="LN">  316   </SPAN>        <FONT COLOR=#1122ff>&quot;x2&quot;</FONT> <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  317   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  318   </SPAN>      <SPAN class="DT">static</SPAN> <SPAN class="DT">const</SPAN> char_T *rt_LoggedOutputBlockNames[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  319   </SPAN>        <FONT COLOR=#1122ff>&quot;vdptop/Out1&quot;</FONT>,
+</SPAN><SPAN><SPAN class="LN">  320   </SPAN>        <FONT COLOR=#1122ff>&quot;vdptop/Out2&quot;</FONT> <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  321   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  322   </SPAN>      <SPAN class="DT">static</SPAN> RTWLogDataTypeConvert rt_RTWLogDataTypeConvert[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  323   </SPAN>        <B>{</B> 0, SS_DOUBLE, SS_DOUBLE, 1.0, 0, 0.0 <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">  324   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  325   </SPAN>        <B>{</B> 0, SS_DOUBLE, SS_DOUBLE, 1.0, 0, 0.0 <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  326   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  327   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  328   </SPAN>      <SPAN class="DT">static</SPAN> RTWLogSignalInfo rt_LoggedOutputSignalInfo[] = <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  329   </SPAN>        <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  330   </SPAN>          2,
+</SPAN><SPAN><SPAN class="LN">  331   </SPAN>          rt_LoggedOutputWidths,
+</SPAN><SPAN><SPAN class="LN">  332   </SPAN>          rt_LoggedOutputNumDimensions,
+</SPAN><SPAN><SPAN class="LN">  333   </SPAN>          rt_LoggedOutputDimensions,
+</SPAN><SPAN><SPAN class="LN">  334   </SPAN>          rt_LoggedOutputIsVarDims,
+</SPAN><SPAN><SPAN class="LN">  335   </SPAN>          rt_LoggedCurrentSignalDimensions,
+</SPAN><SPAN><SPAN class="LN">  336   </SPAN>          rt_LoggedOutputDataTypeIds,
+</SPAN><SPAN><SPAN class="LN">  337   </SPAN>          rt_LoggedOutputComplexSignals,
+</SPAN><SPAN><SPAN class="LN">  338   </SPAN>          NULL,
+</SPAN><SPAN><SPAN class="LN">  339   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  340   </SPAN>          <B>{</B> rt_LoggedOutputLabels <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">  341   </SPAN>          NULL,
+</SPAN><SPAN><SPAN class="LN">  342   </SPAN>          NULL,
+</SPAN><SPAN><SPAN class="LN">  343   </SPAN>          NULL,
+</SPAN><SPAN><SPAN class="LN">  344   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  345   </SPAN>          <B>{</B> rt_LoggedOutputBlockNames <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">  346   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  347   </SPAN>          <B>{</B> NULL <B>}</B>,
+</SPAN><SPAN><SPAN class="LN">  348   </SPAN>          NULL,
+</SPAN><SPAN><SPAN class="LN">  349   </SPAN>          rt_RTWLogDataTypeConvert
+</SPAN><SPAN><SPAN class="LN">  350   </SPAN>        <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  351   </SPAN>      <B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  352   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  353   </SPAN>      rtliSetLogYSignalInfo(vdptop_M-&gt;rtwLogInfo, rt_LoggedOutputSignalInfo);
+</SPAN><SPAN><SPAN class="LN">  354   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  355   </SPAN>      <SPAN class="CT">/* set currSigDims field */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  356   </SPAN>      rt_LoggedCurrentSignalDimensions[0] = &amp;rt_LoggedOutputWidths[0];
+</SPAN><SPAN><SPAN class="LN">  357   </SPAN>      rt_LoggedCurrentSignalDimensions[1] = &amp;rt_LoggedOutputWidths[1];
+</SPAN><SPAN><SPAN class="LN">  358   </SPAN>    <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  359   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  360   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  361   </SPAN>  vdptop_M-&gt;solverInfoPtr = (&amp;vdptop_M-&gt;solverInfo);
+</SPAN><SPAN><SPAN class="LN">  362   </SPAN>  vdptop_M-&gt;Timing.stepSize = (0.4);
+</SPAN><SPAN><SPAN class="LN">  363   </SPAN>  rtsiSetFixedStepSize(&amp;vdptop_M-&gt;solverInfo, 0.4);
+</SPAN><SPAN><SPAN class="LN">  364   </SPAN>  rtsiSetSolverMode(&amp;vdptop_M-&gt;solverInfo, SOLVER_MODE_SINGLETASKING);
+</SPAN><SPAN><SPAN class="LN">  365   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  366   </SPAN>  <SPAN class="CT">/* block I/O */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  367   </SPAN>  vdptop_M-&gt;ModelData.blockIO = ((<SPAN class="DT">void</SPAN> *) &amp;vdptop_B);
+</SPAN><SPAN><SPAN class="LN">  368   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  369   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  370   </SPAN>    int_T i;
+</SPAN><SPAN><SPAN class="LN">  371   </SPAN>    <SPAN class="DT">void</SPAN> *pVoidBlockIORegion;
+</SPAN><SPAN><SPAN class="LN">  372   </SPAN>    pVoidBlockIORegion = (<SPAN class="DT">void</SPAN> *)(&amp;vdptop_B.x1);
+</SPAN><SPAN><SPAN class="LN">  373   </SPAN>    <SPAN class="KW">for</SPAN> (i = 0; i &lt; 4; i++) <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  374   </SPAN>      ((real_T*)pVoidBlockIORegion)[i] = 0.0;
+</SPAN><SPAN><SPAN class="LN">  375   </SPAN>    <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  376   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  377   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  378   </SPAN>  <SPAN class="CT">/* states (continuous) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  379   </SPAN>  <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  380   </SPAN>    real_T *x = (real_T *) &amp;vdptop_X;
+</SPAN><SPAN><SPAN class="LN">  381   </SPAN>    vdptop_M-&gt;ModelData.contStates = (x);
+</SPAN><SPAN><SPAN class="LN">  382   </SPAN>    (<SPAN class="DT">void</SPAN>) memset((char_T *)x,0,
+</SPAN><SPAN><SPAN class="LN">  383   </SPAN>                  <SPAN class="KW">sizeof</SPAN>(ContinuousStates_vdptop));
+</SPAN><SPAN><SPAN class="LN">  384   </SPAN>  <B>}</B>
+</SPAN><SPAN><SPAN class="LN">  385   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  386   </SPAN>  <SPAN class="CT">/* states (dwork) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  387   </SPAN>  vdptop_M-&gt;Work.dwork = ((<SPAN class="DT">void</SPAN> *) &amp;vdptop_DWork);
+</SPAN><SPAN><SPAN class="LN">  388   </SPAN>  (<SPAN class="DT">void</SPAN>) memset((char_T *) &amp;vdptop_DWork,0,
+</SPAN><SPAN><SPAN class="LN">  389   </SPAN>                <SPAN class="KW">sizeof</SPAN>(D_Work_vdptop));
+</SPAN><SPAN><SPAN class="LN">  390   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  391   </SPAN>  <SPAN class="CT">/* external outputs */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  392   </SPAN>  vdptop_M-&gt;ModelData.outputs = (&amp;vdptop_Y);
+</SPAN><SPAN><SPAN class="LN">  393   </SPAN>  vdptop_Y.Out1 = 0.0;
+</SPAN><SPAN><SPAN class="LN">  394   </SPAN>  vdptop_Y.Out2 = 0.0;
+</SPAN><SPAN><SPAN class="LN">  395   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  396   </SPAN>  <SPAN class="CT">/* Model Initialize fcn for ModelReference Block: '&lt;Root&gt;/vdpmult' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  397   </SPAN>  mr_vdmultRM_initialize(1, rtmGetErrorStatusPointer(vdptop_M),
+</SPAN><SPAN><SPAN class="LN">  398   </SPAN>    &amp;(vdptop_M-&gt;solverInfo), 0, &amp;(vdptop_DWork.vdpmult_DWORK1.rtm));
+</SPAN><SPAN><SPAN class="LN">  399   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  400   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  401   </SPAN><SPAN class="CT">/* Model terminate function */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  402   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_vdptop_terminate>vdptop_terminate</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  403   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  404   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  405   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  406   </SPAN><SPAN class="CT">/*========================================================================*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  407   </SPAN><SPAN class="CT"> * Start of GRT compatible call interface                                 *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  408   </SPAN><SPAN class="CT"> *========================================================================*/</SPAN>
+</SPAN><SPAN><SPAN class="LN">  409   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlOutputs>MdlOutputs</A>(int_T tid)
+</SPAN><SPAN><SPAN class="LN">  410   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  411   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_output TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_output</FONT></A>(tid);
+</SPAN><SPAN><SPAN class="LN">  412   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  413   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  414   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlUpdate>MdlUpdate</A>(int_T tid)
+</SPAN><SPAN><SPAN class="LN">  415   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  416   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_update TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_update</FONT></A>(tid);
+</SPAN><SPAN><SPAN class="LN">  417   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  418   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  419   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlInitializeSizes>MdlInitializeSizes</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  420   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  421   </SPAN>  vdptop_M-&gt;Sizes.numContStates = (2); <SPAN class="CT">/* Number of continuous states */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  422   </SPAN>  vdptop_M-&gt;Sizes.numY = (2);          <SPAN class="CT">/* Number of model outputs */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  423   </SPAN>  vdptop_M-&gt;Sizes.numU = (0);          <SPAN class="CT">/* Number of model inputs */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  424   </SPAN>  vdptop_M-&gt;Sizes.sysDirFeedThru = (0);<SPAN class="CT">/* The model is not direct feedthrough */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  425   </SPAN>  vdptop_M-&gt;Sizes.numSampTimes = (2);  <SPAN class="CT">/* Number of sample times */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  426   </SPAN>  vdptop_M-&gt;Sizes.numBlocks = (7);     <SPAN class="CT">/* Number of blocks */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  427   </SPAN>  vdptop_M-&gt;Sizes.numBlockIO = (4);    <SPAN class="CT">/* Number of block outputs */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  428   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  429   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  430   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlInitializeSampleTimes>MdlInitializeSampleTimes</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  431   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  432   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  433   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  434   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlInitialize>MdlInitialize</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  435   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  436   </SPAN>  <SPAN class="CT">/* InitializeConditions for Integrator: '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  437   </SPAN>  vdptop_X.x1_CSTATE = 2.0;
+</SPAN><SPAN><SPAN class="LN">  438   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  439   </SPAN>  <SPAN class="CT">/* InitializeConditions for Integrator: '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  440   </SPAN>  vdptop_X.x2_CSTATE = 0.0;
+</SPAN><SPAN><SPAN class="LN">  441   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  442   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  443   </SPAN><SPAN class="DT">void</SPAN> <A NAME=fcn_MdlStart>MdlStart</A>(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  444   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  445   </SPAN>  <A HREF=vdptop_c.html#fcn_MdlInitialize TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">MdlInitialize</FONT></A>();
+</SPAN><SPAN><SPAN class="LN">  446   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  447   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  448   </SPAN>RT_MODEL_vdptop *vdptop(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  449   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  450   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_initialize TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_initialize</FONT></A>(1);
+</SPAN><SPAN><SPAN class="LN">  451   </SPAN>  <SPAN class="KW">return</SPAN> vdptop_M;
+</SPAN><SPAN><SPAN class="LN">  452   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  453   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  454   </SPAN><SPAN class="DT">void</SPAN> MdlTerminate(<SPAN class="DT">void</SPAN>)
+</SPAN><SPAN><SPAN class="LN">  455   </SPAN><B>{</B>
+</SPAN><SPAN><SPAN class="LN">  456   </SPAN>  <A HREF=vdptop_c.html#fcn_vdptop_terminate TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">vdptop_terminate</FONT></A>();
+</SPAN><SPAN><SPAN class="LN">  457   </SPAN><B>}</B>
+</SPAN><SPAN><SPAN class="LN">  458   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  459   </SPAN><SPAN class="CT">/*========================================================================*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  460   </SPAN><SPAN class="CT"> * End of GRT compatible call interface                                   *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  461   </SPAN><SPAN class="CT"> *========================================================================*/</SPAN>
+</SPAN></PRE>
+</TD></TR></TABLE>
+<P>
+</BODY>
+</HTML>

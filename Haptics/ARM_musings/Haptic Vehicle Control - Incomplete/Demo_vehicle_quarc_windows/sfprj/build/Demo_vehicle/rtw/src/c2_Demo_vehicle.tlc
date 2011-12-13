@@ -1,0 +1,100 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDefines(block,system) void
+   %openfile chartConstBuf
+   %closefile chartConstBuf
+   %return chartConstBuf
+%endfunction %% ChartDefines
+%function ChartFunctions(block,system) void
+   %openfile chartFcnsBuf
+     %assign junkVal = LibGenMathFcnCall("cos",FcnGetDataTypeIdFromName("double"),"0.0","")
+%assign junkVal = LibGenMathFcnCall("sin",FcnGetDataTypeIdFromName("double"),"0.0","")
+            
+            
+            
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartFunctions
+%function ChartFunctionProtos(block,system,oFile) void
+   %openfile prototypesBuf
+   %closefile prototypesBuf
+   %<SLibSetModelFileAttribute(oFile,"FcnPrototypes",prototypesBuf)>
+%endfunction %% ChartFunctionProtos
+%function ChartSharedFunctions(block,system) void
+   %openfile chartFcnsBuf
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartSharedFunctions
+%function Outputs(block,system) void
+   %openfile codeBuf
+    /* %<" This block supports the Embedded MATLAB subset."> */
+/* %<" See the help menu for details. "> */
+%<LibSFAssignOutput(block, 1, "0", "%<LibSFInputs(block, 2, 0)> + %<LibSFInputs(block, 0, 0)> * cos(%<LibSFInputs(block, 2, 2)>) * 0.01")>
+%<LibSFAssignOutput(block, 1, "1", "%<LibSFInputs(block, 2, 1)> + %<LibSFInputs(block, 0, 0)> * sin(%<LibSFInputs(block, 2, 2)>) * 0.01")>
+%<LibSFAssignOutput(block, 1, "2", "%<LibSFInputs(block, 2, 2)> - 0.1 * %<LibSFInputs(block, 1, 0)>")>
+   %closefile codeBuf
+   %return codeBuf
+%endfunction  %% Outputs
+%function InlinedInitializerCode(block,system) Output
+   %<SLibResetSFChartInstanceAccessed(block)>\
+   %openfile initBodyBuf
+      %<LibSFAssignDWork(block, 1, "0", "0U")>
+
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Initialize code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+
+%function EnableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Enable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DisableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Disable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DumpSharedUtils(block,system) void
+%endfunction
+
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    UnifiedDWork   1\
+    NumChartData   2 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "doneDoubleBufferReInit"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_active_c2_Demo_vehicle"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

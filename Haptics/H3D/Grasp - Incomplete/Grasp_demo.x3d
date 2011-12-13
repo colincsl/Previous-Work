@@ -1,0 +1,27 @@
+<Scene>
+
+<Transform DEF="POS">
+<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV"/>
+
+<Shape>
+	<Box size=".1 .1 .1"/>
+	<Appearance>
+		<Material diffuseColor=".5 .5 .5"/>
+	</Appearance>
+</Shape>
+
+<MouseSensor DEF="MOUSE"/>
+</Transform>
+
+
+<PythonScript DEF="PS" url="grasp_demo2.py">
+	<AnyDevice USE="HDEV" containerField="references"/>
+	<Transform USE="POS" containerField="references"/>
+	<!--
+	<ROUTE fromNode="PS" fromField="trigger" toNode="HDEV" toField="buttons"/>
+	-->
+	<ROUTE fromNode="HDEV" fromField="buttons" toNode="PS" toField="run"/>
+</PythonScript>
+
+
+</Scene>

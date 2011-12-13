@@ -1,0 +1,40 @@
+
+%implements "chartHeader" "C"
+%function CacheOutputs(block,system,modelHFile,typeDefHFile,privateHFile,cFile) void
+%openfile typedefsBuf
+            
+%closefile typedefsBuf
+   %if !WHITE_SPACE(typedefsBuf)
+      %openfile tempBuf
+#ifndef _CSC4_PUNCTURE_THROUGH_WALL_CHAR
+#define _CSC4_PUNCTURE_THROUGH_WALL_CHAR
+      %<typedefsBuf>\
+ #endif /* _CSC4_PUNCTURE_THROUGH_WALL_CHAR */
+      %closefile tempBuf
+%<SLibSetModelFileAttribute(typeDefHFile,"Typedefs",tempBuf)>
+   %endif
+
+%openfile typedefsBuf
+%closefile typedefsBuf
+   %if !WHITE_SPACE(typedefsBuf)
+      %openfile tempBuf
+#ifndef _CSC4_PUNCTURE_THROUGH_WALL_CHAR_custom
+#define _CSC4_PUNCTURE_THROUGH_WALL_CHAR_custom
+      %<typedefsBuf>\
+ #endif /* _CSC4_PUNCTURE_THROUGH_WALL_CHAR_custom */
+      %closefile tempBuf
+%<SLibSetModelFileAttribute(modelHFile,"Typedefs",tempBuf)>
+   %endif
+
+%openfile externFcnsBuf
+   
+   
+   
+   
+%closefile externFcnsBuf
+%<SLibSetModelFileAttribute(privateHFile,"ExternFcns",externFcnsBuf)>
+   %openfile externFcnsBuf
+   %closefile externFcnsBuf
+   %<SLibSetModelFileAttribute(privateHFile,"ExternFcns",externFcnsBuf)>
+
+%endfunction %% CacheOutputs

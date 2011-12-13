@@ -1,0 +1,88 @@
+\documentclass[11pt, final]{article}
+\usepackage{graphicx}    % needed for including graphics e.g. EPS, PS
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{wrapfig}
+\usepackage{graphicx}    % needed for including graphics e.g. EPS, PS
+\usepackage{url}
+\topmargin -1.75cm        % read Lamport p.163
+\oddsidemargin -0.04cm   % read Lamport p.163
+\evensidemargin -0.04cm  % same as oddsidemargin but for left-hand pages
+\textwidth 16.51cm
+\textheight 22.86cm 
+%\pagestyle{empty}       % Uncomment if don't want page numbers
+\parskip 7.2pt           % sets spacing between paragraphs
+%\renewcommand{\baselinestretch}{1.5} % Uncomment for 1.5 spacing between lines
+\parindent 0pt		 % sets leading space for paragraphs
+\usepackage{verbatim} 
+\usepackage{hyperref}
+
+
+\begin{document}         
+% Start your text
+
+\begin{center}
+{\bf  \Large Learning Methods for Skill Transference in Haptic Training}\\
+{\it Colin Lea -- Project Proposal}
+\end{center}
+
+{\bf \large Background:}
+Research shows that visual- and haptics-enhanced training has a positive effect on a users ability to learn a task \cite {Feygin2002, Liu2006, HowardLearning}. Yet, few studies have explored methods for skill transfer using haptic devices. With the increase of interest in haptics for medical and other professional applications it is necessary to develop methods for training novice users. Developing training methods is difficult because of the non-linear 3D trajectories that must be defined, thus machine learning methods are being investigated to exploit expert data for guiding new users.
+
+The application of this research is drawing shapes and symbols using a robotic arm. An expert will uss a Phantom Omni haptic device to control a pen attached to the end effector of the arm. A model will be extracted that generalizes this action and eliminates extraneous movements. This will be used as a training set for the learning algorithms. The output of the algorithm will be used to generate forces to teach a new user. The novice will then control the robot in a guided attempt at the task. 
+
+
+
+The little research that has been done shows mostly positive results. Howard et al \cite {HowardLearning} evaluate Support Vector Machines (SVM) and Artificial Neural Networks (ANN) for generalizing an expert's input for a handwriting application and found an 88\% and 66\% similarity measure to the original data.  Goodrich et al \cite {GoodrichDriving} employ Q-learning, a reinforcement technique, for a haptics-enhanced driving application with results showing increased safety with fewer near automobile collisions. Schmidhuber et al \cite{MayerKnots} evaluates a Recurrent Neural Network (RNN) technique used for teaching a robot knot-tying for minimally invasive surgery. The knot could be tied in 23\% less time than a conventional pre-programmed procedure.
+
+{\bf \large Methods:}
+This research will focus on exploring the use of dimensionality reduction together with reinforcement learning to achieve skill transfer using haptic devices. We will benchmark these results against those obtained by using a traditional supervised learning method such as SVMs, ANNs, or Hidden Markov Models.
+
+A \href{http://www.crustcrawler.com/products/smartarm/index.php?prod=12}{CrustCrawler AX-12 Robotic Arm} is being looked into because of its compatibility with Matlab, C++, and Python. The advantage of the AX-12 over other arms or haptic devices is its 5 degrees of freedom and readily accessible position and velocity feedback. H3D, an open source haptics API, will be leveraged to develop a framework in C++ and Python for this research. 
+
+{\bf \large Evaluation:}
+Results from the output of the learning algorithms will be used to compare each method's ability to smooth the experts path while retaining fidelity. For the experiment to be effective it must be able to enhance the users ability to learn a new task. Therefore evaluation of a novice's ability to complete a task post haptic-guidance is also important. Metrics such as Longest Common Subsequence (LCSS) have been used to compare paths in others areas and will be considered for this application.
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{prop_papers}
+
+%
+%\begin{comment}
+%\begin{thebibliography}{5}
+%
+%\bibitem{GTech}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{Lui}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{BrigYoung}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\bibitem{Munich}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%
+%\end{thebibliography}
+%\end{comment}
+
+% Stop your text
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

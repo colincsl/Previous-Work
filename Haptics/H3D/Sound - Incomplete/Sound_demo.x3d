@@ -1,0 +1,26 @@
+<Scene>
+	<Shape>
+		<Box DEF="BOX" size=".1 .1 .1"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+		<SmoothSurface/>
+		</Appearance>
+	</Shape>
+	<Sound intensity="1">
+		<AudioClip DEF="AUDIO" url="C:\H3D\CLEA\Sound\knocking.wav" loop="false"/>
+	</Sound>
+	 <!--url="C:\H3D\CLEA\Sound\knocking.wav"--> 
+	
+	<!--
+	<Switch DEF="SWITCH" whichChoice="0">
+		<Inline url=" "/>
+		<Inline url=" "/>
+	</Switch>
+	-->
+	
+	<PythonScript DEF="PS" url="C:\H3D\CLEA\Sound\sound_script.py"/>
+		<ROUTE fromNode="BOX" fromField="isTouched" toNode="PS" toField="aud"/>
+		<ROUTE fromNode="PS" fromField="aud" toNode="AUDIO" toField="loop"/>
+	
+	
+</Scene>

@@ -1,0 +1,47 @@
+<Group>
+  <ImportLibrary url="C:\H3D\UsefulNodes\External\bin\ptlib.dll"/>
+  <ImportLibrary url="C:\H3D\UsefulNodes\lib\Release\UsefulNodes.dll"   />	
+<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV" /> 
+
+	<PositionFunctionEffect>
+		<GeneralFunction DEF="xFun" containerField="xFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="yFun" containerField="yFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="zFun" containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+	<Transform DEF="transform" translation = "0.0 0.0 0.0">
+	
+	<Collision enabled="false">
+	<DeformableShape DEF="DefShape">
+		<CoordinateDeformer>
+			<GaussianFunction width="0.01" containerField="distanceToDepth"/>
+		</CoordinateDeformer>
+	
+		<Box DEF="HAPTIC_GEOM" solid="FALSE" containerField="hapticGeometry" size="0.2 0.2 0.2"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+			<PaintableTexture DEF="TEXTURE" backgroundColor="0.5 0 0 1" paintColor="1 1 1 1"/>
+			<SmoothSurface stiffness="1"/>
+		</Appearance>
+	</DeformableShape>
+	</Collision>
+	
+	</Transform>
+
+<!-- ||	Restrict Axis	|| -->	
+<PythonScript DEF="Restrict" url="C:\H3D\CLEA\Line\line_restrict.py"/>
+	<ROUTE fromNode= "HDEV" fromField="mainButton" toNode="Restrict" toField="x_but"/>
+	<ROUTE fromNode="Restrict" fromField="x_but" toNode="xFun" toField="function"/>
+<!--<PythonScript DEF="Keys" url="C:\H3D\CLEA\Line\Translate_Keyboard.py"/>-->
+
+<!-- ||	 Paint	|| with help from 'UsefulNodes'-H3D -->	
+<PythonScript DEF="PAINT_ps" url="C:\H3D\CLEA\Line\paintabletexture.py"/>
+  <ROUTE fromNode="HAPTIC_GEOM" fromField="contactTexCoord" toNode="PAINT_ps" toField="firstTexCoord" />
+  <ROUTE_NO_EVENT fromNode="PAINT_ps" fromField="firstTexCoord" toNode="TEXTURE" toField="paintAtTexCoord" />
+
+<!-- ||Deformer|| -->
+<PythonScript DEF="Deformer" url="C:\H3D\CLEA\Line\deform3d2.py">	
+	<DeformableShape USE="DefShape" containerField="references"/>
+</PythonScript>
+
+</Group>

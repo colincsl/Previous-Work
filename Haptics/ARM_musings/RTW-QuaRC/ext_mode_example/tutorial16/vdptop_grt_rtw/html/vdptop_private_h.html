@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - vdptop_private.h </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT=#1122aa onload="if (top && top.rtwFileOnLoad) top.rtwFileOnLoad(window);">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop_private.h" TARGET="rtwreport_document_frame">D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop_private.h</A></H4>
+<PRE id="RTWcode">
+<SPAN><SPAN class="LN"><A NAME=1>    1   </A></SPAN><SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">    2   </SPAN><SPAN class="CT"> * vdptop_private.h</SPAN>
+</SPAN><SPAN><SPAN class="LN">    3   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    4   </SPAN><SPAN class="CT"> * Real-Time Workshop code generation for Simulink model &quot;vdptop.mdl&quot;.</SPAN>
+</SPAN><SPAN><SPAN class="LN">    5   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    6   </SPAN><SPAN class="CT"> * Model Version              : 1.6</SPAN>
+</SPAN><SPAN><SPAN class="LN">    7   </SPAN><SPAN class="CT"> * Real-Time Workshop version : 7.0  (R2007b)  02-Aug-2007</SPAN>
+</SPAN><SPAN><SPAN class="LN">    8   </SPAN><SPAN class="CT"> * C source code generated on : Wed Jun 10 17:28:57 2009</SPAN>
+</SPAN><SPAN><SPAN class="LN">    9   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   10   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> RTW_HEADER_vdptop_private_h_
+</SPAN><SPAN><SPAN class="LN">   11   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> RTW_HEADER_vdptop_private_h_
+</SPAN><SPAN><SPAN class="LN">   12   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;rtwtypes.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   13   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> __RTWTYPES_H__
+</SPAN><SPAN><SPAN class="LN">   14   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">error</SPAN> This file requires rtwtypes.h to be included
+</SPAN><SPAN><SPAN class="LN">   15   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">else</SPAN>
+</SPAN><SPAN><SPAN class="LN">   16   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifdef</SPAN> TMWTYPES_PREVIOUSLY_INCLUDED
+</SPAN><SPAN><SPAN class="LN">   17   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">error</SPAN> This file requires rtwtypes.h to be included before tmwtypes.h
+</SPAN><SPAN><SPAN class="LN">   18   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">else</SPAN>
+</SPAN><SPAN><SPAN class="LN">   19   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   20   </SPAN><SPAN class="CT">/* Check for inclusion of an incorrect version of rtwtypes.h */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   21   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> RTWTYPES_ID_C08S16I32L32N32F1
+</SPAN><SPAN><SPAN class="LN">   22   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">error</SPAN> This code was generated with a different <FONT COLOR=#992211>&quot;rtwtypes.h&quot;</FONT> than the file included
+</SPAN><SPAN><SPAN class="LN">   23   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* RTWTYPES_ID_C08S16I32L32N32F1 */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   24   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* TMWTYPES_PREVIOUSLY_INCLUDED */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   25   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* __RTWTYPES_H__ */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   26   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   27   </SPAN><SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">   28   </SPAN><SPAN class="CT"> * UNUSED_PARAMETER(x)</SPAN>
+</SPAN><SPAN><SPAN class="LN">   29   </SPAN><SPAN class="CT"> *   Used to specify that a function parameter (argument) is required but not</SPAN>
+</SPAN><SPAN><SPAN class="LN">   30   </SPAN><SPAN class="CT"> *   accessed by the function body.</SPAN>
+</SPAN><SPAN><SPAN class="LN">   31   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   32   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> UNUSED_PARAMETER
+</SPAN><SPAN><SPAN class="LN">   33   </SPAN><FONT COLOR=#992211>#</FONT> if <SPAN class="PP">defined</SPAN>(__LCC__)
+</SPAN><SPAN><SPAN class="LN">   34   </SPAN><FONT COLOR=#992211>#</FONT>   <SPAN class="PP">define</SPAN> UNUSED_PARAMETER(x)                                   <SPAN class="CT">/* do nothing */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   35   </SPAN><FONT COLOR=#992211>#</FONT> else
+</SPAN><SPAN><SPAN class="LN">   36   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   37   </SPAN><SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">   38   </SPAN><SPAN class="CT"> * This is the semi-ANSI standard way of indicating that an</SPAN>
+</SPAN><SPAN><SPAN class="LN">   39   </SPAN><SPAN class="CT"> * unused function parameter is required.</SPAN>
+</SPAN><SPAN><SPAN class="LN">   40   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   41   </SPAN><FONT COLOR=#992211>#</FONT>   <SPAN class="PP">define</SPAN> UNUSED_PARAMETER(x)         (void) (x)
+</SPAN><SPAN><SPAN class="LN">   42   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   43   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   44   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   45   </SPAN><SPAN class="CT">/* private model entry point functions */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   46   </SPAN><SPAN class="DT">extern</SPAN> <SPAN class="DT">void</SPAN> vdptop_derivatives(<SPAN class="DT">void</SPAN>);
+</SPAN><SPAN><SPAN class="LN">   47   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   48   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* RTW_HEADER_vdptop_private_h_ */</SPAN>
+</SPAN></PRE>
+</TD></TR></TABLE>
+<P>
+</BODY>
+</HTML>

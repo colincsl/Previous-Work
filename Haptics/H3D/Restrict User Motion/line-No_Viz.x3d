@@ -1,0 +1,5 @@
+	<PositionFunctionEffect>
+		<GeneralFunction containerField="xFunction" function="-400*x" params="x,y,z"/>
+		<GeneralFunction containerField="yFunction" function="-400*y" params="x,y,z"/>
+		<GeneralFunction containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>

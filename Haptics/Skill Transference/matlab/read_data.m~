@@ -1,0 +1,234 @@
+% fid = fopen('/Users/Colin/Dropbox/Log_falcon_test2.txt', 'r');
+fid = fopen('/Users/Colin/Dropbox/log_falc_circle.txt', 'r');
+% fid = fopen('/Users/Colin/Dropbox/log_falc_tri.txt', 'r');
+% fid = fopen('/Users/Colin/Dropbox/log_falc_line3.txt', 'r');
+
+% Init
+window_count = 3;%for moving least squares
+n = 3000;
+time = zeros(n,1);
+pos = zeros(n, 3);
+orn = zeros(n, 4);
+vel = zeros(n, 3);
+but = zeros(n, 3);
+
+
+
+header = fgetl(fid);
+
+i = 1;
+while (feof(fid) == 0)
+    try
+%     '1'
+    time(i) = double(fscanf(fid, '%f', 1));
+%     '2'
+    pos(i, :) = double([fscanf(fid, '%f', 1) fscanf(fid, '%f', 1) fscanf(fid, '%f', 1)]);
+%     '3'
+    orn(i, :) = double([fscanf(fid, '%f', 1) fscanf(fid, '%f', 1) fscanf(fid, '%f', 1) fscanf(fid, '%f', 1)]);
+%     '4'
+    vel(i, :) = double([fscanf(fid, '%f', 1) fscanf(fid, '%f', 1) fscanf(fid, '%f', 1)]);
+%     '5'
+    but(i, :) = double([fscanf(fid, '%f', 1) fscanf(fid, '%f', 1) fscanf(fid, '%f', 1)]);
+    fgetl(fid);
+%     '6'
+    i = i+1;
+    end
+end
+i=i-1;
+time = time(1:i);
+pos = pos(1:i, :);
+orn = orn(1:i, :);
+vel = vel(1:i, :);
+but = but(1:i, :);
+
+% time = zscore(time(1:i));
+% pos = zscore(pos(1:i, :));
+% orn = zscore(orn(1:i, :));
+% vel = zscore(vel(1:i, :));
+% but = but(1:i, :);
+
+
+
+time_skip_ind = find(time>3, 1);
+time_diff = time(time_skip_ind) - time(time_skip_ind-1);
+
+for i_ind = time_skip_ind:length(time)  
+    time(i_ind) = time(i_ind) - time_diff;
+end
+
+
+
+data = [time'; pos'; orn'; vel';but']';
+data = unique(data, 'rows');
+% time = unique(time(1:i), 'rows');
+% pos = unique(pos(1:i, :), 'rows');
+% vel = unique(vel(1:i, :), 'rows');
+% but = unique(but(1:i, :), 'rows');
+
+
+figure(1)
+plot3(pos(:,1), pos(:,2), pos(:,3))
+
+
+    % % % % % % % %  nPCA %%%%%%%%%%%%%%%%%
+if 1
+    figure(2)
+    tic
+
+%         [x_c,x_net,x_network]=nlpca([data(:,[2,5])]',1,'type','inverse',  'max_iteration',300);
+%         [y_c,y_net,y_network]=nlpca([data(:,[3,6])]',1,'type','inverse',  'max_iteration',300);
+%         [z_c,z_net,z_network]=nlpca([data(:,[4,7])]',1,'type','inverse',  'max_iteration',300);
+        %
+%         [x_c,x_net,x_network]=nlpca([data(:,[1,2,5])]',1,'type','inverse',  'max_iteration',300);
+%         [y_c,y_net,y_network]=nlpca([data(:,[1,3,6])]',1,'type','inverse',  'max_iteration',300);
+%         [z_c,z_net,z_network]=nlpca([data(:,[1,4,7])]',1,'type','inverse',  'max_iteration',300);
+
+    [a_c,a_net,a_network]=nlpca([data(:,[2,3,4])]',1,'type','inverse',  'max_iteration',300);
+% [a_c,a_net,a_network]=nlpca([data(:,[2,3,4])]',1,'type','inverse', 'circular', 'yes',  'max_iteration',3000);    
+%     [a_c,a_net,a_network]=nlpca([data(:,[2:6])]',3,'type','inverse',  'max_iteration',500);
+
+    %     [y_c,y_net,y_network]=nlpca([data(:,[1,3,6])]',1,'type','inverse',  'max_iteration',1000);
+    %     [z_c,z_net,z_network]=nlpca([data(:,[1,4,7])]',1,'type','inverse',  'max_iteration',1000);
+    %     [c,net,network]=nlpca([data(:,1,2),[data(:,1:7),]',1,'type','inverse',  'max_iteration',10000);
+    toc
+
+    
+%     pc = nlpca_get_components(x_net, [data(:,[2,5])]');
+%     data_x = nlpca_get_data(x_net, pc);
+%     pc = nlpca_get_components(y_net, [data(:,[3,6])]');
+%     data_y = nlpca_get_data(y_net, pc);
+%     pc = nlpca_get_components(z_net, [data(:,[4,7])]');
+%     data_z = nlpca_get_data(z_net, pc);    
+    %
+%     pc = nlpca_get_components(x_net, [data(:,[1,2,5])]');
+%     data_x = nlpca_get_data(x_net, pc);
+%     pc = nlpca_get_components(y_net, [data(:,[1,3,6])]');
+%     data_y = nlpca_get_data(y_net, pc);
+%     pc = nlpca_get_components(z_net, [data(:,[1,4,7])]');
+%     data_z = nlpca_get_data(z_net, pc);
+
+%     pos_test_npca = [data_x(1,:); data_y(1,:); data_z(1,:)]
+    
+    pc = nlpca_get_components(a_net, pos');
+    data_xyz = nlpca_get_data(a_net, pc);
+
+    pos_npca = data_xyz';
+%     pos_npca = [x_c; y_c; z_c]';
+
+    figure(4)
+	plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+	plot3(pos_npca(:,1), pos_npca(:,2), pos_npca(:,3), '-r')
+	axis equal   
+    
+end
+    
+
+    % % % % % % % %  MLS %%%%%%%%%%%%%%%%%
+% % 1 dof (mx+b)
+if 0
+%     window_count = 5;
+    figure(1)
+    plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+    interval = floor(length(time)/window_count);
+    pos_ls_new = [];
+    for i = 1:interval:length(time)
+        try
+            bounds = [i:i+interval];
+            bounds(length(bounds));
+            time_ = [time(bounds), ones(length(bounds), 1)];
+            pos_lsq = time_\pos(bounds, :);
+            pos_ls_new = [pos_ls_new;...
+                          pos_lsq(1,1)*time(bounds)+pos_lsq(2,1),...
+                          pos_lsq(1,2)*time(bounds)+pos_lsq(2,2),...
+                          pos_lsq(1,3)*time(bounds)+pos_lsq(2,3)];
+        catch
+            bounds = bounds-interval;
+            break
+        end
+        figure(3)
+        plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+        plot3(pos_ls_new(:,1), pos_ls_new(:,2), pos_ls_new(:,3), '-r')
+        axis equal        
+    end
+end
+
+
+% % 2 dof (mx^2 + nx +b)
+if 1
+%     window_count = 5;
+    figure(1)
+    plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+    interval = floor(length(time)/window_count);
+    pos_ls_new = [];
+    for i = 1:interval:length(time)-1
+        try
+            bounds = [i:i+interval];
+            bounds(length(bounds));
+            time_ = [time(bounds).^2,time(bounds), ones(length(bounds), 1)];
+            pos_ls = time_\pos(bounds, :);
+            pos_ls_new = [pos_ls_new;...
+                          pos_ls(1,1)*time(bounds).^2+pos_ls(2,1)*time(bounds)+pos_ls(3,1),...
+                          pos_ls(1,2)*time(bounds).^2+pos_ls(2,2)*time(bounds)+pos_ls(3,2),...
+                          pos_ls(1,3)*time(bounds).^2+pos_ls(2,3)*time(bounds)+pos_ls(3,3)];
+        catch
+            bounds = bounds-interval;
+            break
+        end
+        
+        figure(3)
+        plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+        plot3(pos_ls_new(:,1), pos_ls_new(:,2), pos_ls_new(:,3), '-r')
+        axis equal   
+    end
+end
+
+
+% plot component
+
+%     nlpca_plot(z_net)
+%     title('{\bf NLPCA inverse}')
+%     axis equal
+
+    
+% save result
+
+    % save nlpca_result_circle   net network
+
+    
+% % % % % % % % end nPCA %%%%%%%%%%%%%%%%%
+    
+    
+
+% % % % % % Similarity
+sim_mls = similarity(pos, pos_ls_new)
+sim_npca = similarity(pos, pos_npca)
+
+    
+%% Plot
+% npca
+    figure(4)
+	plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+	plot3(pos_npca(:,1), pos_npca(:,2), pos_npca(:,3), '-r')
+    title('NPCA (Complex)', 'FontSize', 16)
+    xlabel('X', 'FontSize', 16); ylabel('Y', 'FontSize', 16); zlabel('Z', 'FontSize', 16)
+	axis equal 
+
+% mls
+    figure(3)
+	plot3(pos(:,1), pos(:,2), pos(:,3)); hold on
+    plot3(pos_ls_new(:,1), pos_ls_new(:,2), pos_ls_new(:,3), '-r')
+    title('MLS (Triangle)', 'FontSize', 16)
+    xlabel('X', 'FontSize', 16); ylabel('Y', 'FontSize', 16); zlabel('Z', 'FontSize', 16)
+    axis equal   
+    
+    
+    
+%% export data
+
+
+clear all; load line; writeProcessed('/Users/Colin/Dropbox/SkillTransfer/processed_data/npca_line_proc.txt', pos_npca, time)
+clear all; load circle; writeProcessed('/Users/Colin/Dropbox/SkillTransfer/processed_data/npca_circle_proc.txt', pos_npca, time)
+clear all; load triangle; writeProcessed('/Users/Colin/Dropbox/SkillTransfer/processed_data/npca_tri_proc.txt', pos_npca, time)
+clear all; load complex; writeProcessed('/Users/Colin/Dropbox/SkillTransfer/processed_data/npca_complex_proc.txt', pos_npca, time)
+
+    

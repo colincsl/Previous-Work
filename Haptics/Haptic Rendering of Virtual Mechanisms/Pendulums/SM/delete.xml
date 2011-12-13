@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<PhysicalModelingXMLFile>
+
+  <formatVersion>"1.0.2"</formatVersion>
+
+  <createdUsing>"SimMechanics Translator Version 1.2"</createdUsing>
+
+  <createdFrom>"SolidWorks 13.3.1"</createdFrom>
+
+  <createdOn>"05/18/09||10:28:18"</createdOn>
+
+  <createdBy>"No formal user defined!"</createdBy>
+
+  <modelName>"Assem1"</modelName>
+
+  <subsystem>
+    <Subsystem>
+      <name>"Assem1"</name>
+      <status>""</status>
+      <bodies>
+        <Body>
+          <name>"Pend_leg-2"</name>
+          <status>""</status>
+          <mass>0.06</mass>
+          <massUnits>"kg"</massUnits>
+          <inertia>0.0001145,0,0,0,4e-006,0,0,0,0.0001145</inertia>
+          <inertiaUnits>"kg*m^2"</inertiaUnits>
+          <volume>6e-005</volume>
+          <volumeUnits>"m^3"</volumeUnits>
+          <surfaceArea>0.0128</surfaceArea>
+          <surfaceAreaUnits>"m^2"</surfaceAreaUnits>
+          <frames>
+            <Frame>
+              <name>"CG"</name>
+              <position>-0.000712785,-0.119147,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame>
+              <name>"CS1"</name>
+              <position>-0.000712785,-0.194147,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame ref="4">
+              <name>"CS2"</name>
+              <position>0.00928721,-0.0441466,0.0403687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+          </frames>
+          <geometryFileName>""</geometryFileName>
+        </Body>
+        <Body>
+          <name>"Pend_leg-1"</name>
+          <status>""</status>
+          <mass>0.06</mass>
+          <massUnits>"kg"</massUnits>
+          <inertia>0.0001145,0,0,0,4e-006,0,0,0,0.0001145</inertia>
+          <inertiaUnits>"kg*m^2"</inertiaUnits>
+          <volume>6e-005</volume>
+          <volumeUnits>"m^3"</volumeUnits>
+          <surfaceArea>0.0128</surfaceArea>
+          <surfaceAreaUnits>"m^2"</surfaceAreaUnits>
+          <frames>
+            <Frame>
+              <name>"CG"</name>
+              <position>-0.000712785,0.0308534,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame>
+              <name>"CS1"</name>
+              <position>-0.000712785,-0.0441466,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame ref="2">
+              <name>"CS2"</name>
+              <position>-0.000712785,0.0308534,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame ref="3">
+              <name>"CS3"</name>
+              <position>0.00928721,-0.0441466,0.0403687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+          </frames>
+          <geometryFileName>""</geometryFileName>
+        </Body>
+        <Body>
+          <name>"RootPart"</name>
+          <status>""</status>
+          <mass>0</mass>
+          <massUnits>"kg"</massUnits>
+          <inertia>0,0,0,0,0,0,0,0,0</inertia>
+          <inertiaUnits>"kg*m^2"</inertiaUnits>
+          <volume>0</volume>
+          <volumeUnits>"m^3"</volumeUnits>
+          <surfaceArea>0</surfaceArea>
+          <surfaceAreaUnits>"m^2"</surfaceAreaUnits>
+          <frames>
+            <Frame>
+              <name>"CG"</name>
+              <position>-0.000712785,-0.0441466,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame>
+              <name>"CS1"</name>
+              <position>0,0,0</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame ref="1">
+              <name>"CS2"</name>
+              <position>-0.000712785,0.0308534,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+            <Frame ref="6">
+              <name>"CS3"</name>
+              <position>-0.000712785,-0.0441466,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+          </frames>
+          <geometryFileName>""</geometryFileName>
+        </Body>
+      </bodies>
+      <joints>
+        <SimpleJoint>
+          <name>"RootPart--Pend_leg-1"</name>
+          <status>""</status>
+          <base>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="1"></Frame>
+              </connection>
+            </JointSide>
+          </base>
+          <follower>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="2"></Frame>
+              </connection>
+            </JointSide>
+          </follower>
+          <primitives>
+            <Primitive>
+              <name>"weld"</name>
+              <referenceFrame>"WORLD"</referenceFrame>
+              <axis>0.57735,0.57735,0.57735</axis>
+            </Primitive>
+          </primitives>
+        </SimpleJoint>
+        <SimpleJoint>
+          <name>"Pend_leg-1--Pend_leg-2"</name>
+          <status>""</status>
+          <base>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="3"></Frame>
+              </connection>
+            </JointSide>
+          </base>
+          <follower>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="4"></Frame>
+              </connection>
+            </JointSide>
+          </follower>
+          <primitives>
+            <Primitive>
+              <name>"revolute"</name>
+              <referenceFrame>"WORLD"</referenceFrame>
+              <axis>0,0,-1</axis>
+            </Primitive>
+          </primitives>
+        </SimpleJoint>
+        <SimpleJoint>
+          <name>"RootGround--RootPart"</name>
+          <status>""</status>
+          <base>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="5"></Frame>
+              </connection>
+            </JointSide>
+          </base>
+          <follower>
+            <JointSide>
+              <name>""</name>
+              <connection>
+                <Frame ref="6"></Frame>
+              </connection>
+            </JointSide>
+          </follower>
+          <primitives>
+            <Primitive>
+              <name>"weld"</name>
+              <referenceFrame>"WORLD"</referenceFrame>
+              <axis>0.57735,0.57735,0.57735</axis>
+            </Primitive>
+          </primitives>
+        </SimpleJoint>
+      </joints>
+      <grounds>
+        <Ground>
+          <name>"RootGround"</name>
+          <status>""</status>
+          <frame>
+            <Frame ref="5">
+              <name>"CS1"</name>
+              <position>-0.000712785,-0.0441466,0.0303687</position>
+              <positionOrigin>"WORLD"</positionOrigin>
+              <positionReferenceFrame>"WORLD"</positionReferenceFrame>
+              <positionUnits>"m"</positionUnits>
+              <orientation>1,0,0,0,1,0,0,0,1</orientation>
+              <orientationType>"3x3 Transform"</orientationType>
+              <orientationUnits>"rad"</orientationUnits>
+              <orientationReferenceFrame>"WORLD"</orientationReferenceFrame>
+            </Frame>
+          </frame>
+        </Ground>
+      </grounds>
+      <subsystems></subsystems>
+      <connectionPorts></connectionPorts>
+      <id>0</id>
+    </Subsystem>
+  </subsystem>
+
+</PhysicalModelingXMLFile>

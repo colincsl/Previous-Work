@@ -1,0 +1,2786 @@
+Model {
+  Name			  "Force_Rendering"
+  Version		  7.0
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.35"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  on
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks on
+  BrowserLookUnderMasks	  off
+  Created		  "Fri Jun 27 12:15:59 2008"
+  Creator		  "RSamra"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "colinlea"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Tue Jul 21 13:54:34 2009"
+  RTWModifiedTimeStamp	  0
+  ModelVersionFormat	  "1.%<AutoIncrement:35>"
+  ConfigurationManager	  "None"
+  UserBdParams		  "CheckForProblematicBlocks;"
+  SimulationMode	  "external"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  10000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.3.0"
+      Array {
+	Type			"Handle"
+	Dimension		7
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "PositivePriorityOrder"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.3.0"
+	  StartTime		  "0.0"
+	  StopTime		  "inf"
+	  AbsTol		  "auto"
+	  FixedStep		  "0.001"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  Solver		  "ode1"
+	  SolverName		  "ode1"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  on
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  RateTranMode		  "Deterministic"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.3.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    5
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "InitFltsAndDblsToZero"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.3.0"
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.3.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"warning"
+	  CheckSSInitialOutputMsg on
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "warning"
+	  MultiTaskCondExecSysMsg "none"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  StrictBusMsg		  "None"
+	  LoggingUnavailableSignals "error"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.3.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "32-bit Generic"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.3.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  8
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    2
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.3.0"
+	  SystemTargetFile	  "quarc_windows.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "quarc_default_tmf"
+	  Description		  "QuaRC Win32 Target"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ProcessScript		  "quarc_windows_make_rtw_hook"
+	  ConfigAtBuild		  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  on
+	  GenerateTraceInfo	  off
+	  RTWCompilerOptimization "Off"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      9
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.3.0"
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	    }
+	    Simulink.STFCustomTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      10
+	      Array {
+		Type			"Cell"
+		Dimension		15
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		Cell			"PortableWordSizes"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.3.0"
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      TargetLibSuffix	      ".lib"
+	      TargetPreCompLibLocation "C:\\DOCUME~1\\ALLUSE~1\\APPLIC~1\\QuaRC\\lib\\2007b\\windows\\release"
+	      GenFloatMathFcnCalls    "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      CompOptLevelCompliant   off
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      off
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      SystemTargetFile	      "quarc_windows.tlc"
+	      DialogCategory	      0
+	      Array {
+		Type			"Handle"
+		Dimension		1
+		Simulink.GRTTargetCC {
+		  $BackupClass		  "Simulink.TargetCC"
+		  $ObjectID		  11
+		  Array {
+		    Type		    "Cell"
+		    Dimension		    15
+		    Cell		    "IncludeMdlTerminateFcn"
+		    Cell		    "CombineOutputUpdateFcns"
+		    Cell		    "SuppressErrorStatus"
+		    Cell		    "ERTCustomFileBanners"
+		    Cell		    "GenerateSampleERTMain"
+		    Cell		    "GenerateTestInterfaces"
+		    Cell		    "ModelStepFunctionPrototypeControlCompliant"
+		    Cell		    "MultiInstanceERTCode"
+		    Cell		    "PurelyIntegerCode"
+		    Cell		    "SupportNonFinite"
+		    Cell		    "SupportComplex"
+		    Cell		    "SupportAbsoluteTime"
+		    Cell		    "SupportContinuousTime"
+		    Cell		    "SupportNonInlinedSFcns"
+		    Cell		    "PortableWordSizes"
+		    PropName		    "DisabledProps"
+		  }
+		  Version		  "1.3.0"
+		  TargetFcnLib		  "ansi_tfl_tmw.mat"
+		  TargetLibSuffix	  ".lib"
+		  TargetPreCompLibLocation "C:\\DOCUME~1\\ALLUSE~1\\APPLIC~1\\QuaRC\\lib\\2007b\\windows\\release"
+		  GenFloatMathFcnCalls	  "ANSI_C"
+		  UtilityFuncGeneration	  "Auto"
+		  GenerateFullHeader	  on
+		  GenerateSampleERTMain	  off
+		  GenerateTestInterfaces  off
+		  IsPILTarget		  off
+		  ModelReferenceCompliant on
+		  CompOptLevelCompliant	  off
+		  IncludeMdlTerminateFcn  on
+		  CombineOutputUpdateFcns off
+		  SuppressErrorStatus	  off
+		  IncludeFileDelimiter	  "Auto"
+		  ERTCustomFileBanners	  off
+		  SupportAbsoluteTime	  on
+		  LogVarNameModifier	  "rt_"
+		  MatFileLogging	  off
+		  MultiInstanceERTCode	  off
+		  SupportNonFinite	  on
+		  SupportComplex	  on
+		  PurelyIntegerCode	  off
+		  SupportContinuousTime	  on
+		  SupportNonInlinedSFcns  on
+		  EnableShiftOperators	  on
+		  ParenthesesLevel	  "Nominal"
+		  PortableWordSizes	  off
+		  ModelStepFunctionPrototypeControlCompliant off
+		  ExtMode		  on
+		  ExtModeStaticAlloc	  off
+		  ExtModeTesting	  off
+		  ExtModeStaticAllocSize  1000000
+		  ExtModeTransport	  0
+		  ExtModeMexFile	  "quarc_comm"
+		  ExtModeMexArgs	  "'-w -d %d -uri %u'"
+		  ExtModeIntrfLevel	  "Level1"
+		  RTWCAPISignals	  off
+		  RTWCAPIParams		  off
+		  RTWCAPIStates		  off
+		  GenerateASAP2		  off
+		}
+		PropName		"Components"
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"QuarcMatFileLogging"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"StopOnOverrun"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"HaveStdio"
+		Value			on
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"DynamicReconfiguration"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"Debug"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"RTWOptions_EnumType_C__Program Files_Quanser_QuaRC_quarc_quarc_windows_AssertionAction"
+		EnumStrPairs {
+		  Value			  0
+		  String		  "Ignore"
+		  Value			  1
+		  String		  "Stop model with an error"
+		  Value			  2
+		  String		  "Print assertion"
+		}
+		Name			"AssertionAction"
+		Value			"Stop model with an error"
+	      }
+	      CustomProperty {
+		DataType		"int32"
+		Name			"MinimumThreadPriority"
+		Value			0
+	      }
+	      CustomProperty {
+		DataType		"int32"
+		Name			"StackSize"
+		Value			0
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"PermissibleCPUs"
+		Value			"[]"
+	      }
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      ExtraOptions	      "-aGenerateTraceInfo=0 "
+      CurrentDlgPage	      "Solver"
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  CheckForProblematicBlocks "on"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Bias
+      Bias		      "0"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit via back propagation"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      ConvertRealWorld	      "Real World Value (RWV)"
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Display
+      Format		      "short"
+      Decimation	      "10"
+      Floating		      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      From
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ParamMin		      "[]"
+      ParamMax		      "[]"
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "fixdt(1,16,0)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "[]"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Goto
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchByCopyingInsideSignal off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Math
+      Operator		      "exp"
+      OutputSignalType	      "auto"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "fixdt(1,16,0)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "[]"
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "Force_Rendering"
+    Location		    [9, 102, 1137, 529]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Constant
+      Name		      "Force"
+      Position		      [40, 158, 80, 232]
+      Value		      "[1 0 0]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Omni"
+      Ports		      [1, 3]
+      Position		      [300, 85, 460, 305]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      System {
+	Name			"Omni"
+	Location		[182, 82, 1194, 755]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Task Force"
+	  Position		  [25, 413, 55, 427]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  Position		  [55, 460, 85, 490]
+	  Value			  "[0; 0; 0]"
+	  VectorParams1D	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Convert to Positive Rotation\nConvension Used in\nKinematics"
+	  Position		  [415, 180, 445, 210]
+	  Gain			  "[1 -1 -1]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Convert to Positive Rotation\nConvension Used in\nKinematics1"
+	  Position		  [335, 374, 375, 406]
+	  Gain			  "[1; -1 ;-1]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Convert to Positive Rotation\nConvension Used in\nKinematics2"
+	  Position		  [370, 585, 400, 615]
+	  Gain			  "[-1 1 1]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Encoders to Joints q1, q2, q3"
+	  Ports			  [1, 1]
+	  Position		  [175, 169, 305, 221]
+	  BackgroundColor	  "cyan"
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "Encoders to Joints q1, q2, q3"
+	    Location		    [306, 329, 1036, 447]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Encoders"
+	      Position		      [25, 38, 55, 52]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Bias
+	      Name		      "Bias1"
+	      Position		      [80, 30, 120, 60]
+	      Bias		      "[0 -659 -910]"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Embedded\nMATLAB Function"
+	      Ports		      [1, 1]
+	      Position		      [355, 25, 470, 65]
+	      ShowName		      off
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskType		      "Stateflow"
+	      MaskDescription	      "Embedded MATLAB block"
+	      MaskDisplay	      "disp('Motors_2_Joints');"
+	      MaskSelfModifiable      on
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      off
+	      MaskIconRotate	      "none"
+	      MaskIconUnits	      "autoscale"
+	      System {
+		Name			"Embedded\nMATLAB Function"
+		Location		[257, 457, 812, 717]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "m"
+		  Position		  [20, 101, 40, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  Ports			  [1, 1]
+		  Position		  [270, 160, 320, 200]
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  "S-Function"
+		  Name			  " SFunction "
+		  Tag			  "Stateflow S-Function Force_Rendering 8"
+		  Ports			  [1, 2]
+		  Position		  [180, 100, 230, 160]
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[1 2]"
+		  EnableBusSupport	  on
+		  Port {
+		    PortNumber		    2
+		    Name		    "q"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  Position		  [460, 171, 480, 189]
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "q"
+		  Position		  [460, 101, 480, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Line {
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  Points		  [0, 65]
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "m"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "q"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "q"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Encoder"
+	      Position		      [210, 30, 240, 60]
+	      Gain		      "2*pi/2048"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear Ratio"
+	      Position		      [285, 30, 315, 60]
+	      Gain		      "1./[7.461 -7.519 7.529]"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Joints q1, q2, q3"
+	      Position		      [555, 38, 585, 52]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Embedded\nMATLAB Function"
+	      SrcPort		      1
+	      DstBlock		      "Joints q1, q2, q3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Encoders"
+	      SrcPort		      1
+	      DstBlock		      "Bias1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Encoder"
+	      SrcPort		      1
+	      DstBlock		      "Gear Ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear Ratio"
+	      SrcPort		      1
+	      DstBlock		      "Embedded\nMATLAB Function"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Bias1"
+	      SrcPort		      1
+	      DstBlock		      "Encoder"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Forward Kinematics "
+	  Ports			  [2, 3]
+	  Position		  [675, 173, 825, 247]
+	  PermitHierarchicalResolution "ExplicitOnly"
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskType		  "Stateflow"
+	  MaskDescription	  "Embedded MATLAB block"
+	  MaskDisplay		  "disp('fcn');"
+	  MaskSelfModifiable	  on
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  off
+	  MaskIconRotate	  "none"
+	  MaskIconUnits		  "autoscale"
+	  System {
+	    Name		    "Forward Kinematics "
+	    Location		    [257, 457, 812, 717]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "q"
+	      Position		      [20, 101, 40, 119]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "tool_offset"
+	      Position		      [20, 136, 40, 154]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      " Demux "
+	      Ports		      [1, 1]
+	      Position		      [270, 210, 320, 250]
+	      Outputs		      "1"
+	    }
+	    Block {
+	      BlockType		      "S-Function"
+	      Name		      " SFunction "
+	      Tag		      "Stateflow S-Function Force_Rendering 5"
+	      Ports		      [2, 4]
+	      Position		      [180, 102, 230, 203]
+	      FunctionName	      "sf_sfun"
+	      PortCounts	      "[2 4]"
+	      EnableBusSupport	      on
+	      Port {
+		PortNumber		2
+		Name			"pos"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		3
+		Name			"Rot"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		4
+		Name			"Jac"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      " Terminator "
+	      Position		      [460, 221, 480, 239]
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "pos"
+	      Position		      [460, 101, 480, 119]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Rot"
+	      Position		      [460, 136, 480, 154]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Jac"
+	      Position		      [460, 171, 480, 189]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      " SFunction "
+	      SrcPort		      1
+	      Points		      [0, 115]
+	      DstBlock		      " Demux "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      " Demux "
+	      SrcPort		      1
+	      DstBlock		      " Terminator "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "q"
+	      SrcPort		      1
+	      DstBlock		      " SFunction "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "tool_offset"
+	      SrcPort		      1
+	      Points		      [120, 0]
+	      DstBlock		      " SFunction "
+	      DstPort		      2
+	    }
+	    Line {
+	      Name		      "pos"
+	      Labels		      [0, 0]
+	      SrcBlock		      " SFunction "
+	      SrcPort		      2
+	      DstBlock		      "pos"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "Rot"
+	      Labels		      [0, 0]
+	      SrcBlock		      " SFunction "
+	      SrcPort		      3
+	      DstBlock		      "Rot"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "Jac"
+	      Labels		      [0, 0]
+	      SrcBlock		      " SFunction "
+	      SrcPort		      4
+	      DstBlock		      "Jac"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From"
+	  Position		  [25, 366, 65, 394]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "JT"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto3"
+	  Position		  [945, 224, 990, 246]
+	  ShowName		  off
+	  GotoTag		  "JT"
+	  TagVisibility		  "local"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Initialize"
+	  Ports			  []
+	  Position		  [15, 14, 187, 89]
+	  AttributesFormatString  "%<object_name> (%<board_type>-%<board_number>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag0"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Configuration/HIL Initialize"
+	  SourceType		  "HIL Initialize"
+	  object_name		  "HIL-1"
+	  board_type		  "phantom_omni"
+	  board_number		  "0"
+	  active		  on
+	  hardware_clocks	  "[]"
+	  clock_modes		  "[]"
+	  set_clock_params_at_start off
+	  set_clock_params_at_switch_in	off
+	  analog_input_channels	  "0:1"
+	  analog_input_maximums	  "10"
+	  analog_input_minimums	  "-10"
+	  set_analog_input_params_at_start off
+	  set_analog_input_params_at_switch_in off
+	  analog_output_channels  "[]"
+	  analog_output_maximums  "[]"
+	  analog_output_minimums  "[]"
+	  initial_analog_outputs  "[]"
+	  final_analog_outputs	  "[]"
+	  watchdog_analog_outputs "0"
+	  set_analog_output_params_at_start off
+	  set_analog_output_params_at_switch_in	off
+	  set_analog_outputs_at_start off
+	  set_analog_outputs_at_switch_in off
+	  set_analog_outputs_at_terminate off
+	  set_analog_outputs_at_switch_out off
+	  set_analog_outputs_on_watchdog off
+	  digital_input_channels  "[]"
+	  digital_output_channels "[]"
+	  initial_digital_outputs "[]"
+	  final_digital_outputs	  "[]"
+	  watchdog_digital_outputs "0"
+	  set_digital_outputs_at_start off
+	  set_digital_outputs_at_switch_in off
+	  set_digital_outputs_at_terminate off
+	  set_digital_outputs_at_switch_out off
+	  set_digital_outputs_on_watchdog off
+	  encoder_channels	  "0:2"
+	  quadrature		  "[]"
+	  encoder_filter_frequency "[]"
+	  initial_encoder_counts  "0"
+	  set_encoder_params_at_start off
+	  set_encoder_params_at_switch_in off
+	  set_encoder_counts_at_start off
+	  set_encoder_counts_at_switch_in off
+	  pwm_channels		  "0:2"
+	  pwm_modes		  "[]"
+	  pwm_frequency		  "[]"
+	  initial_pwm_outputs	  "0"
+	  final_pwm_outputs	  "0"
+	  watchdog_pwm_outputs	  "0"
+	  set_pwm_params_at_start off
+	  set_pwm_params_at_switch_in off
+	  set_pwm_outputs_at_start on
+	  set_pwm_outputs_at_switch_in off
+	  set_pwm_outputs_at_terminate on
+	  set_pwm_outputs_at_switch_out	off
+	  set_pwm_outputs_on_watchdog off
+	  other_output_channels	  "[]"
+	  initial_other_outputs	  "[]"
+	  final_other_outputs	  "[]"
+	  watchdog_other_outputs  "0"
+	  set_other_outputs_at_start off
+	  set_other_outputs_at_switch_in off
+	  set_other_outputs_at_terminate off
+	  set_other_outputs_at_switch_out off
+	  set_other_outputs_on_watchdog	off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Read Analog"
+	  Ports			  [0, 1]
+	  Position		  [15, 569, 100, 631]
+	  AttributesFormatString  "(%<object_name>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag1"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Immediate I//O/HIL Read Analog"
+	  SourceType		  "HIL Read Analog"
+	  object_name		  "HIL-1"
+	  channels		  "[0:2]"
+	  sample_time		  "qc_get_step_size"
+	  active		  on
+	  vector_output		  on
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Read Encoder\nTimebase"
+	  Ports			  [0, 1]
+	  Position		  [15, 164, 100, 226]
+	  AttributesFormatString  "(%<object_name>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag2"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Timebases/HIL Read Encoder\nTimebase"
+	  SourceType		  "HIL Read Encoder Timebase"
+	  object_name		  "HIL-1"
+	  clock			  "0"
+	  channels		  "0:2"
+	  samples_in_buffer	  "max(ceil(1/qc_get_step_size), 1)"
+	  active		  on
+	  vector_output		  on
+	  data_type_mode	  "Inherit via back propagation"
+	  data_type		  "double"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Write PWM"
+	  Ports			  [1]
+	  Position		  [650, 359, 735, 421]
+	  AttributesFormatString  "(%<object_name>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag3"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Immediate I//O/HIL Write PWM"
+	  SourceType		  "HIL Write PWM"
+	  object_name		  "HIL-1"
+	  channels		  "0:2"
+	  sample_time		  "-1"
+	  active		  off
+	  vector_input		  on
+	}
+	Block {
+	  BlockType		  Bias
+	  Name			  "Joint Offsets"
+	  Position		  [525, 180, 565, 210]
+	  Bias			  "[0 0 pi()/2]"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Bias
+	  Name			  "Joint Offsets1"
+	  Position		  [490, 585, 530, 615]
+	  Bias			  "[0 -(40-180)*pi/180 0]"
+	}
+	Block {
+	  BlockType		  Math
+	  Name			  "Math\nFunction"
+	  Ports			  [1, 1]
+	  Position		  [875, 220, 905, 250]
+	  Operator		  "transpose"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [2, 1]
+	  Position		  [175, 411, 180, 449]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Potentiometers to Joints q4, q5, q6"
+	  Ports			  [1, 1]
+	  Position		  [135, 573, 295, 627]
+	  BackgroundColor	  "cyan"
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "Potentiometers to Joints q4, q5, q6"
+	    Location		    [661, 522, 1181, 739]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Potentiometers"
+	      Position		      [25, 38, 55, 52]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Bias
+	      Name		      "Bias1"
+	      Position		      [95, 30, 135, 60]
+	      Bias		      "[-2048 -2654 -2048]"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gain2"
+	      Position		      [190, 29, 250, 61]
+	      Gain		      "[2*pi()/4915 2*pi()/4096 2*pi()/4915]"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Joints q4, q5, q6"
+	      Position		      [275, 38, 305, 52]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Bias1"
+	      SrcPort		      1
+	      DstBlock		      "Gain2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Potentiometers"
+	      SrcPort		      1
+	      DstBlock		      "Bias1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gain2"
+	      SrcPort		      1
+	      DstBlock		      "Joints q4, q5, q6"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  Ports			  [2, 1]
+	  Position		  [245, 372, 275, 403]
+	  Multiplication	  "Matrix(*)"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Tool Offset2"
+	  Position		  [560, 254, 605, 286]
+	  Value			  "[1 0 0 0;0 1 0 0;0 0 1 0.039;0 0 0 1]"
+	  VectorParams1D	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Torque to PWM"
+	  Ports			  [1, 1]
+	  Position		  [460, 364, 565, 416]
+	  BackgroundColor	  "cyan"
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  System {
+	    Name		    "Torque to PWM"
+	    Location		    [406, 484, 1161, 603]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Torque"
+	      Position		      [25, 43, 55, 57]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear Ratio1"
+	      Position		      [285, 35, 315, 65]
+	      Gain		      "1./[7.461 -7.519 7.529]"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Joint Torque to\nMotor Torque"
+	      Ports		      [1, 1]
+	      Position		      [145, 25, 215, 75]
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskType		      "Stateflow"
+	      MaskDescription	      "Embedded MATLAB block"
+	      MaskDisplay	      "disp('fcn');"
+	      MaskSelfModifiable      on
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      off
+	      MaskIconRotate	      "none"
+	      MaskIconUnits	      "autoscale"
+	      System {
+		Name			"Joint Torque to\nMotor Torque"
+		Location		[257, 457, 812, 717]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "t"
+		  Position		  [20, 101, 40, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  Ports			  [1, 1]
+		  Position		  [270, 160, 320, 200]
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  "S-Function"
+		  Name			  " SFunction "
+		  Tag			  "Stateflow S-Function Force_Rendering 4"
+		  Ports			  [1, 2]
+		  Position		  [180, 100, 230, 160]
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[1 2]"
+		  EnableBusSupport	  on
+		  Port {
+		    PortNumber		    2
+		    Name		    "y"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  Position		  [460, 171, 480, 189]
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "y"
+		  Position		  [460, 101, 480, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Line {
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  Points		  [0, 65]
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "t"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "y"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "y"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kt"
+	      Position		      [410, 35, 440, 65]
+	      Gain		      "1./38.526e-3"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      Position		      [510, 35, 540, 65]
+	      UpperLimit	      "1.6"
+	      LowerLimit	      "-1.6"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Smart Saturation"
+	      Ports		      [1, 1]
+	      Position		      [605, 27, 675, 73]
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskType		      "Stateflow"
+	      MaskDescription	      "Embedded MATLAB block"
+	      MaskDisplay	      "disp('fcn');"
+	      MaskSelfModifiable      on
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      off
+	      MaskIconRotate	      "none"
+	      MaskIconUnits	      "autoscale"
+	      System {
+		Name			"Smart Saturation"
+		Location		[257, 457, 812, 717]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "u"
+		  Position		  [20, 101, 40, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  Ports			  [1, 1]
+		  Position		  [270, 160, 320, 200]
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  "S-Function"
+		  Name			  " SFunction "
+		  Tag			  "Stateflow S-Function Force_Rendering 3"
+		  Ports			  [1, 2]
+		  Position		  [180, 100, 230, 160]
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[1 2]"
+		  EnableBusSupport	  on
+		  Port {
+		    PortNumber		    2
+		    Name		    "y"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  Position		  [460, 171, 480, 189]
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "y"
+		  Position		  [460, 101, 480, 119]
+		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
+		}
+		Line {
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  Points		  [0, 65]
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "u"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "y"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "y"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "PWM"
+	      Position		      [700, 43, 730, 57]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Torque"
+	      SrcPort		      1
+	      DstBlock		      "Joint Torque to\nMotor Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Smart Saturation"
+	      SrcPort		      1
+	      DstBlock		      "PWM"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Smart Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kt"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear Ratio1"
+	      SrcPort		      1
+	      DstBlock		      "Kt"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Joint Torque to\nMotor Torque"
+	      SrcPort		      1
+	      DstBlock		      "Gear Ratio1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X"
+	  Position		  [875, 178, 905, 192]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "q1, q2, q3"
+	  Position		  [645, 123, 675, 137]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "q4, q5, q6"
+	  Position		  [615, 593, 645, 607]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "Tool Offset2"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, -40]
+	  DstBlock		  "Forward Kinematics "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Math\nFunction"
+	  SrcPort		  1
+	  DstBlock		  "Goto3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Forward Kinematics "
+	  SrcPort		  3
+	  DstBlock		  "Math\nFunction"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "From"
+	  SrcPort		  1
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Torque to PWM"
+	  SrcPort		  1
+	  DstBlock		  "HIL Write PWM"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Forward Kinematics "
+	  SrcPort		  1
+	  DstBlock		  "X"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [40, 0; 0, -35]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Task Force"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -35]
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Encoders to Joints q1, q2, q3"
+	  SrcPort		  1
+	  DstBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics"
+	  SrcPort		  1
+	  DstBlock		  "Joint Offsets"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics1"
+	  SrcPort		  1
+	  DstBlock		  "Torque to PWM"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  DstBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Joint Offsets"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	  Branch {
+	    DstBlock		    "Forward Kinematics "
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -65]
+	    DstBlock		    "q1, q2, q3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "HIL Read Encoder\nTimebase"
+	  SrcPort		  1
+	  DstBlock		  "Encoders to Joints q1, q2, q3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "HIL Read Analog"
+	  SrcPort		  1
+	  DstBlock		  "Potentiometers to Joints q4, q5, q6"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics2"
+	  SrcPort		  1
+	  DstBlock		  "Joint Offsets1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Potentiometers to Joints q4, q5, q6"
+	  SrcPort		  1
+	  DstBlock		  "Convert to Positive Rotation\nConvension Used in\nKinematics2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Joint Offsets1"
+	  SrcPort		  1
+	  DstBlock		  "q4, q5, q6"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Rounding"
+      Position		      [625, 108, 675, 132]
+      OutDataTypeMode	      "int32"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Rounding1"
+      Position		      [630, 183, 680, 207]
+      OutDataTypeMode	      "int32"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Rounding2"
+      Position		      [630, 258, 680, 282]
+      OutDataTypeMode	      "int32"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Slider\nGain"
+      Ports		      [1, 1]
+      Position		      [180, 180, 210, 210]
+      SourceBlock	      "simulink/Math\nOperations/Slider\nGain"
+      SourceType	      "Slider Gain"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      low		      "0"
+      gain		      "1.8"
+      high		      "3"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "meter to milimeter"
+      Position		      [520, 105, 550, 135]
+      Gain		      "1e3"
+      ParameterDataTypeMode   "Inherit via internal rule"
+      ParameterDataType	      "sfix(16)"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "position in milimeters"
+      Ports		      [1]
+      Position		      [745, 107, 990, 133]
+      Decimation	      "100"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "position in radians"
+      Ports		      [1]
+      Position		      [745, 257, 990, 283]
+      Decimation	      "100"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "position in radians1"
+      Ports		      [1]
+      Position		      [745, 182, 990, 208]
+      Decimation	      "100"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "radian to degree"
+      Position		      [520, 180, 550, 210]
+      Gain		      "180/pi"
+      ParameterDataTypeMode   "Inherit via internal rule"
+      ParameterDataType	      "sfix(16)"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "radian to degree1"
+      Position		      [520, 255, 550, 285]
+      Gain		      "180/pi"
+      ParameterDataTypeMode   "Inherit via internal rule"
+      ParameterDataType	      "sfix(16)"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SaturateOnIntegerOverflow	off
+    }
+    Line {
+      SrcBlock		      "Force"
+      SrcPort		      1
+      DstBlock		      "Slider\nGain"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Omni"
+      SrcPort		      1
+      DstBlock		      "meter to milimeter"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Rounding"
+      SrcPort		      1
+      DstBlock		      "position in milimeters"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "meter to milimeter"
+      SrcPort		      1
+      DstBlock		      "Rounding"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Rounding1"
+      SrcPort		      1
+      DstBlock		      "position in radians1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "radian to degree"
+      SrcPort		      1
+      DstBlock		      "Rounding1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Omni"
+      SrcPort		      2
+      DstBlock		      "radian to degree"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Rounding2"
+      SrcPort		      1
+      DstBlock		      "position in radians"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "radian to degree1"
+      SrcPort		      1
+      DstBlock		      "Rounding2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Omni"
+      SrcPort		      3
+      DstBlock		      "radian to degree1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Slider\nGain"
+      SrcPort		      1
+      DstBlock		      "Omni"
+      DstPort		      1
+    }
+  }
+}
+MatData {
+  NumRecords		  4
+  DataRecord {
+    Tag			    DataTag3
+    Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7VYA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !     %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @    &          4    (     0    $    !          D    (         \"B 24 "
+  }
+  DataRecord {
+    Tag			    DataTag2
+    Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7VYA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !     %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @    &          4    (     0    $    !          D    (         \"B 24 "
+  }
+  DataRecord {
+    Tag			    DataTag1
+    Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7VYA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !     %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @    &          4    (     0    $    !          D    (         \"B 24 "
+  }
+  DataRecord {
+    Tag			    DataTag0
+    Data		    "  %)30     .    L#    8    (     @         %    \"     $    !     0         %  0 $0    $   !F    :7-?=6YI<75E          !O;&1?8FQO8VL          &]L9%]N86UE            :7-?;6]D96Q?8VQO<VEN9P!S971T:6YG<P           &ES7V1E;&5T960            .    ,     8    (    \"0(        %    \"     $    !     0         \"  $  0    X    X    !@    @    &          4    (     0    $    !          D    (         \"B 24 .    .     8    (    !          %    \"     $    %     0         0    !0   $A)3\"TQ    #@   #     &    \"     D\"        !0    @    !     0    $          @ !       .    X\"X   8    (     @         %    \"     $    !     0         %  0 $0    $    S    ;VQD7V)O87)D7W1Y<&4   !Q.                    '$S7V-O;G1R;VQP87%?9G<        .    0     8    (    !          %    \"     $    ,     0         0    #    '!H86YT;VU?;VUN:0     .    (!<   8    (     @         %    \"     $    !     0         %  0 +     $   \"@\"0  :61E;G1I9FEE<@                                            !O<'1I;VYS                                                 &-L;V-K<P                                                  8VQO8VM?;6]D97,                                           !C;&]C:U]S971?<&%R86US7V%T7VUO9&5L7W-T87)T                 &-L;V-K7W-E=%]P87)A;7-?<W=I=&-H:6YG7W1O7VUO9&5L            86YA;&]G7VEN<'5T7V-H86YN96QS                              !A;F%L;V=?:6YP=71?;6%X:6UU;7,                              &%N86QO9U]I;G!U=%]M:6YI;75M<P                              86YA;&]G7VEN<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0       !A;F%L;V=?:6YP=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P  &%N86QO9U]O=71P=71?8VAA;FYE;',                             86YA;&]G7V]U='!U=%]M87AI;75M<P                            !A;F%L;V=?;W5T<'5T7VUI;FEM=6US                             &%N86QO9U]O=71P=71?:6YI=&EA;                               86YA;&]G7V]U='!U=%]F:6YA;                                 !A;F%L;V=?;W5T<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0      &%N86QO9U]O=71P=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P 86YA;&]G7V]U='!U=%]S971?871?;6]D96Q?<W1A<G0               !A;F%L;V=?;W5T<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P          &%N86QO9U]O=71P=71?<V5T7V%T7VUO9&5L7W1E<FUI;F%T:6]N        86YA;&]G7V]U='!U=%]S971?<W=I=&-H:6YG7V9R;VU?;6]D96P       !D:6=I=&%L7VEN<'5T7V-H86YN96QS                             &1I9VET86Q?;W5T<'5T7V-H86YN96QS                            9&EG:71A;%]O=71P=71?:6YI=&EA;                             !D:6=I=&%L7V]U='!U=%]F:6YA;                                &1I9VET86Q?;W5T<'5T7W-E=%]A=%]M;V1E;%]S=&%R=               9&EG:71A;%]O=71P=71?<V5T7W-W:71C:&EN9U]T;U]M;V1E;         !D:6=I=&%L7V]U='!U=%]S971?871?;6]D96Q?=&5R;6EN871I;VX      &1I9VET86Q?;W5T<'5T7W-E=%]S=VET8VAI;F=?9G)O;5]M;V1E;       96YC;V1E<E]I;G!U=%]C:&%N;F5L<P                            !E;F-O9&5R7VEN<'5T7W%U861R871U<F4                          &5N8V]D97)?:6YP=71?9G)E<75E;F-Y                            96YC;V1E<E]I;G!U=%]I;FET:6%L                              !E;F-O9&5R7VEN<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0      &5N8V]D97)?:6YP=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P 96YC;V1E<E]I;G!U=%]S971?871?;6]D96Q?<W1A<G0               !E;F-O9&5R7VEN<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P          '!W;5]O=71P=71?8VAA;FYE;',                                 <'=M7V]U='!U=%]M;V1E<P                                    !P=VU?;W5T<'5T7V9R97%U96YC>0                               '!W;5]O=71P=71?:6YI=&EA;                                   <'=M7V]U='!U=%]F:6YA;                                     !P=VU?;W5T<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0          '!W;5]O=71P=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P     <'=M7V]U='!U=%]S971?871?;6]D96Q?<W1A<G0                   !P=VU?;W5T<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P              '!W;5]O=71P=71?<V5T7V%T7VUO9&5L7W1E<FUI;F%T:6]N            <'=M7V]U='!U=%]S971?<W=I=&-H:6YG7V9R;VU?;6]D96P           !O=&AE<E]O=71P=71?8VAA;FYE;',                              &]T:&5R7V]U='!U=%]I;FET:6%L                                ;W1H97)?;W5T<'5T7V9I;F%L                                  !O=&AE<E]O=71P=71?<V5T7V%T7VUO9&5L7W-T87)T                 &]T:&5R7V]U='!U=%]S971?<W=I=&-H:6YG7W1O7VUO9&5L            ;W1H97)?;W5T<'5T7W-E=%]A=%]M;V1E;%]T97)M:6YA=&EO;@        !O=&AE<E]O=71P=71?<V5T7W-W:71C:&EN9U]F<F]M7VUO9&5L          X    P    !@    @    $          4    (     0    $    !         !   0 P    #@   #     &    \"     0         !0    @               $         $          .    ,     8    (    !          %    \"     $    #     0         0  , ,#HQ  X    X    !@    @    $          4    (     0    4    !         !     %    6S @,%T    .    .     8    (    !@         %    \"     $    !     0         )    \"            / _#@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    $          4    (     0    ,    !         !   P P.C< #@   #     &    \"     0         !0    @    !     @    $         $  \" #$P   .    ,     8    (    !          %    \"     $    #     0         0  , +3$P  X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #     &    \"     0         !0    @    !     P    $         $  # # Z-P .    ,     8    (    !          %    \"     $    \"     0         0  ( ,3    X    P    !@    @    $          4    (     0    ,    !         !   P M,3  #@   #     &    \"     0         !0    @    !     0    $         $  ! #     .    ,     8    (    !          %    \"     $    !     0         0  $ ,     X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @           #P/PX    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"            / _#@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    !     0         0  $ ,0    X    P    !@    @    $          4    (     0    $    !         !   0 Q    #@   #@    &    \"     8         !0    @    !     0    $         \"0    @           #P/PX    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"            / _#@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    $          4    (     0    ,    !         !   P P.C< #@   #     &    \"     0         !0    @    !     0    $         $  ! #0    .    0     8    (    !          %    \"     $    ,     0         0    #    \"@Q+S$R,&4M.2DO,0     .    ,     8    (    !          %    \"     $    !     0         0  $ ,     X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @           #P/PX    X    !@    @    &          4    (     0    $    !          D    (               .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    P    !@    @    $          4    (     0    $    !         !   0 P    #@   $     &    \"     0         !0    @    !    #@    $         $     X    H,2\\V,&4M.2DO,3 R-   #@   #     &    \"     0         !0    @    !     0    $         $  ! #     .    ,     8    (    !          %    \"     $    !     0         0  $ ,     X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @           #P/PX    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"            / _#@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @           #P/PX    X    !@    @    &          4    (     0    $    !          D    (               .    ^!8   8    (     @         %    \"     $    !     0         %  0 +     $   \"@\"0  :61E;G1I9FEE<@                                            !O<'1I;VYS                                                 &-L;V-K<P                                                  8VQO8VM?;6]D97,                                           !C;&]C:U]S971?<&%R86US7V%T7VUO9&5L7W-T87)T                 &-L;V-K7W-E=%]P87)A;7-?<W=I=&-H:6YG7W1O7VUO9&5L            86YA;&]G7VEN<'5T7V-H86YN96QS                              !A;F%L;V=?:6YP=71?;6%X:6UU;7,                              &%N86QO9U]I;G!U=%]M:6YI;75M<P                              86YA;&]G7VEN<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0       !A;F%L;V=?:6YP=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P  &%N86QO9U]O=71P=71?8VAA;FYE;',                             86YA;&]G7V]U='!U=%]M87AI;75M<P                            !A;F%L;V=?;W5T<'5T7VUI;FEM=6US                             &%N86QO9U]O=71P=71?:6YI=&EA;                               86YA;&]G7V]U='!U=%]F:6YA;                                 !A;F%L;V=?;W5T<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0      &%N86QO9U]O=71P=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P 86YA;&]G7V]U='!U=%]S971?871?;6]D96Q?<W1A<G0               !A;F%L;V=?;W5T<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P          &%N86QO9U]O=71P=71?<V5T7V%T7VUO9&5L7W1E<FUI;F%T:6]N        86YA;&]G7V]U='!U=%]S971?<W=I=&-H:6YG7V9R;VU?;6]D96P       !D:6=I=&%L7VEN<'5T7V-H86YN96QS                             &1I9VET86Q?;W5T<'5T7V-H86YN96QS                            9&EG:71A;%]O=71P=71?:6YI=&EA;                             !D:6=I=&%L7V]U='!U=%]F:6YA;                                &1I9VET86Q?;W5T<'5T7W-E=%]A=%]M;V1E;%]S=&%R=               9&EG:71A;%]O=71P=71?<V5T7W-W:71C:&EN9U]T;U]M;V1E;         !D:6=I=&%L7V]U='!U=%]S971?871?;6]D96Q?=&5R;6EN871I;VX      &1I9VET86Q?;W5T<'5T7W-E=%]S=VET8VAI;F=?9G)O;5]M;V1E;       96YC;V1E<E]I;G!U=%]C:&%N;F5L<P                            !E;F-O9&5R7VEN<'5T7W%U861R871U<F4                          &5N8V]D97)?:6YP=71?9G)E<75E;F-Y                            96YC;V1E<E]I;G!U=%]I;FET:6%L                              !E;F-O9&5R7VEN<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0      &5N8V]D97)?:6YP=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P 96YC;V1E<E]I;G!U=%]S971?871?;6]D96Q?<W1A<G0               !E;F-O9&5R7VEN<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P          '!W;5]O=71P=71?8VAA;FYE;',                                 <'=M7V]U='!U=%]M;V1E<P                                    !P=VU?;W5T<'5T7V9R97%U96YC>0                               '!W;5]O=71P=71?:6YI=&EA;                                   <'=M7V]U='!U=%]F:6YA;                                     !P=VU?;W5T<'5T7W-E=%]P87)A;7-?871?;6]D96Q?<W1A<G0          '!W;5]O=71P=71?<V5T7W!A<F%M<U]S=VET8VAI;F=?=&]?;6]D96P     <'=M7V]U='!U=%]S971?871?;6]D96Q?<W1A<G0                   !P=VU?;W5T<'5T7W-E=%]S=VET8VAI;F=?=&]?;6]D96P              '!W;5]O=71P=71?<V5T7V%T7VUO9&5L7W1E<FUI;F%T:6]N            <'=M7V]U='!U=%]S971?<W=I=&-H:6YG7V9R;VU?;6]D96P           !O=&AE<E]O=71P=71?8VAA;FYE;',                              &]T:&5R7V]U='!U=%]I;FET:6%L                                ;W1H97)?;W5T<'5T7V9I;F%L                                  !O=&AE<E]O=71P=71?<V5T7V%T7VUO9&5L7W-T87)T                 &]T:&5R7V]U='!U=%]S971?<W=I=&-H:6YG7W1O7VUO9&5L            ;W1H97)?;W5T<'5T7W-E=%]A=%]M;V1E;%]T97)M:6YA=&EO;@        !O=&AE<E]O=71P=71?<V5T7W-W:71C:&EN9U]F<F]M7VUO9&5L          X    P    !@    @    $          4    (     0    $    !         !   0 P    #@   #     &    \"     0         !0    @               $         $          .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    ,     8    (    !          %    \"     $    #     0         0  , ,#HQ  X    P    !@    @    $          4    (     0    (    !         !   @ Q,   #@   #     &    \"     0         !0    @    !     P    $         $  # \"TQ,  .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    ,     8    (    !          %    \"     $    #     0         0  , ,#HR  X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    ,     8    (    !          %    \"     $    #     0         0  , ,#HR  X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    !     0         0  $ ,     X    P    !@    @    $          4    (     0    $    !         !   0 P    #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"            / _#@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (            \\#\\.    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #     &    \"     0         !0    @    !     @    $         $  \" %M=   .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   X    P    !@    @    $          4    (     0    (    !         !   @!;70  #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    X    !@    @    &          4    (     0    $    !          D    (               .    .     8    (    !@         %    \"     $    !     0         )    \"               #@   #@    &    \"     8         !0    @    !     0    $         \"0    @               X    P    !@    @    ) @        4    (     0    $    !          (  0      "
+  }
+}
+# Finite State Machines
+#
+#    Stateflow Version 6.7 (R2007b) dated Aug  7 2007, 16:48:14
+#
+#
+
+
+Stateflow {
+  machine {
+    id			    1
+    name		    "Force_Rendering"
+    created		    "27-Jun-2008 12:16:01"
+    isLibrary		    0
+    firstTarget		    33
+    sfVersion		    67014000.000001
+  }
+  chart {
+    id			    2
+    name		    "Omni/Torque to PWM/Smart Saturation"
+    windowPosition	    [422.039 248.766 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1680 1050 1.333333333333333]
+    treeNode		    [0 3 0 0]
+    firstTransition	    5
+    firstJunction	    4
+    viewObj		    2
+    machine		    1
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    6
+    chartFileNumber	    3
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function y = fcn(u)\n% Smart Saturation: allows channels to go up to 1.6A \n% unless the total exceeds 2.2A in which case all channels\n% are scaled so that the cumulative current is equal to 2.2A.\n\ny = zeros(3,1);\nMAX_CURRENT = 2.2; % Define the maximum cumulative current here\n\ntotal = sum(abs(u));\nif (total > MAX_CURRENT)\n    y = MAX_CURRENT/total*u;\nelse\n    y = u;\nend"
+      editorLayout	      "100 M4x1[314 15 838 627]"
+    }
+  }
+  junction {
+    id			    4
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    5
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      4
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    2
+    drawStyle		    SMART
+    executionOrder	    1
+  }
+  data {
+    id			    6
+    name		    "u"
+    linkNode		    [2 0 7]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    7
+    name		    "y"
+    linkNode		    [2 6 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"3"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  instance {
+    id			    8
+    name		    "Omni/Torque to PWM/Smart Saturation"
+    machine		    1
+    chart		    2
+  }
+  chart {
+    id			    9
+    name		    "Omni/Torque to PWM/Joint Torque to\nMotor Torque"
+    windowPosition	    [411.812 188 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1680 1050 1.333333333333333]
+    treeNode		    [0 10 0 0]
+    firstTransition	    12
+    firstJunction	    11
+    viewObj		    9
+    machine		    1
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    13
+    chartFileNumber	    4
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+      noDebugging	      1
+    }
+  }
+  state {
+    id			    10
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    9
+    treeNode		    [9 0 0 0]
+    superState		    SUBCHART
+    subviewer		    9
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function y = fcn( t)\n% Smart Saturation: allows channels to go up to 1.6A \n% unless the total exceeds 2.2A in which case all channels\n% are scaled so that the cumulative current is equal to 2.2A.\ny=[0 0 0]'\n\ny(1)=t(1);\ny(3)=t(3);\ny(2)=t(2)-t(3);\n\n\nend"
+      editorLayout	      "100 M4x1[314 15 838 627]"
+    }
+  }
+  junction {
+    id			    11
+    position		    [23.5747 49.5747 7]
+    chart		    9
+    linkNode		    [9 0 0]
+    subviewer		    9
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    12
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      11
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    9
+    linkNode		    [9 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    9
+    drawStyle		    SMART
+    executionOrder	    1
+  }
+  data {
+    id			    13
+    name		    "t"
+    linkNode		    [9 0 14]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    14
+    name		    "y"
+    linkNode		    [9 13 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  instance {
+    id			    15
+    name		    "Omni/Torque to PWM/Joint Torque to\nMotor Torque"
+    machine		    1
+    chart		    9
+  }
+  chart {
+    id			    16
+    name		    "Omni/Forward Kinematics "
+    windowPosition	    [474.879 216.305 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1680 1050 1.333333333333333]
+    treeNode		    [0 17 0 0]
+    firstTransition	    19
+    firstJunction	    18
+    viewObj		    16
+    machine		    1
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    20
+    chartFileNumber	    5
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    17
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    16
+    treeNode		    [16 0 0 0]
+    superState		    SUBCHART
+    subviewer		    16
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [pos,Rot,Jac]    = fcn(q,tool_offset)\n% This block supports the Embedded MATLAB subset.\n% See the help menu for details. \n\n% Link lengths\nL1 = .132;\nL2 = .132;\n\n%Define A-matrices\n%A1= DH(a_i ,alpha_i    ,d_i    ,theta_i)\nA1 = DH(0   ,-pi()/2    ,0      ,q(1));\nA2 = DH(L1  ,0          ,0      ,q(2));\nA3 = DH(L2   ,0     ,0     ,q(3)-pi/2);\n\n%Define T Matrices\nT01=A1;\nT02=T01*A2;\nT03=T02*A3;\n\n%Axes of rotation in base coordinates. \n\nz0=[0 0 1]';\nz1=T01(1:3,3);\nz2=T02(1:3,3);\n\n%Coordinate Frame origins in Base frame coordinates\n\np0=[0 0 0]';\np1=T01(1:3,4);\np2=T02(1:3,4);\np3=T03(1:3,4);\n\n\n%tool_offset given with respect to frame 3.\nT_tool=T03*tool_offset;\nRot=T03(1:3,1:3);\npos=T_tool(1:3,4);\n\n%Formulation of the Jacobian\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%JACOBIAN%%%%%%%%%%%%%%%%%%%%%%%%\nJac = [cross(z0,(pos-p0)) cross(z1,(pos-p1)) cross(z2,(pos-p2))\n    z0 z1 z2];\n\nend\n\nfunction A = DH(a_x, alpha_x, d_z, theta_z)\n\nA_R_z = [cos(theta_z) -sin(theta_z) 0 0;\n         sin(theta_z) cos(theta_z) 0 0;\n         0 0 1 0;\n         0 0 0 1];\n\nA_T_z = [1 0 0 0;\n         0 1 0 0;\n         0 0 1 d_z;\n         0 0 0 1];\n     \n  \n\nA_T_x = [1 0 0 a_x;\n         0 1 0 0;\n         0 0 1 0;\n         0 0 0 1];\n\nA_R_x = [1 0 0 0;\n         0 cos(alpha_x) -sin(alpha_x)  0;\n         0 sin(alpha_x) cos(alpha_x) 0;\n         0 0 0 1];\n\nA = A_R_z*A_T_z*A_T_x*A_R_x;\n\nend"
+      editorLayout	      "100 M4x1[358 594 838 627]"
+    }
+  }
+  junction {
+    id			    18
+    position		    [23.5747 49.5747 7]
+    chart		    16
+    linkNode		    [16 0 0]
+    subviewer		    16
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    19
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      18
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    16
+    linkNode		    [16 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    16
+    drawStyle		    SMART
+    executionOrder	    1
+  }
+  data {
+    id			    20
+    name		    "pos"
+    linkNode		    [16 0 21]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    21
+    name		    "q"
+    linkNode		    [16 20 22]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    22
+    name		    "Rot"
+    linkNode		    [16 21 23]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    23
+    name		    "tool_offset"
+    linkNode		    [16 22 24]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "inherited"
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    24
+    name		    "Jac"
+    linkNode		    [16 23 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  instance {
+    id			    25
+    name		    "Omni/Forward Kinematics "
+    machine		    1
+    chart		    16
+  }
+  chart {
+    id			    26
+    name		    "Omni/Encoders to Joints q1, q2, q3/Embedded\nMATLAB Function"
+    windowPosition	    [419.896 274.011 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1680 1050 1.333333333333333]
+    treeNode		    [0 27 0 0]
+    firstTransition	    29
+    firstJunction	    28
+    viewObj		    26
+    machine		    1
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    30
+    chartFileNumber	    8
+    disableImplicitCasting  1
+    eml {
+      name		      "Motors_2_Joints"
+    }
+  }
+  state {
+    id			    27
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    26
+    treeNode		    [26 0 0 0]
+    superState		    SUBCHART
+    subviewer		    26
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function q = Motors_2_Joints(m)\nq = m;\nq(1) = m(1);\nq(2) = m(2);\nq(3) = m(3) - m(2) -pi/2;\nend"
+      editorLayout	      "100 M4x1[314 15 838 627]"
+    }
+  }
+  junction {
+    id			    28
+    position		    [23.5747 49.5747 7]
+    chart		    26
+    linkNode		    [26 0 0]
+    subviewer		    26
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    29
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      28
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    26
+    linkNode		    [26 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    26
+    drawStyle		    SMART
+    executionOrder	    1
+  }
+  data {
+    id			    30
+    name		    "m"
+    linkNode		    [26 0 31]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  data {
+    id			    31
+    name		    "q"
+    linkNode		    [26 30 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "inherited"
+    fixptType {
+      slope		      1
+      baseType		      SF_INT16_TYPE
+    }
+    complexity		    SF_COMPLEX_INHERITED
+  }
+  instance {
+    id			    32
+    name		    "Omni/Encoders to Joints q1, q2, q3/Embedded\nMATLAB Function"
+    machine		    1
+    chart		    26
+  }
+  target {
+    id			    33
+    name		    "sfun"
+    description		    "Default Simulink S-Function Target."
+    machine		    1
+    linkNode		    [1 0 34]
+  }
+  target {
+    id			    34
+    name		    "rtw"
+    codeFlags		    " comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 elseifdetection=1 constantfolding=1 redundantloadelimination=0 preservenames=0 preservenameswithparent=0 exportcharts=0"
+    machine		    1
+    linkNode		    [1 33 0]
+  }
+}

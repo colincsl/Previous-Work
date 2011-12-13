@@ -1,0 +1,290 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDefines(block,system) void
+   %openfile chartConstBuf
+   %closefile chartConstBuf
+   %return chartConstBuf
+%endfunction %% ChartDefines
+%function ChartFunctions(block,system) void
+   %openfile chartFcnsBuf
+     %assign junkVal = LibGenMathFcnCall("cos",FcnGetDataTypeIdFromName("double"),"0.0","")
+%assign junkVal = LibGenMathFcnCall("sin",FcnGetDataTypeIdFromName("double"),"0.0","")
+            
+            
+            
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartFunctions
+%function ChartFunctionProtos(block,system,oFile) void
+   %openfile prototypesBuf
+   %closefile prototypesBuf
+   %<SLibSetModelFileAttribute(oFile,"FcnPrototypes",prototypesBuf)>
+%endfunction %% ChartFunctionProtos
+%function ChartSharedFunctions(block,system) void
+   %openfile chartFcnsBuf
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartSharedFunctions
+%function Outputs(block,system) void
+   %openfile codeBuf
+    
+{
+real_T eml_theta_z;
+real_T eml_dv0[16];
+int32_T eml_i0;
+static boolean_T eml_bv0[4] = { false, false, true, false };
+static boolean_T eml_bv1[4] = { false, false, false, true };
+real_T eml_theta_z_0;
+real_T eml_dv1[16];
+int32_T eml_i1;
+real_T eml_dv2[16];
+int32_T eml_i2;
+static boolean_T eml_bv2[16] = { true, false, false, false, false, true, false, false, false, false, true, false, false, false, false, true };
+real_T eml_dv3[16];
+real_T eml_A1[16];
+static real_T eml_A_R_x[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 6.1232339957367660E-017, -1.0, 0.0, 0.0, 1.0, 6.1232339957367660E-017, 0.0, 0.0, 0.0, 0.0, 1.0 };
+real_T eml_dv4[16];
+real_T eml_dv5[16];
+static real_T eml_A_T_x[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.132, 0.0, 0.0, 1.0 };
+real_T eml_dv6[16];
+real_T eml_dv7[16];
+real_T eml_T02[16];
+real_T eml_dv8[16];
+real_T eml_dv9[16];
+real_T eml_dv10[16];
+real_T eml_T03[16];
+real_T eml_z1[3];
+real_T eml_z2[3];
+real_T eml_dv11[16];
+real_T eml_b[3];
+real_T eml_b_0[3];
+real_T eml_b_1[3];
+static boolean_T eml_bv3[3] = { false, false, true };
+/* %<" This block supports the Embedded MATLAB subset."> */
+/* %<" See the help menu for details. "> */
+/* %<" Link lengths"> */
+/* %<"Define A-matrices"> */
+/* %<"A1= DH(a_i ,alpha_i    ,d_i    ,theta_i)"> */
+eml_theta_z = %<LibSFInputs(block, 0, 0)>;
+eml_dv0[0] = cos(eml_theta_z);
+eml_dv0[4] = -sin(eml_theta_z);
+eml_dv0[8] = 0.0;
+eml_dv0[12] = 0.0;
+eml_dv0[1] = sin(eml_theta_z);
+eml_dv0[5] = cos(eml_theta_z);
+eml_dv0[9] = 0.0;
+eml_dv0[13] = 0.0;
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv0[2 + (eml_i0 << 2)] = (real_T)eml_bv0[eml_i0];
+eml_dv0[3 + (eml_i0 << 2)] = (real_T)eml_bv1[eml_i0];
+}
+eml_theta_z = %<LibSFInputs(block, 0, 1)>;
+eml_theta_z_0 = %<LibSFInputs(block, 0, 2)> - 1.5707963267948966E+000;
+/* %<"Define T Matrices"> */
+eml_dv1[0] = cos(eml_theta_z);
+eml_dv1[4] = -sin(eml_theta_z);
+eml_dv1[8] = 0.0;
+eml_dv1[12] = 0.0;
+eml_dv1[1] = sin(eml_theta_z);
+eml_dv1[5] = cos(eml_theta_z);
+eml_dv1[9] = 0.0;
+eml_dv1[13] = 0.0;
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv2[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv2[eml_i1 + (eml_i0 << 2)] += eml_dv0[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv3[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv3[eml_i1 + (eml_i0 << 2)] += eml_dv2[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_A1[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_A1[eml_i1 + (eml_i0 << 2)] += eml_dv3[eml_i1 + (eml_i2 << 2)] * eml_A_R_x[eml_i2 + (eml_i0 << 2)];
+}
+}
+eml_dv1[2 + (eml_i1 << 2)] = (real_T)eml_bv0[eml_i1];
+eml_dv1[3 + (eml_i1 << 2)] = (real_T)eml_bv1[eml_i1];
+}
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv4[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv4[eml_i1 + (eml_i0 << 2)] += eml_dv1[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv5[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv5[eml_i1 + (eml_i0 << 2)] += eml_dv4[eml_i1 + (eml_i2 << 2)] * eml_A_T_x[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv6[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv6[eml_i1 + (eml_i0 << 2)] += eml_dv5[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+}
+eml_dv7[0] = cos(eml_theta_z_0);
+eml_dv7[4] = -sin(eml_theta_z_0);
+eml_dv7[8] = 0.0;
+eml_dv7[12] = 0.0;
+eml_dv7[1] = sin(eml_theta_z_0);
+eml_dv7[5] = cos(eml_theta_z_0);
+eml_dv7[9] = 0.0;
+eml_dv7[13] = 0.0;
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_T02[eml_i0 + (eml_i2 << 2)] = 0.0;
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+eml_T02[eml_i0 + (eml_i2 << 2)] += eml_A1[eml_i0 + (eml_i1 << 2)] * eml_dv6[eml_i1 + (eml_i2 << 2)];
+}
+}
+eml_dv7[2 + (eml_i0 << 2)] = (real_T)eml_bv0[eml_i0];
+eml_dv7[3 + (eml_i0 << 2)] = (real_T)eml_bv1[eml_i0];
+}
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv8[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv8[eml_i1 + (eml_i0 << 2)] += eml_dv7[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv9[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv9[eml_i1 + (eml_i0 << 2)] += eml_dv8[eml_i1 + (eml_i2 << 2)] * eml_A_T_x[eml_i2 + (eml_i0 << 2)];
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+eml_dv10[eml_i1 + (eml_i0 << 2)] = 0.0;
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv10[eml_i1 + (eml_i0 << 2)] += eml_dv9[eml_i1 + (eml_i2 << 2)] * (real_T)eml_bv2[eml_i2 + (eml_i0 << 2)];
+}
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_T03[eml_i0 + (eml_i2 << 2)] = 0.0;
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+eml_T03[eml_i0 + (eml_i2 << 2)] += eml_T02[eml_i0 + (eml_i1 << 2)] * eml_dv10[eml_i1 + (eml_i2 << 2)];
+}
+}
+}
+/* %<"Axes of rotation in base coordinates. "> */
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+eml_z1[eml_i0] = eml_A1[eml_i0 + 8];
+eml_z2[eml_i0] = eml_T02[eml_i0 + 8];
+/* %<"Coordinate Frame origins in Base frame coordinates"> */
+/* %<"tool_offset given with respect to frame 3."> */
+for(eml_i2 = 0; eml_i2 < 3; eml_i2++) {
+%<LibSFAssignOutput(block, 2, "eml_i2 + 3 * eml_i0", "eml_T03[eml_i2 + (eml_i0 << 2)]")>
+}
+}
+for(eml_i0 = 0; eml_i0 < 4; eml_i0++) {
+for(eml_i2 = 0; eml_i2 < 4; eml_i2++) {
+eml_dv11[eml_i0 + (eml_i2 << 2)] = 0.0;
+for(eml_i1 = 0; eml_i1 < 4; eml_i1++) {
+eml_dv11[eml_i0 + (eml_i2 << 2)] += eml_T03[eml_i0 + (eml_i1 << 2)] * %<LibSFInputs(block, 1, "eml_i1 + (eml_i2 << 2)")>;
+}
+}
+}
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+%<LibSFAssignOutput(block, 1, "eml_i0", "eml_dv11[eml_i0 + 12]")>
+/* %<"Formulation of the Jacobian"> */
+/* %<"\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%JACOBIAN\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%"> */
+eml_b[eml_i0] = %<LibSFOutput(block, 1, "eml_i0")> - eml_T02[eml_i0 + 12];
+eml_b_0[eml_i0] = %<LibSFOutput(block, 1, "eml_i0")> - eml_A1[eml_i0 + 12];
+eml_b_1[eml_i0] = %<LibSFOutput(block, 1, "eml_i0")>;
+}
+%<LibSFAssignOutput(block, 3, "0", "0.0 * eml_b_1[2] - eml_b_1[1]")>
+%<LibSFAssignOutput(block, 3, "1", "eml_b_1[0] - 0.0 * eml_b_1[2]")>
+%<LibSFAssignOutput(block, 3, "2", "0.0 * eml_b_1[1] - 0.0 * eml_b_1[0]")>
+%<LibSFAssignOutput(block, 3, "6", "eml_z1[1] * eml_b_0[2] - eml_z1[2] * eml_b_0[1]")>
+%<LibSFAssignOutput(block, 3, "7", "eml_z1[2] * eml_b_0[0] - eml_z1[0] * eml_b_0[2]")>
+%<LibSFAssignOutput(block, 3, "8", "eml_z1[0] * eml_b_0[1] - eml_z1[1] * eml_b_0[0]")>
+%<LibSFAssignOutput(block, 3, "12", "eml_z2[1] * eml_b[2] - eml_z2[2] * eml_b[1]")>
+%<LibSFAssignOutput(block, 3, "13", "eml_z2[2] * eml_b[0] - eml_z2[0] * eml_b[2]")>
+%<LibSFAssignOutput(block, 3, "14", "eml_z2[0] * eml_b[1] - eml_z2[1] * eml_b[0]")>
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+%<LibSFAssignOutput(block, 3, "eml_i0 + 3", "(real_T)eml_bv3[eml_i0]")>
+}
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+%<LibSFAssignOutput(block, 3, "eml_i0 + 9", "eml_z1[eml_i0]")>
+}
+for(eml_i0 = 0; eml_i0 < 3; eml_i0++) {
+%<LibSFAssignOutput(block, 3, "eml_i0 + 15", "eml_z2[eml_i0]")>
+}
+}
+   %closefile codeBuf
+   %return codeBuf
+%endfunction  %% Outputs
+%function InlinedInitializerCode(block,system) Output
+   %<SLibResetSFChartInstanceAccessed(block)>\
+   %openfile initBodyBuf
+      %<LibSFAssignDWork(block, 1, "0", "0U")>
+
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Initialize code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+
+%function EnableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Enable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DisableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Disable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DumpSharedUtils(block,system) void
+%endfunction
+
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    UnifiedDWork   1\
+    NumChartData   2 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "doneDoubleBufferReInit"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_active_c5_Gravity_Well"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

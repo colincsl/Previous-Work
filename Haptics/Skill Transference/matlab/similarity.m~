@@ -1,0 +1,15 @@
+function [ output_args ] = similarity( pos_a, pos_b )
+%SIMILARITY Summary of this function goes here
+%   Detailed explanation goes here
+
+
+if 
+    
+    
+else
+    display('Inputs are not equal length)
+end
+
+
+end
+

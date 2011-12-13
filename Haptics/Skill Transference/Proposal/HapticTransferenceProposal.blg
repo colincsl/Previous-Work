@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009)
+The top-level auxiliary file: HapticTransferenceProposal.aux
+The style file: plain.bst
+Database file #1: prop_papers.bib
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            531 strings with 5174 characters,
+and the built_in function-call counts, 1912 in all, are:
+= -- 188
+> -- 100
+< -- 2
++ -- 40
+- -- 34
+* -- 133
+:= -- 319
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 32
+chr.to.int$ -- 0
+cite$ -- 5
+duplicate$ -- 74
+empty$ -- 128
+format.name$ -- 34
+if$ -- 399
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 28
+num.names$ -- 10
+pop$ -- 28
+preamble$ -- 1
+purify$ -- 27
+quote$ -- 0
+skip$ -- 63
+stack$ -- 0
+substring$ -- 110
+swap$ -- 25
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 0
+while$ -- 18
+width$ -- 6
+write$ -- 56

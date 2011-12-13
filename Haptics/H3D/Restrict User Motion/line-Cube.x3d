@@ -1,0 +1,16 @@
+<Group>
+	<PositionFunctionEffect>
+		<GeneralFunction containerField="xFunction" function="-400*x" params="x,y,z"/>
+		<GeneralFunction containerField="yFunction" function="-0*y" params="x,y,z"/>
+		<GeneralFunction containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+	<Shape>
+		<Box size=".1 .1 .1"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+			<SmoothSurface/>
+
+		</Appearance>
+	</Shape>
+</Group>

@@ -1,0 +1,99 @@
+<Group>
+  <Viewpoint position=".1 0 .4" />
+  
+<Transform>
+  <DynamicTransform DEF="BP" angularMomentum = "0.5 0.0 0.0">
+  <Shape>
+    <Appearance>
+      <Material DEF="M1"/>
+	<SmoothSurface stiffness="2.0"/>
+    </Appearance>
+    <Box size="0.1 0.1 0.1" />
+  </Shape>
+  </DynamicTransform>
+
+  <DynamicTransform DEF="SP">
+  <Shape>
+    <Appearance>
+      <Material DEF="M2"/>
+	<FrictionalSurface stiffness="2.0"/>
+    </Appearance>
+    <Sphere DEF="SPHERE" />
+  </Shape>
+  </DynamicTransform>
+
+	<ParticleSystem DEF="PART" enabled="TRUE" maxParticles="2000" particleLifetime="1.5"  colorKey="0 .5 1" particleSize=".002 .002" geometryType="LINE">
+	<!-- Particles -->
+		<Color containerField="colorRamp" color="1 1 1, 1 0 0, 0 1 1" />
+		<ConeEmitter speed = ".1" mass="1"/>
+		<Appearance/>
+	</ParticleSystem>
+</Transform>
+
+<!-- Mouse input -->
+<MouseSensor DEF="MOUSE" />
+
+<!-- PYTHON SCRIPT -->
+<PythonScript DEF="PS" url="S_C-dynamics.py" />
+
+<ROUTE fromNode="MOUSE" fromField="leftButton" toNode="PS" toField="test"/>
+<!--
+<ROUTE fromNode="MOUSE" fromField="rightButton" toNode="PS" toField="test"/>
+-->
+<ROUTE fromNode="PS" fromField="test" toNode="SPHERE" toField="radius"/>
+
+
+<!-- TIMEBASE -->
+<TimeSensor DEF="T1" cycleInterval="10" enabled="true" loop="true" />
+<TimeSensor DEF="T2" cycleInterval= "4" enabled="true" loop="true" />
+
+<!--COLOR + POSITION INERTERP -->
+<ColorInterpolator DEF="C1" key="0 .25 .5 .75 1" keyValue="0 0 0, 1 1 1, 0 0 0, 1 1 1, 0 0 0"/>
+<ColorInterpolator DEF="C2" key="0 .33 .66 1" keyValue="0 0 0, 1 1 0, 1 0 0, 0 0 0"/>
+
+<PositionInterpolator DEF="P1" key="0 .33 .66 1" keyValue="0 0 0, .5 0 0, .25 .5 0, 0 0 0" />
+<PositionInterpolator DEF="P2" key="0 .33 .66 1" keyValue=".1 0 0, .6 0 0, .35 .5 0,.1 0 0" />
+
+
+<!-- ROUTE colors-->
+<ROUTE fromNode="T1" fromField="fraction_changed" toNode="C1" toField="set_fraction" />
+<ROUTE fromNode="T2" fromField="fraction_changed" toNode="C2" toField="set_fraction" />
+
+<ROUTE fromNode="C1" fromField="value_changed" toNode="M1" toField="diffuseColor" />
+<ROUTE fromNode="C2" fromField="value_changed" toNode="M2" toField="diffuseColor" />
+
+
+<!--ROUTE positions-->
+<ROUTE fromNode="T1" fromField="fraction_changed" toNode="P1" toField="set_fraction" />
+<ROUTE fromNode="T2" fromField="fraction_changed" toNode="P2" toField="set_fraction" />
+
+<ROUTE fromNode="P1" fromField="value_changed" toNode="BP" toField="position" />
+<ROUTE fromNode="P2" fromField="value_changed" toNode="SP" toField="position" />
+
+
+<!--
+ <TimeSensor DEF="T" cycleInterval="5" enabled="true" loop="true" />
+  <ColorInterpolator DEF="CI" key ="0 0.333 0.666 1" keyValue="1 0 0, 1 	1 0, 0 0 1, 1 0 0"/>
+  <PositionInterpolator DEF="PI" key="0 0.25 0.5 0.9 1" keyValue="0 0 	0, 0.25 0 0, .25 .25 0, 0 .25 0, 0 0 0"/>
+  <ROUTE fromNode="T" fromField="fraction_changed" toNode="CI" 	toField="set_fraction" />
+  <ROUTE fromNode="T" fromField="fraction_changed" toNode="PI" 	toField="set_fraction" />
+  <ROUTE fromNode="CI" fromField="value_changed" toNode="M" 	toField="diffuseColor" />
+  <ROUTE fromNode="PI" fromField="value_changed" toNode="B" 	toField="position" />
+-->
+
+
+
+
+
+</Group>
+
+
+
+
+<!--  <PythonScript DEF="PS" url="Sphere.py" />
+  <MouseSensor DEF="MS" />
+
+  <ROUTE fromNode="MS" fromField="leftButton" 
+         toNode="PS" toField="color" />
+  <ROUTE fromNode="PS" fromField="color" 
+         toNode="MATERIAL" toField="diffuseColor" /> -->

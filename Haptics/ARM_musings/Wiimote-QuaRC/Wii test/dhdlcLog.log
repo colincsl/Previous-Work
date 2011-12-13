@@ -1,0 +1,9 @@
+[dhdlcImp::dhdlcImp():10.24.20.0096] - Constructor called
+[dhdlcImp::init():10.24.20.0098] - init(Default Falcon,(null))
+[dhdlcImp::init():10.24.20.0401] - dhdOpen() returned -23
+[dhdlcImp::init():10.33.08.4052] - init(Default Falcon,(null))
+[dhdlcImp::init():10.33.08.4192] - dhdOpen() returned -23
+[dhdlcImp::init():10.33.30.8647] - init(Default Falcon,(null))
+[dhdlcImp::init():10.33.34.0918] - dhdOpen() returned 0
+[dhdlcImp::init():10.33.34.2460] - DeviceSN = 14101537
+[dhdlcImp::init():10.33.34.2462] - Returning

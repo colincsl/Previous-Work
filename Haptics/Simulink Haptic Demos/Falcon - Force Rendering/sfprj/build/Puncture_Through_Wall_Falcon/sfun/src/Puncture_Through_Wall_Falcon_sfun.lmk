@@ -1,0 +1,37 @@
+CC     = "c:\program files\matlab\r2007b\sys\lcc\bin\lcc.exe"
+LD     = "c:\program files\matlab\r2007b\sys\lcc\bin\lcclnk.exe"
+LIBCMD = "c:\program files\matlab\r2007b\sys\lcc\bin\lcclib.exe"
+CFLAGS = -c -Zp8 -DMATLAB_MEX_FILE -noregistrylookup
+LDFLAGS = -s -dll -L"c:\program files\matlab\r2007b\sys\lcc\lib"
+LIBFLAGS = 
+
+OBJECTS = \
+	"Puncture_Through_Wall_Falcon_sfun.obj"\
+	"Puncture_Through_Wall_Falcon_sfun_registry.obj"\
+	"c1_Puncture_Through_Wall_Falcon.obj"\
+	"c2_Puncture_Through_Wall_Falcon.obj"\
+	"lccstub.obj"\
+	"c:\program files\matlab\r2007b\sys\lcc\mex\lccdef.def"\
+	"c:\program files\matlab\r2007b\stateflow\c\debugger\lib\win32\sfc_debuglcc.lib"\
+	"c:\program files\matlab\r2007b\stateflow\c\mex\lib\win32\sfc_mexlcc.lib"\
+	"c:\program files\matlab\r2007b\extern\lib\win32\lcc\libmex.lib"\
+	"c:\program files\matlab\r2007b\extern\lib\win32\lcc\libmx.lib"\
+	"c:\program files\matlab\r2007b\extern\lib\win32\lcc\libfixedpoint.lib"\
+	"c:\program files\matlab\r2007b\extern\lib\win32\lcc\libut.lib"\
+	"c:\program files\matlab\r2007b\toolbox\dspblks\lib\win32\dsp_dyn_rt_lcc.lib"\
+
+INCLUDE_PATH= -I"c:\program files\matlab\r2007b\sys\lcc\include"  -I"c:\program files\matlab\r2007b\extern\include"  -I"c:\program files\matlab\r2007b\simulink\include"  -I"c:\program files\matlab\r2007b\stateflow\c\mex\include"  -I"c:\program files\matlab\r2007b\stateflow\c\debugger\include"  -I"c:\program files\matlab\r2007b\toolbox\eml\lib\dsp"  -I"d:\colinlea\finish\other demos\falcon - force rendering\sfprj\build\puncture_through_wall_falcon\sfun\src"  -I"d:\colinlea\finish\other demos\falcon - force rendering"  -I"d:\colinlea\matlab\omni bundle preview\experiment files" 
+ 
+
+Puncture_Through_Wall_Falcon_sfun.mexw32 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o Puncture_Through_Wall_Falcon_sfun.mexw32 @Puncture_Through_Wall_Falcon_sfun.lmko
+Puncture_Through_Wall_Falcon_sfun.obj :	"Puncture_Through_Wall_Falcon_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Puncture_Through_Wall_Falcon_sfun.c"
+Puncture_Through_Wall_Falcon_sfun_registry.obj :	"Puncture_Through_Wall_Falcon_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Puncture_Through_Wall_Falcon_sfun_registry.c"
+c1_Puncture_Through_Wall_Falcon.obj :	"c1_Puncture_Through_Wall_Falcon.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_Puncture_Through_Wall_Falcon.c"
+c2_Puncture_Through_Wall_Falcon.obj :	"c2_Puncture_Through_Wall_Falcon.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c2_Puncture_Through_Wall_Falcon.c"
+lccstub.obj :	"c:\program files\matlab\r2007b\sys\lcc\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c:\program files\matlab\r2007b\sys\lcc\mex\lccstub.c"

@@ -1,0 +1,191 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDefines(block,system) void
+   %openfile chartConstBuf
+   %closefile chartConstBuf
+   %return chartConstBuf
+%endfunction %% ChartDefines
+%function ChartFunctions(block,system) void
+   %openfile chartFcnsBuf
+     %assign junkVal = LibGenMathFcnCall("rtIsNaN",FcnGetDataTypeIdFromName("double"),"0.0","")
+%assign junkVal = LibGenMathFcnCall("abs",FcnGetDataTypeIdFromName("double"),"0.0","")
+            
+            
+            
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartFunctions
+%function ChartFunctionProtos(block,system,oFile) void
+   %openfile prototypesBuf
+   %closefile prototypesBuf
+   %<SLibSetModelFileAttribute(oFile,"FcnPrototypes",prototypesBuf)>
+%endfunction %% ChartFunctionProtos
+%function ChartSharedFunctions(block,system) void
+   %openfile chartFcnsBuf
+   %closefile chartFcnsBuf
+   %return chartFcnsBuf
+%endfunction %% ChartSharedFunctions
+%function Outputs(block,system) void
+   %openfile codeBuf
+    
+{
+real_T eml_av;
+int32_T eml_touching;
+boolean_T eml_guard1 = false;
+real_T eml_x;
+real_T eml_dv0[3];
+/* %<"DESCRIPTION---------------------------------------------------------------"> */
+/* %<"Determine the force. The magnitude of the force is penetration into the wall"> */
+/* %<"The direction of force depends on the which of the wall the avatar is on. "> */
+/* %<"The wall is implemented in the x-z"> */
+/* %<"INPUTS--------------------------------------------------------------------"> */
+/* %<"Force_prev - force in the previous sample time"> */
+/* %<"x - position of the avatar"> */
+/* %<"stiffness - stiffness of wall"> */
+/* %<"Fbreak - force required to break the wall"> */
+/* %<"dir_prev - the side of the wall where the avatar was in the previous sample time"> */
+/* %<"dir_flag - the value of flag in the previous sample time. flag is 1 when "> */
+/* %<"the wall is broken, flag is 0 when the wall is solid."> */
+/* %<"OUTPUTS-------------------------------------------------------------------"> */
+/* %<"Force - magnitude and direction of force to be applied"> */
+/* %<"dir - the side of the wall where the avatar is. If the avatar is strictly"> */
+/* %<"on the left dir = -1, if avatar is strictly on the right, dir = 1, else the"> */
+/* %<"avatar is touching or penetrating the wall and keep the previous direction"> */
+/* %<" flag - flag is 1 when the wall is broken , flag is 0 when wall is solid"> */
+/* %<"The y coordinate of the left side of the wall"> */
+/* %<"The y coordinate of teh right side of the wall"> */
+/* %<"The y coordinate of the avatar"> */
+eml_av = %<LibSFInputs(block, 1, 1)>;
+/* %<"declare variables"> */
+%<LibSFAssignOutput(block, 2, "0", "%<LibSFInputs(block, 4, 0)>")>
+for(eml_touching = 0; eml_touching < 3; eml_touching++) {
+%<LibSFAssignOutput(block, 1, "eml_touching", "0.0")>
+}
+%<LibSFAssignOutput(block, 3, "0", "%<LibSFInputs(block, 5, 0)>")>
+eml_guard1 = false;
+if((!(eml_av >= -0.01)) || (!(eml_av <= 0.01))) {
+eml_x = %<LibSFInputs(block, 0, 1)>;
+if((boolean_T)rtIsNaN(eml_x)) {
+eml_x = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+} else if(eml_x > 0.0) {
+eml_x = 1.0;
+} else if(eml_x < 0.0) {
+eml_x = -1.0;
+}
+if(eml_x == %<LibSFInputs(block, 4, 0)>) {
+eml_guard1 = true;
+} else {
+eml_touching = 0;
+}
+} else {
+eml_guard1 = true;
+}
+if(eml_guard1 == true) {
+/* %<"If inside the wall or pushing agains the wall, touching = 1, else 0. touching"> */
+/* %<"indicates when the wall is being touched."> */
+eml_touching = 1;
+}
+if(%<LibSFInputs(block, 5, 0)> == 1.0) {
+/* %<"if the wall is broken, keep its state as broken, until the avatar is completly"> */
+/* %<"on one side of teh wall and not inside it."> */
+%<LibSFAssignOutput(block, 3, "0", "1.0")>
+if((eml_av < -0.01) || (eml_av > 0.01)) {
+%<LibSFAssignOutput(block, 3, "0", "0.0")>
+}
+}
+if((%<LibSFInputs(block, 4, 0)> == -1.0) && (eml_touching != 0) && (eml_av > -0.01) && (%<LibSFOutput(block, 3, "0")> == 0.0)) {
+/* %<" If the wall is solid and the avatar is touchign the wall"> */
+/* %<"Calcualte the force based on the side of the wall the avatar is."> */
+eml_x = %<LibSFInputs(block, 4, 0)> * %<LibSFInputs(block, 2, 0)>;
+eml_dv0[0] = 0.0;
+eml_dv0[1] = eml_av - -0.01;
+eml_dv0[2] = 0.0;
+for(eml_touching = 0; eml_touching < 3; eml_touching++) {
+%<LibSFAssignOutput(block, 1, "eml_touching", "eml_x * eml_dv0[eml_touching]")>
+}
+} else if((%<LibSFInputs(block, 4, 0)> == 1.0) && (eml_touching != 0) && (eml_av < 0.01) && (%<LibSFOutput(block, 3, "0")> == 0.0)) {
+eml_x = %<LibSFInputs(block, 4, 0)> * %<LibSFInputs(block, 2, 0)>;
+eml_dv0[0] = 0.0;
+eml_dv0[1] = fabs(eml_av - 0.01);
+eml_dv0[2] = 0.0;
+for(eml_touching = 0; eml_touching < 3; eml_touching++) {
+%<LibSFAssignOutput(block, 1, "eml_touching", "eml_x * eml_dv0[eml_touching]")>
+}
+}
+if(fabs(%<LibSFOutput(block, 1, "1")>) >= %<LibSFInputs(block, 3, 0)>) {
+/* %<"If force is above break force, change the status of the wall to broken"> */
+%<LibSFAssignOutput(block, 3, "0", "1.0")>
+}
+if(eml_av < -0.01) {
+/* %<" if avatar is on the left, dir = -1, elseif avatar is on theright dir = 1"> */
+%<LibSFAssignOutput(block, 2, "0", "-1.0")>
+} else if(eml_av > 0.01) {
+%<LibSFAssignOutput(block, 2, "0", "1.0")>
+}
+}
+   %closefile codeBuf
+   %return codeBuf
+%endfunction  %% Outputs
+%function InlinedInitializerCode(block,system) Output
+   %<SLibResetSFChartInstanceAccessed(block)>\
+   %openfile initBodyBuf
+      %<LibSFAssignDWork(block, 1, "0", "0U")>
+
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Initialize code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+
+%function EnableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Enable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DisableUnboundOutputEventsCode(block,system) Output
+   %openfile initBodyBuf
+      
+   %closefile initBodyBuf
+   %if !WHITE_SPACE(initBodyBuf)
+      /* Disable code for chart: '%<LibGetBlockName(block)>' */
+      %<initBodyBuf>\
+   %endif
+%endfunction
+
+%function DumpSharedUtils(block,system) void
+%endfunction
+
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    UnifiedDWork   1\
+    NumChartData   2 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "doneDoubleBufferReInit"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_active_c2_Puncture_Through_Wall"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

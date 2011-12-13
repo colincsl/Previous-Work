@@ -1,0 +1,5 @@
+addpath('C:\Documents and Settings\colinlea\Desktop\WiiLab\WiiLab_Matlab\WiimoteFunctions')
+
+global X Y Z
+
+getWiimote

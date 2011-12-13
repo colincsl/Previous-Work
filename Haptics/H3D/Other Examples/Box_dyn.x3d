@@ -1,0 +1,18 @@
+<Scene>
+  <DynamicTransform DEF="D" angularMomentum="0.12 0.4 0.9">
+    <Shape>
+      <Appearance>
+        <Material DEF="M" />
+	  <SmoothSurface stiffness="3" />
+      </Appearance>
+      <Box size="0.1 0.1 0.1" />
+    </Shape>
+  </DynamicTransform>
+  <TimeSensor DEF="T" cycleInterval="5" enabled="true" loop="true" />
+  <ColorInterpolator DEF="CI" key ="0 0.333 0.666 1" keyValue="1 0 0, 1 1 0, 0 0 1, 1 0 0"/>
+  <PositionInterpolator DEF="PI" key="0 0.25 0.5 0.75 1" keyValue="0 0 0, 0.25 0 0, 0 0 0, -0.25 0 0, 0 0 0"/>
+  <ROUTE fromNode="T" fromField="fraction_changed" toNode="CI" toField="set_fraction" />
+  <ROUTE fromNode="T" fromField="fraction_changed" toNode="PI" toField="set_fraction" />
+  <ROUTE fromNode="CI" fromField="value_changed" toNode="M" toField="diffuseColor" />
+  <ROUTE fromNode="PI" fromField="value_changed" toNode="D" toField="position" />
+</Scene>

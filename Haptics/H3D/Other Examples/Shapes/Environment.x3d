@@ -1,0 +1,25 @@
+<Group>	
+	<Viewpoint position="0 0 1"/>
+
+<!--	<Transform>
+		<Shape>
+			<Box size = ".1 .1 .1"/>
+			<Appearance>
+				<Material diffuseColor = "1 1 1"/>
+			</Appearance>
+		</Shape>
+	</Transform> -->
+
+	<MouseSensor DEF = "MS"/>
+	<Group DEF = "GROUP"/>
+
+	<PythonScript DEF="PS" url="add_obj.py">
+		<Group USE = "GROUP" containerField = "references"/>
+<!--		<MouseSensor USE = "MS" containerField = "references"/>-->
+	</PythonScript>
+
+	<ROUTE fromNode = "MS" fromField = "position"
+		toNode="PS" toField = "mouse"/> 
+	<ROUTE fromNode = "MS" fromField = "leftButton"
+		toNode="PS" toField = "add_sphere"/>
+</Group>

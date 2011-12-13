@@ -1,0 +1,40 @@
+
+MATLAB Interface for LIBSVM
+===========================
+
+
+Version 1.2 (12-Sep-2005)
+-------------------------
+
+- Now using LIBSVM 2.8.
+- Alternative output formats (as vectors).
+- Added support for arbitrary class labels (not only +1/-1).
+- Added support for probability estimates in libsvmsim.
+- New option 'prob' to compute probability information.
+- Cache size can be given in kB, MB, or rows.
+- verbose() split into dumpOptions() and dumpSolution().
+- dumpSolution() computes epsilon for NU-SVR.
+- Small improvements all over the code.
+
+
+Version 1.1 (28-Feb-2005)
+-------------------------
+
+- Now using LIBSVM 2.71.
+- Fixed bug which produced wrong sign of the decision function.
+- Kernel struct and function getKernel() rewritten.
+- Added tanh kernel and offset term for polynomial kernel.
+- Added data weighting for classification.
+- Options can now be passed also as key/value pairs.
+- Added support for nu-SVMs and one-class SVMs.
+- Added verbose function.
+- Function prepare() split into convOptions() and convData().
+- Numerous small changes all over the code.
+
+
+Version 1.0 (11-Jun-2004)
+-------------------------
+
+- Initial version based on LIBSVM 2.6. It was written during the
+  "Projektseminar Mechatronik 2004" at the Institute of Automatic
+  Control, Darmstadt University of Technology, Germany.

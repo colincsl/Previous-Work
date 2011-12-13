@@ -1,0 +1,40 @@
+
+%implements "chartHeader" "C"
+%function CacheOutputs(block,system,modelHFile,typeDefHFile,privateHFile,cFile) void
+%openfile typedefsBuf
+            
+%closefile typedefsBuf
+   %if !WHITE_SPACE(typedefsBuf)
+      %openfile tempBuf
+#ifndef _CSC3_FORCE_RENDERING_CHARTSTRUC
+#define _CSC3_FORCE_RENDERING_CHARTSTRUC
+      %<typedefsBuf>\
+ #endif /* _CSC3_FORCE_RENDERING_CHARTSTRUC */
+      %closefile tempBuf
+%<SLibSetModelFileAttribute(typeDefHFile,"Typedefs",tempBuf)>
+   %endif
+
+%openfile typedefsBuf
+%closefile typedefsBuf
+   %if !WHITE_SPACE(typedefsBuf)
+      %openfile tempBuf
+#ifndef _CSC3_FORCE_RENDERING_CHARTSTRUC_custom
+#define _CSC3_FORCE_RENDERING_CHARTSTRUC_custom
+      %<typedefsBuf>\
+ #endif /* _CSC3_FORCE_RENDERING_CHARTSTRUC_custom */
+      %closefile tempBuf
+%<SLibSetModelFileAttribute(modelHFile,"Typedefs",tempBuf)>
+   %endif
+
+%openfile externFcnsBuf
+   
+   
+   
+   
+%closefile externFcnsBuf
+%<SLibSetModelFileAttribute(privateHFile,"ExternFcns",externFcnsBuf)>
+   %openfile externFcnsBuf
+   %closefile externFcnsBuf
+   %<SLibSetModelFileAttribute(privateHFile,"ExternFcns",externFcnsBuf)>
+
+%endfunction %% CacheOutputs

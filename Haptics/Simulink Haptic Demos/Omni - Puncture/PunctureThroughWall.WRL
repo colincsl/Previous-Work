@@ -1,0 +1,52 @@
+#VRML V2.0 utf8
+
+#Created with V-Realm Builder v2.0
+#Integrated Data Systems Inc.
+#www.ids-net.com
+
+
+DEF Spot_Light_Right SpotLight {
+	direction	-1 0 -3.42285e-008
+	location	1 0 0
+}
+DEF Spot_Light_Left SpotLight {
+	direction	1 0 -3.42285e-008
+	location	-1 0 0
+}
+DEF MyView Viewpoint {
+	fieldOfView	0.64
+	position	0 0.04 0.7
+}
+DEF Avatar Transform {
+	scale	0.02 0.02 0.02
+	children Shape {
+		appearance	Appearance {
+			material	Material {
+				ambientIntensity	0.2
+				diffuseColor	0.8 0.0643941 0.0488021
+			}
+
+		}
+
+		geometry	Sphere {
+		}
+
+	}
+}
+DEF Wall Transform {
+	translation	0 0 0
+	scale	0.005 0.15 0.3
+	children Shape {
+		appearance	Appearance {
+			material	Material {
+				ambientIntensity	0.2
+				diffuseColor	0.8 0.511078 0.0424419
+			}
+
+		}
+
+		geometry	Box {
+		}
+
+	}
+}

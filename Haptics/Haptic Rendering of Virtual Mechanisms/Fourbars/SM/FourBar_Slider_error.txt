@@ -1,0 +1,8 @@
+Constrained Parts: revolute-2, slot_200mm-3
+Constrain Name: Distance1
+Error Details: Massless connector is not supported if there are more than one constrain between parts. A weld joint has been added between the constrained parts.
+---------------------------------------------------------------------------------
+Constrained Parts: pin_50mm-1, slot_200mm-3
+Constrain Name: Tangent2
+Error Details: Massless connector is not supported if there are more than one constrain between parts. A weld joint has been added between the constrained parts.
+---------------------------------------------------------------------------------

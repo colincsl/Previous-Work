@@ -1,0 +1,17 @@
+<Scene>
+	<Shape>
+		<Box DEF="BOX" size=".1 .1 .1"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+		<SmoothSurface/>
+		</Appearance>
+	</Shape>
+
+	 <!--url="C:\H3D\CLEA\Sound\knocking.wav"--> 
+	
+	
+	<PythonScript DEF="PS" url="C:\H3D\CLEA\Sound\sound_script2.py"/>
+		<ROUTE fromNode="BOX" fromField="isTouched" toNode="PS" toField="aud"/>
+	
+	
+</Scene>

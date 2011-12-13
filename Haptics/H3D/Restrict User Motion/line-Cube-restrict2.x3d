@@ -1,0 +1,27 @@
+<Group>
+<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV" /> 
+
+	<PositionFunctionEffect>
+		<GeneralFunction DEF="xFun" containerField="xFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="yFun" containerField="yFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="zFun" containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+	<Shape>
+		<Box size=".1 .1 .1"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+			<SmoothSurface/>
+
+		</Appearance>
+	</Shape>
+
+<PythonScript DEF="PS" url="C:\H3D\CLEA\Line\line_restrict.py"/>
+	<ROUTE fromNode= "HDEV" fromField="mainButton" toNode="PS" toField="x_but"/>
+	<ROUTE fromNode= "HDEV" fromField="trackerPosition" toNode="PS" toField="x_but"/>	
+	<ROUTE fromNode="PS" fromField="x_but" toNode="xFun" toField="function"/>
+<!--	<ROUTE fromNode="PS" fromField="y_but" toNode="yFun" toField="function"/>
+	<ROUTE fromNode="PS" fromField="z_but" toNode="zFun" toField="function"/> -->
+	
+
+</Group>

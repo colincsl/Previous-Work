@@ -1,0 +1,35 @@
+<Group>
+  <ImportLibrary url="C:\H3D\UsefulNodes\External\bin\ptlib.dll"/>
+  <ImportLibrary url="C:\H3D\UsefulNodes\lib\Release\UsefulNodes.dll"   />	
+<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV" /> 
+
+	<PositionFunctionEffect>
+		<GeneralFunction DEF="xFun" containerField="xFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="yFun" containerField="yFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="zFun" containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+	<Transform DEF="transform" translation = "0.0 0.0 0.0">
+	<Shape>
+		<Sphere DEF="SPHERE" radius=".1"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+			<PaintableTexture DEF="TEXTURE" backgroundColor="0.5 0 0 1" paintColor="1 1 1 1"/>
+			<SmoothSurface/>
+		</Appearance>
+	</Shape>
+	</Transform>
+
+<!-- ||	Constrain Axis	|| -->	
+<PythonScript DEF="Constrain" url="C:\H3D\CLEA\Line\line_restrict.py"/>
+	<ROUTE fromNode= "HDEV" fromField="mainButton" toNode="Constrain" toField="x_but"/>
+	<ROUTE fromNode="Constrain" fromField="x_but" toNode="xFun" toField="function"/>
+<!--<PythonScript DEF="Keys" url="C:\H3D\CLEA\Line\Translate_Keyboard.py"/>-->
+
+<!-- ||	 Paint	|| with help from 'UsefulNodes'-H3D -->	
+<PythonScript DEF="PAINT_ps" url="C:\H3D\CLEA\Line\paintabletexture.py"/>
+  <ROUTE fromNode="SPHERE" fromField="contactTexCoord" toNode="PAINT_ps" toField="firstTexCoord" />
+  <ROUTE_NO_EVENT fromNode="PAINT_ps" fromField="firstTexCoord" toNode="TEXTURE" toField="paintAtTexCoord" />
+	
+
+</Group>

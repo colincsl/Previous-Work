@@ -1,0 +1,29 @@
+<Group>
+
+<IMPORT inlineDEF="H3D_EXPORTS" exportedDEF="HDEV" AS="HDEV" /> 
+
+	<PositionFunctionEffect>
+		<GeneralFunction DEF="xFun" containerField="xFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="yFun" containerField="yFunction" function="0" params="x,y,z"/>
+		<GeneralFunction DEF="zFun" containerField="zFunction" function="0" params="x,y,z"/>
+	</PositionFunctionEffect>
+
+	<Transform DEF="transform" translation = "0.0 0.0 0.0">
+	<Shape>
+		<Box size="0.2 0.2 0.2"/>
+		<Appearance>
+			<Material diffuseColor="1 0 0"/>
+			<SmoothSurface/>
+
+		</Appearance>
+	</Shape>
+	</Transform>
+	
+<PythonScript DEF="Restrict" url="C:\H3D\CLEA\Line\line_restrict.py"/>
+	<ROUTE fromNode= "HDEV" fromField="mainButton" toNode="Restrict" toField="x_but"/>
+	<ROUTE fromNode="Restrict" fromField="x_but" toNode="xFun" toField="function"/>
+<!--<PythonScript DEF="Keys" url="C:\H3D\CLEA\Line\Translate_Keyboard.py"/>-->
+
+	
+
+</Group>

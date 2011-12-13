@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{Feygin2002}
+D~Feygin, M~Keehner, and F~Tendick.
+\newblock Haptic guidance: Experimental evaluation of a haptic training method
+  for a perceptual motor skill.
+\newblock {\em Proceedings of the 10th symposium on haptic interfaces for
+  virtual environment and teleoperator systems}, 1:40, 2002.
+
+\bibitem{GoodrichDriving}
+MA~Goodrich and M~Quigley.
+\newblock Learning haptic feedback for guiding driver behavior.
+\newblock {\em 2004 IEEE International Conference on Systems, Man and
+  Cybernetics}, pages 2507--2512, 2004.
+
+\bibitem{Liu2006}
+J~Liu, SC~Cramer, and DJ~Reinkensmeyer.
+\newblock Learning to perform a new movement with robotic assistance:
+  comparison of haptic guidance and visual demonstration.
+\newblock {\em Journal of neuroengineering and rehabilitation}, 3(1):20, 2006.
+
+\bibitem{MayerKnots}
+H~Mayer, F~Gomez, D~Wierstra, I~Nagy, A~Knoll, and J~Schmidhuber.
+\newblock A system for robotic heart surgery that learns to tie knots using
+  recurrent neural networks.
+\newblock {\em 2006 IEEE/RSJ International Conference on Intelligent Robots and
+  Systems}, pages 543--548, 2006.
+
+\bibitem{HowardLearning}
+C~Park, J~Yoo, and A~Howard.
+\newblock Transfer of skills between human operators through haptic training
+  with robot coordination.
+\newblock {\em Internation Conference on Robotics and Automation}, Jan 2010.
+
+\end{thebibliography}

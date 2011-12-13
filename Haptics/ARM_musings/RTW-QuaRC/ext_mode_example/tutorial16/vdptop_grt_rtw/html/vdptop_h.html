@@ -1,0 +1,1020 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - vdptop.h </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT=#1122aa onload="if (top && top.rtwFileOnLoad) top.rtwFileOnLoad(window);">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop.h" TARGET="rtwreport_document_frame">D:\colinlea\RTW\ext_mode_example\tutorial16\vdptop_grt_rtw\vdptop.h</A></H4>
+<PRE id="RTWcode">
+<SPAN><SPAN class="LN"><A NAME=1>    1   </A></SPAN><SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">    2   </SPAN><SPAN class="CT"> * vdptop.h</SPAN>
+</SPAN><SPAN><SPAN class="LN">    3   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    4   </SPAN><SPAN class="CT"> * Real-Time Workshop code generation for Simulink model &quot;vdptop.mdl&quot;.</SPAN>
+</SPAN><SPAN><SPAN class="LN">    5   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">    6   </SPAN><SPAN class="CT"> * Model Version              : 1.6</SPAN>
+</SPAN><SPAN><SPAN class="LN">    7   </SPAN><SPAN class="CT"> * Real-Time Workshop version : 7.0  (R2007b)  02-Aug-2007</SPAN>
+</SPAN><SPAN><SPAN class="LN">    8   </SPAN><SPAN class="CT"> * C source code generated on : Wed Jun 10 17:28:57 2009</SPAN>
+</SPAN><SPAN><SPAN class="LN">    9   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   10   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> RTW_HEADER_vdptop_h_
+</SPAN><SPAN><SPAN class="LN">   11   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> RTW_HEADER_vdptop_h_
+</SPAN><SPAN><SPAN class="LN">   12   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> vdptop_COMMON_INCLUDES_
+</SPAN><SPAN><SPAN class="LN">   13   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> vdptop_COMMON_INCLUDES_
+</SPAN><SPAN><SPAN class="LN">   14   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&lt;math.h&gt;</FONT>
+</SPAN><SPAN><SPAN class="LN">   15   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&lt;stddef.h&gt;</FONT>
+</SPAN><SPAN><SPAN class="LN">   16   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&lt;string.h&gt;</FONT>
+</SPAN><SPAN><SPAN class="LN">   17   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;rtwtypes.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   18   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;simstruc.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   19   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;fixedpoint.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   20   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;rt_logging.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   21   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;rt_nonfinite.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   22   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* vdptop_COMMON_INCLUDES_ */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   23   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   24   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;vdptop_types.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   25   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   26   </SPAN><SPAN class="CT">/* Child system includes */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   27   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">include</SPAN> <FONT COLOR=#992211>&quot;vdmultRM.h&quot;</FONT>
+</SPAN><SPAN><SPAN class="LN">   28   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   29   </SPAN><SPAN class="CT">/* Macros for accessing real-time model data structure */</SPAN>
+</SPAN><SPAN><SPAN class="LN">   30   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetBlkStateChangeFlag
+</SPAN><SPAN><SPAN class="LN">   31   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetBlkStateChangeFlag(rtm) ((rtm)-&gt;</FONT>ModelData.blkStateChange)
+</SPAN><SPAN><SPAN class="LN">   32   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   33   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   34   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetBlkStateChangeFlag
+</SPAN><SPAN><SPAN class="LN">   35   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetBlkStateChangeFlag(rtm, val) ((rtm)-&gt;</FONT>ModelData.blkStateChange = (val))
+</SPAN><SPAN><SPAN class="LN">   36   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   37   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   38   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetBlockIO
+</SPAN><SPAN><SPAN class="LN">   39   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetBlockIO(rtm)            ((rtm)-&gt;</FONT>ModelData.blockIO)
+</SPAN><SPAN><SPAN class="LN">   40   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   41   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   42   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetBlockIO
+</SPAN><SPAN><SPAN class="LN">   43   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetBlockIO(rtm, val)       ((rtm)-&gt;</FONT>ModelData.blockIO = (val))
+</SPAN><SPAN><SPAN class="LN">   44   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   45   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   46   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetChecksums
+</SPAN><SPAN><SPAN class="LN">   47   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetChecksums(rtm)          ((rtm)-&gt;</FONT>Sizes.checksums)
+</SPAN><SPAN><SPAN class="LN">   48   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   49   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   50   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetChecksums
+</SPAN><SPAN><SPAN class="LN">   51   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetChecksums(rtm, val)     ((rtm)-&gt;</FONT>Sizes.checksums = (val))
+</SPAN><SPAN><SPAN class="LN">   52   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   53   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   54   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetConstBlockIO
+</SPAN><SPAN><SPAN class="LN">   55   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetConstBlockIO(rtm)       ((rtm)-&gt;</FONT>ModelData.constBlockIO)
+</SPAN><SPAN><SPAN class="LN">   56   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   57   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   58   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetConstBlockIO
+</SPAN><SPAN><SPAN class="LN">   59   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetConstBlockIO(rtm, val)  ((rtm)-&gt;</FONT>ModelData.constBlockIO = (val))
+</SPAN><SPAN><SPAN class="LN">   60   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   61   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   62   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetContStateDisabled
+</SPAN><SPAN><SPAN class="LN">   63   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetContStateDisabled(rtm)  ((rtm)-&gt;</FONT>ModelData.contStateDisabled)
+</SPAN><SPAN><SPAN class="LN">   64   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   65   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   66   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetContStateDisabled
+</SPAN><SPAN><SPAN class="LN">   67   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetContStateDisabled(rtm, val) ((rtm)-&gt;</FONT>ModelData.contStateDisabled = (val))
+</SPAN><SPAN><SPAN class="LN">   68   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   69   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   70   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetContStates
+</SPAN><SPAN><SPAN class="LN">   71   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetContStates(rtm)         ((rtm)-&gt;</FONT>ModelData.contStates)
+</SPAN><SPAN><SPAN class="LN">   72   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   73   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   74   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetContStates
+</SPAN><SPAN><SPAN class="LN">   75   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetContStates(rtm, val)    ((rtm)-&gt;</FONT>ModelData.contStates = (val))
+</SPAN><SPAN><SPAN class="LN">   76   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   77   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   78   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetDataMapInfo
+</SPAN><SPAN><SPAN class="LN">   79   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetDataMapInfo(rtm)        ((rtm)-&gt;</FONT>DataMapInfo)
+</SPAN><SPAN><SPAN class="LN">   80   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   81   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   82   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetDataMapInfo
+</SPAN><SPAN><SPAN class="LN">   83   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetDataMapInfo(rtm, val)   ((rtm)-&gt;</FONT>DataMapInfo = (val))
+</SPAN><SPAN><SPAN class="LN">   84   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   85   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   86   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetDefaultParam
+</SPAN><SPAN><SPAN class="LN">   87   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetDefaultParam(rtm)       ((rtm)-&gt;</FONT>ModelData.defaultParam)
+</SPAN><SPAN><SPAN class="LN">   88   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   89   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   90   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetDefaultParam
+</SPAN><SPAN><SPAN class="LN">   91   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetDefaultParam(rtm, val)  ((rtm)-&gt;</FONT>ModelData.defaultParam = (val))
+</SPAN><SPAN><SPAN class="LN">   92   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   93   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   94   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetDerivCacheNeedsReset
+</SPAN><SPAN><SPAN class="LN">   95   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetDerivCacheNeedsReset(rtm) ((rtm)-&gt;</FONT>ModelData.derivCacheNeedsReset)
+</SPAN><SPAN><SPAN class="LN">   96   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">   97   </SPAN>
+</SPAN><SPAN><SPAN class="LN">   98   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetDerivCacheNeedsReset
+</SPAN><SPAN><SPAN class="LN">   99   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetDerivCacheNeedsReset(rtm, val) ((rtm)-&gt;</FONT>ModelData.derivCacheNeedsReset = (val))
+</SPAN><SPAN><SPAN class="LN">  100   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  101   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  102   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetDirectFeedThrough
+</SPAN><SPAN><SPAN class="LN">  103   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetDirectFeedThrough(rtm)  ((rtm)-&gt;</FONT>Sizes.sysDirFeedThru)
+</SPAN><SPAN><SPAN class="LN">  104   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  105   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  106   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetDirectFeedThrough
+</SPAN><SPAN><SPAN class="LN">  107   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetDirectFeedThrough(rtm, val) ((rtm)-&gt;</FONT>Sizes.sysDirFeedThru = (val))
+</SPAN><SPAN><SPAN class="LN">  108   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  109   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  110   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetErrorStatusFlag
+</SPAN><SPAN><SPAN class="LN">  111   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetErrorStatusFlag(rtm)    ((rtm)-&gt;</FONT>errorStatus)
+</SPAN><SPAN><SPAN class="LN">  112   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  113   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  114   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetErrorStatusFlag
+</SPAN><SPAN><SPAN class="LN">  115   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetErrorStatusFlag(rtm, val) ((rtm)-&gt;</FONT>errorStatus = (val))
+</SPAN><SPAN><SPAN class="LN">  116   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  117   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  118   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetFinalTime
+</SPAN><SPAN><SPAN class="LN">  119   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetFinalTime(rtm)          ((rtm)-&gt;</FONT>Timing.tFinal)
+</SPAN><SPAN><SPAN class="LN">  120   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  121   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  122   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetFinalTime
+</SPAN><SPAN><SPAN class="LN">  123   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetFinalTime(rtm, val)     ((rtm)-&gt;</FONT>Timing.tFinal = (val))
+</SPAN><SPAN><SPAN class="LN">  124   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  125   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  126   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetFirstInitCondFlag
+</SPAN><SPAN><SPAN class="LN">  127   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetFirstInitCondFlag(rtm)  ((rtm)-&gt;</FONT>Timing.firstInitCondFlag)
+</SPAN><SPAN><SPAN class="LN">  128   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  129   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  130   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetFirstInitCondFlag
+</SPAN><SPAN><SPAN class="LN">  131   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetFirstInitCondFlag(rtm, val) ((rtm)-&gt;</FONT>Timing.firstInitCondFlag = (val))
+</SPAN><SPAN><SPAN class="LN">  132   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  133   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  134   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetIntgData
+</SPAN><SPAN><SPAN class="LN">  135   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetIntgData(rtm)           ((rtm)-&gt;</FONT>ModelData.intgData)
+</SPAN><SPAN><SPAN class="LN">  136   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  137   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  138   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetIntgData
+</SPAN><SPAN><SPAN class="LN">  139   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetIntgData(rtm, val)      ((rtm)-&gt;</FONT>ModelData.intgData = (val))
+</SPAN><SPAN><SPAN class="LN">  140   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  141   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  142   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetMdlRefGlobalTID
+</SPAN><SPAN><SPAN class="LN">  143   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetMdlRefGlobalTID(rtm)    ((rtm)-&gt;</FONT>Timing.mdlref_GlobalTID)
+</SPAN><SPAN><SPAN class="LN">  144   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  145   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  146   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetMdlRefGlobalTID
+</SPAN><SPAN><SPAN class="LN">  147   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetMdlRefGlobalTID(rtm, val) ((rtm)-&gt;</FONT>Timing.mdlref_GlobalTID = (val))
+</SPAN><SPAN><SPAN class="LN">  148   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  149   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  150   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetMdlRefTriggerTID
+</SPAN><SPAN><SPAN class="LN">  151   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetMdlRefTriggerTID(rtm)   ((rtm)-&gt;</FONT>Timing.mdlref_TriggerTID)
+</SPAN><SPAN><SPAN class="LN">  152   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  153   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  154   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetMdlRefTriggerTID
+</SPAN><SPAN><SPAN class="LN">  155   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetMdlRefTriggerTID(rtm, val) ((rtm)-&gt;</FONT>Timing.mdlref_TriggerTID = (val))
+</SPAN><SPAN><SPAN class="LN">  156   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  157   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  158   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetModelMappingInfo
+</SPAN><SPAN><SPAN class="LN">  159   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetModelMappingInfo(rtm)   ((rtm)-&gt;</FONT>SpecialInfo.mappingInfo)
+</SPAN><SPAN><SPAN class="LN">  160   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  161   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  162   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetModelMappingInfo
+</SPAN><SPAN><SPAN class="LN">  163   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetModelMappingInfo(rtm, val) ((rtm)-&gt;</FONT>SpecialInfo.mappingInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  164   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  165   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  166   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetModelName
+</SPAN><SPAN><SPAN class="LN">  167   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetModelName(rtm)          ((rtm)-&gt;</FONT>modelName)
+</SPAN><SPAN><SPAN class="LN">  168   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  169   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  170   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetModelName
+</SPAN><SPAN><SPAN class="LN">  171   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetModelName(rtm, val)     ((rtm)-&gt;</FONT>modelName = (val))
+</SPAN><SPAN><SPAN class="LN">  172   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  173   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  174   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNonInlinedSFcns
+</SPAN><SPAN><SPAN class="LN">  175   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNonInlinedSFcns(rtm)    ((rtm)-&gt;</FONT>NonInlinedSFcns)
+</SPAN><SPAN><SPAN class="LN">  176   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  177   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  178   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNonInlinedSFcns
+</SPAN><SPAN><SPAN class="LN">  179   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNonInlinedSFcns(rtm, val) ((rtm)-&gt;</FONT>NonInlinedSFcns = (val))
+</SPAN><SPAN><SPAN class="LN">  180   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  181   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  182   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumBlockIO
+</SPAN><SPAN><SPAN class="LN">  183   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumBlockIO(rtm)         ((rtm)-&gt;</FONT>Sizes.numBlockIO)
+</SPAN><SPAN><SPAN class="LN">  184   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  185   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  186   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumBlockIO
+</SPAN><SPAN><SPAN class="LN">  187   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumBlockIO(rtm, val)    ((rtm)-&gt;</FONT>Sizes.numBlockIO = (val))
+</SPAN><SPAN><SPAN class="LN">  188   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  189   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  190   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumBlockParams
+</SPAN><SPAN><SPAN class="LN">  191   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumBlockParams(rtm)     ((rtm)-&gt;</FONT>Sizes.numBlockPrms)
+</SPAN><SPAN><SPAN class="LN">  192   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  193   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  194   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumBlockParams
+</SPAN><SPAN><SPAN class="LN">  195   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumBlockParams(rtm, val) ((rtm)-&gt;</FONT>Sizes.numBlockPrms = (val))
+</SPAN><SPAN><SPAN class="LN">  196   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  197   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  198   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumBlocks
+</SPAN><SPAN><SPAN class="LN">  199   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumBlocks(rtm)          ((rtm)-&gt;</FONT>Sizes.numBlocks)
+</SPAN><SPAN><SPAN class="LN">  200   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  201   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  202   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumBlocks
+</SPAN><SPAN><SPAN class="LN">  203   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumBlocks(rtm, val)     ((rtm)-&gt;</FONT>Sizes.numBlocks = (val))
+</SPAN><SPAN><SPAN class="LN">  204   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  205   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  206   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumContStates
+</SPAN><SPAN><SPAN class="LN">  207   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumContStates(rtm)      ((rtm)-&gt;</FONT>Sizes.numContStates)
+</SPAN><SPAN><SPAN class="LN">  208   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  209   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  210   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumContStates
+</SPAN><SPAN><SPAN class="LN">  211   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumContStates(rtm, val) ((rtm)-&gt;</FONT>Sizes.numContStates = (val))
+</SPAN><SPAN><SPAN class="LN">  212   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  213   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  214   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumDWork
+</SPAN><SPAN><SPAN class="LN">  215   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumDWork(rtm)           ((rtm)-&gt;</FONT>Sizes.numDwork)
+</SPAN><SPAN><SPAN class="LN">  216   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  217   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  218   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumDWork
+</SPAN><SPAN><SPAN class="LN">  219   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumDWork(rtm, val)      ((rtm)-&gt;</FONT>Sizes.numDwork = (val))
+</SPAN><SPAN><SPAN class="LN">  220   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  221   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  222   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumInputPorts
+</SPAN><SPAN><SPAN class="LN">  223   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumInputPorts(rtm)      ((rtm)-&gt;</FONT>Sizes.numIports)
+</SPAN><SPAN><SPAN class="LN">  224   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  225   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  226   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumInputPorts
+</SPAN><SPAN><SPAN class="LN">  227   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumInputPorts(rtm, val) ((rtm)-&gt;</FONT>Sizes.numIports = (val))
+</SPAN><SPAN><SPAN class="LN">  228   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  229   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  230   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumNonSampledZCs
+</SPAN><SPAN><SPAN class="LN">  231   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumNonSampledZCs(rtm)   ((rtm)-&gt;</FONT>Sizes.numNonSampZCs)
+</SPAN><SPAN><SPAN class="LN">  232   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  233   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  234   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumNonSampledZCs
+</SPAN><SPAN><SPAN class="LN">  235   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumNonSampledZCs(rtm, val) ((rtm)-&gt;</FONT>Sizes.numNonSampZCs = (val))
+</SPAN><SPAN><SPAN class="LN">  236   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  237   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  238   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumOutputPorts
+</SPAN><SPAN><SPAN class="LN">  239   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumOutputPorts(rtm)     ((rtm)-&gt;</FONT>Sizes.numOports)
+</SPAN><SPAN><SPAN class="LN">  240   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  241   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  242   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumOutputPorts
+</SPAN><SPAN><SPAN class="LN">  243   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumOutputPorts(rtm, val) ((rtm)-&gt;</FONT>Sizes.numOports = (val))
+</SPAN><SPAN><SPAN class="LN">  244   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  245   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  246   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumSFcnParams
+</SPAN><SPAN><SPAN class="LN">  247   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumSFcnParams(rtm)      ((rtm)-&gt;</FONT>Sizes.numSFcnPrms)
+</SPAN><SPAN><SPAN class="LN">  248   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  249   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  250   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumSFcnParams
+</SPAN><SPAN><SPAN class="LN">  251   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumSFcnParams(rtm, val) ((rtm)-&gt;</FONT>Sizes.numSFcnPrms = (val))
+</SPAN><SPAN><SPAN class="LN">  252   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  253   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  254   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumSFunctions
+</SPAN><SPAN><SPAN class="LN">  255   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumSFunctions(rtm)      ((rtm)-&gt;</FONT>Sizes.numSFcns)
+</SPAN><SPAN><SPAN class="LN">  256   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  257   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  258   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumSFunctions
+</SPAN><SPAN><SPAN class="LN">  259   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumSFunctions(rtm, val) ((rtm)-&gt;</FONT>Sizes.numSFcns = (val))
+</SPAN><SPAN><SPAN class="LN">  260   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  261   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  262   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumSampleTimes
+</SPAN><SPAN><SPAN class="LN">  263   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumSampleTimes(rtm)     ((rtm)-&gt;</FONT>Sizes.numSampTimes)
+</SPAN><SPAN><SPAN class="LN">  264   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  265   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  266   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumSampleTimes
+</SPAN><SPAN><SPAN class="LN">  267   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumSampleTimes(rtm, val) ((rtm)-&gt;</FONT>Sizes.numSampTimes = (val))
+</SPAN><SPAN><SPAN class="LN">  268   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  269   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  270   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumU
+</SPAN><SPAN><SPAN class="LN">  271   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumU(rtm)               ((rtm)-&gt;</FONT>Sizes.numU)
+</SPAN><SPAN><SPAN class="LN">  272   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  273   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  274   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumU
+</SPAN><SPAN><SPAN class="LN">  275   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumU(rtm, val)          ((rtm)-&gt;</FONT>Sizes.numU = (val))
+</SPAN><SPAN><SPAN class="LN">  276   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  277   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  278   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetNumY
+</SPAN><SPAN><SPAN class="LN">  279   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetNumY(rtm)               ((rtm)-&gt;</FONT>Sizes.numY)
+</SPAN><SPAN><SPAN class="LN">  280   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  281   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  282   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetNumY
+</SPAN><SPAN><SPAN class="LN">  283   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetNumY(rtm, val)          ((rtm)-&gt;</FONT>Sizes.numY = (val))
+</SPAN><SPAN><SPAN class="LN">  284   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  285   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  286   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOdeF
+</SPAN><SPAN><SPAN class="LN">  287   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOdeF(rtm)               ((rtm)-&gt;</FONT>ModelData.odeF)
+</SPAN><SPAN><SPAN class="LN">  288   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  289   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  290   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOdeF
+</SPAN><SPAN><SPAN class="LN">  291   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOdeF(rtm, val)          ((rtm)-&gt;</FONT>ModelData.odeF = (val))
+</SPAN><SPAN><SPAN class="LN">  292   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  293   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  294   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOdeY
+</SPAN><SPAN><SPAN class="LN">  295   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOdeY(rtm)               ((rtm)-&gt;</FONT>ModelData.odeY)
+</SPAN><SPAN><SPAN class="LN">  296   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  297   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  298   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOdeY
+</SPAN><SPAN><SPAN class="LN">  299   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOdeY(rtm, val)          ((rtm)-&gt;</FONT>ModelData.odeY = (val))
+</SPAN><SPAN><SPAN class="LN">  300   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  301   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  302   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOffsetTimeArray
+</SPAN><SPAN><SPAN class="LN">  303   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOffsetTimeArray(rtm)    ((rtm)-&gt;</FONT>Timing.offsetTimesArray)
+</SPAN><SPAN><SPAN class="LN">  304   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  305   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  306   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOffsetTimeArray
+</SPAN><SPAN><SPAN class="LN">  307   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOffsetTimeArray(rtm, val) ((rtm)-&gt;</FONT>Timing.offsetTimesArray = (val))
+</SPAN><SPAN><SPAN class="LN">  308   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  309   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  310   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOffsetTimePtr
+</SPAN><SPAN><SPAN class="LN">  311   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOffsetTimePtr(rtm)      ((rtm)-&gt;</FONT>Timing.offsetTimes)
+</SPAN><SPAN><SPAN class="LN">  312   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  313   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  314   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOffsetTimePtr
+</SPAN><SPAN><SPAN class="LN">  315   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOffsetTimePtr(rtm, val) ((rtm)-&gt;</FONT>Timing.offsetTimes = (val))
+</SPAN><SPAN><SPAN class="LN">  316   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  317   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  318   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOptions
+</SPAN><SPAN><SPAN class="LN">  319   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOptions(rtm)            ((rtm)-&gt;</FONT>Sizes.options)
+</SPAN><SPAN><SPAN class="LN">  320   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  321   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  322   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOptions
+</SPAN><SPAN><SPAN class="LN">  323   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOptions(rtm, val)       ((rtm)-&gt;</FONT>Sizes.options = (val))
+</SPAN><SPAN><SPAN class="LN">  324   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  325   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  326   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetParamIsMalloced
+</SPAN><SPAN><SPAN class="LN">  327   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetParamIsMalloced(rtm)    ((rtm)-&gt;</FONT>ModelData.paramIsMalloced)
+</SPAN><SPAN><SPAN class="LN">  328   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  329   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  330   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetParamIsMalloced
+</SPAN><SPAN><SPAN class="LN">  331   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetParamIsMalloced(rtm, val) ((rtm)-&gt;</FONT>ModelData.paramIsMalloced = (val))
+</SPAN><SPAN><SPAN class="LN">  332   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  333   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  334   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetPath
+</SPAN><SPAN><SPAN class="LN">  335   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetPath(rtm)               ((rtm)-&gt;</FONT>path)
+</SPAN><SPAN><SPAN class="LN">  336   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  337   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  338   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetPath
+</SPAN><SPAN><SPAN class="LN">  339   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetPath(rtm, val)          ((rtm)-&gt;</FONT>path = (val))
+</SPAN><SPAN><SPAN class="LN">  340   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  341   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  342   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetPerTaskSampleHits
+</SPAN><SPAN><SPAN class="LN">  343   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetPerTaskSampleHits(rtm)  ((rtm)-&gt;</FONT>Timing.RateInteraction)
+</SPAN><SPAN><SPAN class="LN">  344   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  345   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  346   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetPerTaskSampleHits
+</SPAN><SPAN><SPAN class="LN">  347   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetPerTaskSampleHits(rtm, val) ((rtm)-&gt;</FONT>Timing.RateInteraction = (val))
+</SPAN><SPAN><SPAN class="LN">  348   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  349   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  350   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetPerTaskSampleHitsArray
+</SPAN><SPAN><SPAN class="LN">  351   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetPerTaskSampleHitsArray(rtm) ((rtm)-&gt;</FONT>Timing.perTaskSampleHitsArray)
+</SPAN><SPAN><SPAN class="LN">  352   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  353   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  354   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetPerTaskSampleHitsArray
+</SPAN><SPAN><SPAN class="LN">  355   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetPerTaskSampleHitsArray(rtm, val) ((rtm)-&gt;</FONT>Timing.perTaskSampleHitsArray = (val))
+</SPAN><SPAN><SPAN class="LN">  356   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  357   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  358   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetPerTaskSampleHitsPtr
+</SPAN><SPAN><SPAN class="LN">  359   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetPerTaskSampleHitsPtr(rtm) ((rtm)-&gt;</FONT>Timing.perTaskSampleHits)
+</SPAN><SPAN><SPAN class="LN">  360   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  361   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  362   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetPerTaskSampleHitsPtr
+</SPAN><SPAN><SPAN class="LN">  363   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetPerTaskSampleHitsPtr(rtm, val) ((rtm)-&gt;</FONT>Timing.perTaskSampleHits = (val))
+</SPAN><SPAN><SPAN class="LN">  364   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  365   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  366   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetPrevZCSigState
+</SPAN><SPAN><SPAN class="LN">  367   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetPrevZCSigState(rtm)     ((rtm)-&gt;</FONT>ModelData.prevZCSigState)
+</SPAN><SPAN><SPAN class="LN">  368   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  369   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  370   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetPrevZCSigState
+</SPAN><SPAN><SPAN class="LN">  371   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetPrevZCSigState(rtm, val) ((rtm)-&gt;</FONT>ModelData.prevZCSigState = (val))
+</SPAN><SPAN><SPAN class="LN">  372   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  373   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  374   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWExtModeInfo
+</SPAN><SPAN><SPAN class="LN">  375   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWExtModeInfo(rtm)     ((rtm)-&gt;</FONT>extModeInfo)
+</SPAN><SPAN><SPAN class="LN">  376   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  377   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  378   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWExtModeInfo
+</SPAN><SPAN><SPAN class="LN">  379   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWExtModeInfo(rtm, val) ((rtm)-&gt;</FONT>extModeInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  380   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  381   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  382   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWGeneratedSFcn
+</SPAN><SPAN><SPAN class="LN">  383   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWGeneratedSFcn(rtm)   ((rtm)-&gt;</FONT>Sizes.rtwGenSfcn)
+</SPAN><SPAN><SPAN class="LN">  384   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  385   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  386   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWGeneratedSFcn
+</SPAN><SPAN><SPAN class="LN">  387   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWGeneratedSFcn(rtm, val) ((rtm)-&gt;</FONT>Sizes.rtwGenSfcn = (val))
+</SPAN><SPAN><SPAN class="LN">  388   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  389   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  390   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWLogInfo
+</SPAN><SPAN><SPAN class="LN">  391   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWLogInfo(rtm)         ((rtm)-&gt;</FONT>rtwLogInfo)
+</SPAN><SPAN><SPAN class="LN">  392   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  393   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  394   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWLogInfo
+</SPAN><SPAN><SPAN class="LN">  395   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWLogInfo(rtm, val)    ((rtm)-&gt;</FONT>rtwLogInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  396   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  397   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  398   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWRTModelMethodsInfo
+</SPAN><SPAN><SPAN class="LN">  399   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWRTModelMethodsInfo(rtm) ((rtm)-&gt;</FONT>modelMethodsInfo)
+</SPAN><SPAN><SPAN class="LN">  400   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  401   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  402   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWRTModelMethodsInfo
+</SPAN><SPAN><SPAN class="LN">  403   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWRTModelMethodsInfo(rtm, val) ((rtm)-&gt;</FONT>modelMethodsInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  404   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  405   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  406   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWSfcnInfo
+</SPAN><SPAN><SPAN class="LN">  407   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWSfcnInfo(rtm)        ((rtm)-&gt;</FONT>sfcnInfo)
+</SPAN><SPAN><SPAN class="LN">  408   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  409   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  410   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWSfcnInfo
+</SPAN><SPAN><SPAN class="LN">  411   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWSfcnInfo(rtm, val)   ((rtm)-&gt;</FONT>sfcnInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  412   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  413   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  414   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWSolverInfo
+</SPAN><SPAN><SPAN class="LN">  415   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWSolverInfo(rtm)      ((rtm)-&gt;</FONT>solverInfo)
+</SPAN><SPAN><SPAN class="LN">  416   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  417   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  418   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWSolverInfo
+</SPAN><SPAN><SPAN class="LN">  419   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWSolverInfo(rtm, val) ((rtm)-&gt;</FONT>solverInfo = (val))
+</SPAN><SPAN><SPAN class="LN">  420   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  421   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  422   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRTWSolverInfoPtr
+</SPAN><SPAN><SPAN class="LN">  423   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRTWSolverInfoPtr(rtm)   ((rtm)-&gt;</FONT>solverInfoPtr)
+</SPAN><SPAN><SPAN class="LN">  424   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  425   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  426   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRTWSolverInfoPtr
+</SPAN><SPAN><SPAN class="LN">  427   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRTWSolverInfoPtr(rtm, val) ((rtm)-&gt;</FONT>solverInfoPtr = (val))
+</SPAN><SPAN><SPAN class="LN">  428   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  429   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  430   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetReservedForXPC
+</SPAN><SPAN><SPAN class="LN">  431   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetReservedForXPC(rtm)     ((rtm)-&gt;</FONT>SpecialInfo.xpcData)
+</SPAN><SPAN><SPAN class="LN">  432   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  433   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  434   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetReservedForXPC
+</SPAN><SPAN><SPAN class="LN">  435   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetReservedForXPC(rtm, val) ((rtm)-&gt;</FONT>SpecialInfo.xpcData = (val))
+</SPAN><SPAN><SPAN class="LN">  436   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  437   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  438   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetRootDWork
+</SPAN><SPAN><SPAN class="LN">  439   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetRootDWork(rtm)          ((rtm)-&gt;</FONT>Work.dwork)
+</SPAN><SPAN><SPAN class="LN">  440   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  441   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  442   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetRootDWork
+</SPAN><SPAN><SPAN class="LN">  443   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetRootDWork(rtm, val)     ((rtm)-&gt;</FONT>Work.dwork = (val))
+</SPAN><SPAN><SPAN class="LN">  444   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  445   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  446   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSFunctions
+</SPAN><SPAN><SPAN class="LN">  447   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSFunctions(rtm)         ((rtm)-&gt;</FONT>childSfunctions)
+</SPAN><SPAN><SPAN class="LN">  448   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  449   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  450   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSFunctions
+</SPAN><SPAN><SPAN class="LN">  451   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSFunctions(rtm, val)    ((rtm)-&gt;</FONT>childSfunctions = (val))
+</SPAN><SPAN><SPAN class="LN">  452   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  453   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  454   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleHitArray
+</SPAN><SPAN><SPAN class="LN">  455   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleHitArray(rtm)     ((rtm)-&gt;</FONT>Timing.sampleHitArray)
+</SPAN><SPAN><SPAN class="LN">  456   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  457   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  458   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleHitArray
+</SPAN><SPAN><SPAN class="LN">  459   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleHitArray(rtm, val) ((rtm)-&gt;</FONT>Timing.sampleHitArray = (val))
+</SPAN><SPAN><SPAN class="LN">  460   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  461   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  462   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleHitPtr
+</SPAN><SPAN><SPAN class="LN">  463   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleHitPtr(rtm)       ((rtm)-&gt;</FONT>Timing.sampleHits)
+</SPAN><SPAN><SPAN class="LN">  464   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  465   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  466   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleHitPtr
+</SPAN><SPAN><SPAN class="LN">  467   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleHitPtr(rtm, val)  ((rtm)-&gt;</FONT>Timing.sampleHits = (val))
+</SPAN><SPAN><SPAN class="LN">  468   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  469   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  470   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTimeArray
+</SPAN><SPAN><SPAN class="LN">  471   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTimeArray(rtm)    ((rtm)-&gt;</FONT>Timing.sampleTimesArray)
+</SPAN><SPAN><SPAN class="LN">  472   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  473   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  474   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTimeArray
+</SPAN><SPAN><SPAN class="LN">  475   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTimeArray(rtm, val) ((rtm)-&gt;</FONT>Timing.sampleTimesArray = (val))
+</SPAN><SPAN><SPAN class="LN">  476   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  477   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  478   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTimePtr
+</SPAN><SPAN><SPAN class="LN">  479   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTimePtr(rtm)      ((rtm)-&gt;</FONT>Timing.sampleTimes)
+</SPAN><SPAN><SPAN class="LN">  480   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  481   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  482   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTimePtr
+</SPAN><SPAN><SPAN class="LN">  483   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTimePtr(rtm, val) ((rtm)-&gt;</FONT>Timing.sampleTimes = (val))
+</SPAN><SPAN><SPAN class="LN">  484   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  485   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  486   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTimeTaskIDArray
+</SPAN><SPAN><SPAN class="LN">  487   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTimeTaskIDArray(rtm) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDArray)
+</SPAN><SPAN><SPAN class="LN">  488   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  489   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  490   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTimeTaskIDArray
+</SPAN><SPAN><SPAN class="LN">  491   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTimeTaskIDArray(rtm, val) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDArray = (val))
+</SPAN><SPAN><SPAN class="LN">  492   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  493   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  494   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTimeTaskIDPtr
+</SPAN><SPAN><SPAN class="LN">  495   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTimeTaskIDPtr(rtm) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr)
+</SPAN><SPAN><SPAN class="LN">  496   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  497   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  498   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTimeTaskIDPtr
+</SPAN><SPAN><SPAN class="LN">  499   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTimeTaskIDPtr(rtm, val) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr = (val))
+</SPAN><SPAN><SPAN class="LN">  500   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  501   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  502   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSimMode
+</SPAN><SPAN><SPAN class="LN">  503   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSimMode(rtm)            ((rtm)-&gt;</FONT>simMode)
+</SPAN><SPAN><SPAN class="LN">  504   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  505   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  506   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSimMode
+</SPAN><SPAN><SPAN class="LN">  507   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSimMode(rtm, val)       ((rtm)-&gt;</FONT>simMode = (val))
+</SPAN><SPAN><SPAN class="LN">  508   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  509   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  510   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSimTimeStep
+</SPAN><SPAN><SPAN class="LN">  511   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSimTimeStep(rtm)        ((rtm)-&gt;</FONT>Timing.simTimeStep)
+</SPAN><SPAN><SPAN class="LN">  512   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  513   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  514   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSimTimeStep
+</SPAN><SPAN><SPAN class="LN">  515   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSimTimeStep(rtm, val)   ((rtm)-&gt;</FONT>Timing.simTimeStep = (val))
+</SPAN><SPAN><SPAN class="LN">  516   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  517   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  518   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetStartTime
+</SPAN><SPAN><SPAN class="LN">  519   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetStartTime(rtm)          ((rtm)-&gt;</FONT>Timing.tStart)
+</SPAN><SPAN><SPAN class="LN">  520   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  521   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  522   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetStartTime
+</SPAN><SPAN><SPAN class="LN">  523   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetStartTime(rtm, val)     ((rtm)-&gt;</FONT>Timing.tStart = (val))
+</SPAN><SPAN><SPAN class="LN">  524   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  525   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  526   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetStepSize
+</SPAN><SPAN><SPAN class="LN">  527   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetStepSize(rtm)           ((rtm)-&gt;</FONT>Timing.stepSize)
+</SPAN><SPAN><SPAN class="LN">  528   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  529   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  530   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetStepSize
+</SPAN><SPAN><SPAN class="LN">  531   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetStepSize(rtm, val)      ((rtm)-&gt;</FONT>Timing.stepSize = (val))
+</SPAN><SPAN><SPAN class="LN">  532   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  533   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  534   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetStopRequestedFlag
+</SPAN><SPAN><SPAN class="LN">  535   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetStopRequestedFlag(rtm)  ((rtm)-&gt;</FONT>Timing.stopRequestedFlag)
+</SPAN><SPAN><SPAN class="LN">  536   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  537   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  538   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetStopRequestedFlag
+</SPAN><SPAN><SPAN class="LN">  539   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetStopRequestedFlag(rtm, val) ((rtm)-&gt;</FONT>Timing.stopRequestedFlag = (val))
+</SPAN><SPAN><SPAN class="LN">  540   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  541   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  542   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTaskCounters
+</SPAN><SPAN><SPAN class="LN">  543   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTaskCounters(rtm)       ((rtm)-&gt;</FONT>Timing.TaskCounters)
+</SPAN><SPAN><SPAN class="LN">  544   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  545   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  546   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTaskCounters
+</SPAN><SPAN><SPAN class="LN">  547   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTaskCounters(rtm, val)  ((rtm)-&gt;</FONT>Timing.TaskCounters = (val))
+</SPAN><SPAN><SPAN class="LN">  548   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  549   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  550   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTaskTimeArray
+</SPAN><SPAN><SPAN class="LN">  551   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTaskTimeArray(rtm)      ((rtm)-&gt;</FONT>Timing.tArray)
+</SPAN><SPAN><SPAN class="LN">  552   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  553   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  554   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTaskTimeArray
+</SPAN><SPAN><SPAN class="LN">  555   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTaskTimeArray(rtm, val) ((rtm)-&gt;</FONT>Timing.tArray = (val))
+</SPAN><SPAN><SPAN class="LN">  556   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  557   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  558   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTimePtr
+</SPAN><SPAN><SPAN class="LN">  559   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTimePtr(rtm)            ((rtm)-&gt;</FONT>Timing.t)
+</SPAN><SPAN><SPAN class="LN">  560   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  561   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  562   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTimePtr
+</SPAN><SPAN><SPAN class="LN">  563   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTimePtr(rtm, val)       ((rtm)-&gt;</FONT>Timing.t = (val))
+</SPAN><SPAN><SPAN class="LN">  564   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  565   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  566   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTimingData
+</SPAN><SPAN><SPAN class="LN">  567   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTimingData(rtm)         ((rtm)-&gt;</FONT>Timing.timingData)
+</SPAN><SPAN><SPAN class="LN">  568   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  569   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  570   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTimingData
+</SPAN><SPAN><SPAN class="LN">  571   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTimingData(rtm, val)    ((rtm)-&gt;</FONT>Timing.timingData = (val))
+</SPAN><SPAN><SPAN class="LN">  572   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  573   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  574   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetU
+</SPAN><SPAN><SPAN class="LN">  575   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetU(rtm)                  ((rtm)-&gt;</FONT>ModelData.inputs)
+</SPAN><SPAN><SPAN class="LN">  576   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  577   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  578   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetU
+</SPAN><SPAN><SPAN class="LN">  579   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetU(rtm, val)             ((rtm)-&gt;</FONT>ModelData.inputs = (val))
+</SPAN><SPAN><SPAN class="LN">  580   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  581   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  582   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetVarNextHitTimesListPtr
+</SPAN><SPAN><SPAN class="LN">  583   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetVarNextHitTimesListPtr(rtm) ((rtm)-&gt;</FONT>Timing.varNextHitTimesList)
+</SPAN><SPAN><SPAN class="LN">  584   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  585   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  586   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetVarNextHitTimesListPtr
+</SPAN><SPAN><SPAN class="LN">  587   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetVarNextHitTimesListPtr(rtm, val) ((rtm)-&gt;</FONT>Timing.varNextHitTimesList = (val))
+</SPAN><SPAN><SPAN class="LN">  588   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  589   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  590   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetY
+</SPAN><SPAN><SPAN class="LN">  591   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetY(rtm)                  ((rtm)-&gt;</FONT>ModelData.outputs)
+</SPAN><SPAN><SPAN class="LN">  592   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  593   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  594   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetY
+</SPAN><SPAN><SPAN class="LN">  595   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetY(rtm, val)             ((rtm)-&gt;</FONT>ModelData.outputs = (val))
+</SPAN><SPAN><SPAN class="LN">  596   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  597   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  598   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetZCCacheNeedsReset
+</SPAN><SPAN><SPAN class="LN">  599   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetZCCacheNeedsReset(rtm)  ((rtm)-&gt;</FONT>ModelData.zCCacheNeedsReset)
+</SPAN><SPAN><SPAN class="LN">  600   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  601   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  602   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetZCCacheNeedsReset
+</SPAN><SPAN><SPAN class="LN">  603   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetZCCacheNeedsReset(rtm, val) ((rtm)-&gt;</FONT>ModelData.zCCacheNeedsReset = (val))
+</SPAN><SPAN><SPAN class="LN">  604   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  605   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  606   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetZCSignalValues
+</SPAN><SPAN><SPAN class="LN">  607   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetZCSignalValues(rtm)     ((rtm)-&gt;</FONT>ModelData.zcSignalValues)
+</SPAN><SPAN><SPAN class="LN">  608   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  609   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  610   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetZCSignalValues
+</SPAN><SPAN><SPAN class="LN">  611   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetZCSignalValues(rtm, val) ((rtm)-&gt;</FONT>ModelData.zcSignalValues = (val))
+</SPAN><SPAN><SPAN class="LN">  612   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  613   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  614   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGet_TimeOfLastOutput
+</SPAN><SPAN><SPAN class="LN">  615   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGet_TimeOfLastOutput(rtm)  ((rtm)-&gt;</FONT>Timing.timeOfLastOutput)
+</SPAN><SPAN><SPAN class="LN">  616   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  617   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  618   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSet_TimeOfLastOutput
+</SPAN><SPAN><SPAN class="LN">  619   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSet_TimeOfLastOutput(rtm, val) ((rtm)-&gt;</FONT>Timing.timeOfLastOutput = (val))
+</SPAN><SPAN><SPAN class="LN">  620   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  621   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  622   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetdX
+</SPAN><SPAN><SPAN class="LN">  623   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetdX(rtm)                 ((rtm)-&gt;</FONT>ModelData.derivs)
+</SPAN><SPAN><SPAN class="LN">  624   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  625   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  626   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetdX
+</SPAN><SPAN><SPAN class="LN">  627   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetdX(rtm, val)            ((rtm)-&gt;</FONT>ModelData.derivs = (val))
+</SPAN><SPAN><SPAN class="LN">  628   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  629   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  630   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetChecksumVal
+</SPAN><SPAN><SPAN class="LN">  631   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetChecksumVal(rtm, idx)   ((rtm)-&gt;</FONT>Sizes.checksums[idx])
+</SPAN><SPAN><SPAN class="LN">  632   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  633   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  634   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetChecksumVal
+</SPAN><SPAN><SPAN class="LN">  635   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetChecksumVal(rtm, idx, val) ((rtm)-&gt;</FONT>Sizes.checksums[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  636   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  637   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  638   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetDWork
+</SPAN><SPAN><SPAN class="LN">  639   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetDWork(rtm, idx)         ((rtm)-&gt;</FONT>Work.dwork[idx])
+</SPAN><SPAN><SPAN class="LN">  640   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  641   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  642   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetDWork
+</SPAN><SPAN><SPAN class="LN">  643   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetDWork(rtm, idx, val)    ((rtm)-&gt;</FONT>Work.dwork[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  644   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  645   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  646   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetOffsetTime
+</SPAN><SPAN><SPAN class="LN">  647   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetOffsetTime(rtm, idx)    ((rtm)-&gt;</FONT>Timing.offsetTimes[idx])
+</SPAN><SPAN><SPAN class="LN">  648   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  649   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  650   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetOffsetTime
+</SPAN><SPAN><SPAN class="LN">  651   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetOffsetTime(rtm, idx, val) ((rtm)-&gt;</FONT>Timing.offsetTimes[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  652   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  653   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  654   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSFunction
+</SPAN><SPAN><SPAN class="LN">  655   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSFunction(rtm, idx)     ((rtm)-&gt;</FONT>childSfunctions[idx])
+</SPAN><SPAN><SPAN class="LN">  656   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  657   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  658   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSFunction
+</SPAN><SPAN><SPAN class="LN">  659   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSFunction(rtm, idx, val) ((rtm)-&gt;</FONT>childSfunctions[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  660   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  661   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  662   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTime
+</SPAN><SPAN><SPAN class="LN">  663   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTime(rtm, idx)    ((rtm)-&gt;</FONT>Timing.sampleTimes[idx])
+</SPAN><SPAN><SPAN class="LN">  664   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  665   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  666   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTime
+</SPAN><SPAN><SPAN class="LN">  667   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTime(rtm, idx, val) ((rtm)-&gt;</FONT>Timing.sampleTimes[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  668   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  669   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  670   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetSampleTimeTaskID
+</SPAN><SPAN><SPAN class="LN">  671   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetSampleTimeTaskID(rtm, idx) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr[idx])
+</SPAN><SPAN><SPAN class="LN">  672   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  673   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  674   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetSampleTimeTaskID
+</SPAN><SPAN><SPAN class="LN">  675   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetSampleTimeTaskID(rtm, idx, val) ((rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  676   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  677   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  678   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetVarNextHitTime
+</SPAN><SPAN><SPAN class="LN">  679   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetVarNextHitTime(rtm, idx) ((rtm)-&gt;</FONT>Timing.varNextHitTimesList[idx])
+</SPAN><SPAN><SPAN class="LN">  680   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  681   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  682   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetVarNextHitTime
+</SPAN><SPAN><SPAN class="LN">  683   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetVarNextHitTime(rtm, idx, val) ((rtm)-&gt;</FONT>Timing.varNextHitTimesList[idx] = (val))
+</SPAN><SPAN><SPAN class="LN">  684   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  685   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  686   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmIsContinuousTask
+</SPAN><SPAN><SPAN class="LN">  687   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmIsContinuousTask(rtm, tid) ((tid) == 0)
+</SPAN><SPAN><SPAN class="LN">  688   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  689   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  690   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetErrorStatus
+</SPAN><SPAN><SPAN class="LN">  691   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetErrorStatus(rtm)        ((rtm)-&gt;</FONT>errorStatus)
+</SPAN><SPAN><SPAN class="LN">  692   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  693   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  694   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetErrorStatus
+</SPAN><SPAN><SPAN class="LN">  695   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetErrorStatus(rtm, val)   ((rtm)-&gt;</FONT>errorStatus = (val))
+</SPAN><SPAN><SPAN class="LN">  696   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  697   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  698   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetErrorStatusPointer
+</SPAN><SPAN><SPAN class="LN">  699   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetErrorStatusPointer(rtm) ((const char_T **)(&amp;((rtm)-&gt;</FONT>errorStatus)))
+</SPAN><SPAN><SPAN class="LN">  700   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  701   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  702   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmIsMajorTimeStep
+</SPAN><SPAN><SPAN class="LN">  703   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmIsMajorTimeStep(rtm)       (((rtm)-&gt;</FONT>Timing.simTimeStep) == MAJOR_TIME_STEP)
+</SPAN><SPAN><SPAN class="LN">  704   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  705   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  706   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmIsMinorTimeStep
+</SPAN><SPAN><SPAN class="LN">  707   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmIsMinorTimeStep(rtm)       (((rtm)-&gt;</FONT>Timing.simTimeStep) == MINOR_TIME_STEP)
+</SPAN><SPAN><SPAN class="LN">  708   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  709   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  710   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmIsSampleHit
+</SPAN><SPAN><SPAN class="LN">  711   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmIsSampleHit(rtm, sti, tid) ((rtmIsMajorTimeStep((rtm)) &amp;&amp; (rtm)-&gt;</FONT>Timing.sampleHits[(rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr[sti]]))
+</SPAN><SPAN><SPAN class="LN">  712   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  713   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  714   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetStopRequested
+</SPAN><SPAN><SPAN class="LN">  715   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetStopRequested(rtm)      ((rtm)-&gt;</FONT>Timing.stopRequestedFlag)
+</SPAN><SPAN><SPAN class="LN">  716   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  717   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  718   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetStopRequested
+</SPAN><SPAN><SPAN class="LN">  719   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetStopRequested(rtm, val) ((rtm)-&gt;</FONT>Timing.stopRequestedFlag = (val))
+</SPAN><SPAN><SPAN class="LN">  720   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  721   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  722   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetStopRequestedPtr
+</SPAN><SPAN><SPAN class="LN">  723   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetStopRequestedPtr(rtm)   (&amp;((rtm)-&gt;</FONT>Timing.stopRequestedFlag))
+</SPAN><SPAN><SPAN class="LN">  724   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  725   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  726   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetT
+</SPAN><SPAN><SPAN class="LN">  727   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetT(rtm)                  (rtmGetTPtr((rtm))[0])
+</SPAN><SPAN><SPAN class="LN">  728   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  729   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  730   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetT
+</SPAN><SPAN><SPAN class="LN">  731   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetT(rtm, val)                                       <SPAN class="CT">/* Do Nothing */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  732   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  733   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  734   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTFinal
+</SPAN><SPAN><SPAN class="LN">  735   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTFinal(rtm)             ((rtm)-&gt;</FONT>Timing.tFinal)
+</SPAN><SPAN><SPAN class="LN">  736   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  737   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  738   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTFinal
+</SPAN><SPAN><SPAN class="LN">  739   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTFinal(rtm, val)        ((rtm)-&gt;</FONT>Timing.tFinal = (val))
+</SPAN><SPAN><SPAN class="LN">  740   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  741   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  742   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTPtr
+</SPAN><SPAN><SPAN class="LN">  743   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTPtr(rtm)               ((rtm)-&gt;</FONT>Timing.t)
+</SPAN><SPAN><SPAN class="LN">  744   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  745   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  746   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTPtr
+</SPAN><SPAN><SPAN class="LN">  747   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTPtr(rtm, val)          ((rtm)-&gt;</FONT>Timing.t = (val))
+</SPAN><SPAN><SPAN class="LN">  748   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  749   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  750   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTStart
+</SPAN><SPAN><SPAN class="LN">  751   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTStart(rtm)             ((rtm)-&gt;</FONT>Timing.tStart)
+</SPAN><SPAN><SPAN class="LN">  752   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  753   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  754   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTStart
+</SPAN><SPAN><SPAN class="LN">  755   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTStart(rtm, val)        ((rtm)-&gt;</FONT>Timing.tStart = (val))
+</SPAN><SPAN><SPAN class="LN">  756   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  757   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  758   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTaskTime
+</SPAN><SPAN><SPAN class="LN">  759   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTaskTime(rtm, sti)      (rtmGetTPtr((rtm))[(rtm)-&gt;</FONT>Timing.sampleTimeTaskIDPtr[sti]])
+</SPAN><SPAN><SPAN class="LN">  760   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  761   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  762   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmSetTaskTime
+</SPAN><SPAN><SPAN class="LN">  763   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmSetTaskTime(rtm, sti, val) (rtmGetTPtr((rtm))[sti] = (val))
+</SPAN><SPAN><SPAN class="LN">  764   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  765   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  766   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> rtmGetTimeOfLastOutput
+</SPAN><SPAN><SPAN class="LN">  767   </SPAN><FONT COLOR=#992211>#</FONT> <SPAN class="PP">define</SPAN> rtmGetTimeOfLastOutput(rtm)   ((rtm)-&gt;</FONT>Timing.timeOfLastOutput)
+</SPAN><SPAN><SPAN class="LN">  768   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  769   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  770   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifdef</SPAN> rtmGetRTWSolverInfo
+</SPAN><SPAN><SPAN class="LN">  771   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">undef</SPAN> rtmGetRTWSolverInfo
+</SPAN><SPAN><SPAN class="LN">  772   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  773   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  774   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> rtmGetRTWSolverInfo(rtm)       &amp;((rtm)-&gt;</FONT>solverInfo)
+</SPAN><SPAN><SPAN class="LN">  775   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  776   </SPAN><SPAN class="CT">/* Definition for use in the target main file */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  777   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> vdptop_rtModel                 RT_MODEL_vdptop
+</SPAN><SPAN><SPAN class="LN">  778   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  779   </SPAN><SPAN class="CT">/* Block signals (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  780   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  781   </SPAN>  real_T x1;                           <SPAN class="CT">/* '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  782   </SPAN>  real_T x2;                           <SPAN class="CT">/* '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  783   </SPAN>  real_T vdpmult;                      <SPAN class="CT">/* '&lt;Root&gt;/vdpmult' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  784   </SPAN>  real_T Sum;                          <SPAN class="CT">/* '&lt;Root&gt;/Sum' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  785   </SPAN><B>}</B> <A NAME=type_BlockIO_vdptop>BlockIO_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  786   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  787   </SPAN><SPAN class="CT">/* Block states (auto storage) for system '&lt;Root&gt;' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  788   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  789   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  790   </SPAN>    <SPAN class="DT">void</SPAN> *LoggedData;
+</SPAN><SPAN><SPAN class="LN">  791   </SPAN>  <B>}</B> Scope_PWORK;                       <SPAN class="CT">/* '&lt;Root&gt;/Scope' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  792   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  793   </SPAN>  rtMdlrefDWork_mr_vdmultRM vdpmult_DWORK1;<SPAN class="CT">/* '&lt;Root&gt;/vdpmult' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  794   </SPAN><B>}</B> <A NAME=type_D_Work_vdptop>D_Work_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  795   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  796   </SPAN><SPAN class="CT">/* Continuous states (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  797   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  798   </SPAN>  real_T x1_CSTATE;                    <SPAN class="CT">/* '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  799   </SPAN>  real_T x2_CSTATE;                    <SPAN class="CT">/* '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  800   </SPAN><B>}</B> <A NAME=type_ContinuousStates_vdptop>ContinuousStates_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  801   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  802   </SPAN><SPAN class="CT">/* State derivatives (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  803   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  804   </SPAN>  real_T x1_CSTATE;                    <SPAN class="CT">/* '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  805   </SPAN>  real_T x2_CSTATE;                    <SPAN class="CT">/* '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  806   </SPAN><B>}</B> <A NAME=type_StateDerivatives_vdptop>StateDerivatives_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  807   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  808   </SPAN><SPAN class="CT">/* State disabled  */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  809   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  810   </SPAN>  boolean_T x1_CSTATE;                 <SPAN class="CT">/* '&lt;Root&gt;/x1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  811   </SPAN>  boolean_T x2_CSTATE;                 <SPAN class="CT">/* '&lt;Root&gt;/x2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  812   </SPAN><B>}</B> <A NAME=type_StateDisabled_vdptop>StateDisabled_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  813   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  814   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">ifndef</SPAN> ODE3_INTG
+</SPAN><SPAN><SPAN class="LN">  815   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> ODE3_INTG
+</SPAN><SPAN><SPAN class="LN">  816   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  817   </SPAN><SPAN class="CT">/* ODE3 Integration Data */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  818   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  819   </SPAN>  real_T *y;                           <SPAN class="CT">/* output */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  820   </SPAN>  real_T *f[3];                        <SPAN class="CT">/* derivatives */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  821   </SPAN><B>}</B> <A NAME=type_ODE3_IntgData>ODE3_IntgData</A>;
+</SPAN><SPAN><SPAN class="LN">  822   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  823   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>
+</SPAN><SPAN><SPAN class="LN">  824   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  825   </SPAN><SPAN class="CT">/* External outputs (root outports fed by signals with auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  826   </SPAN><SPAN class="KW">typedef</SPAN> <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  827   </SPAN>  real_T Out1;                         <SPAN class="CT">/* '&lt;Root&gt;/Out1' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  828   </SPAN>  real_T Out2;                         <SPAN class="CT">/* '&lt;Root&gt;/Out2' */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  829   </SPAN><B>}</B> <A NAME=type_ExternalOutputs_vdptop>ExternalOutputs_vdptop</A>;
+</SPAN><SPAN><SPAN class="LN">  830   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  831   </SPAN><SPAN class="CT">/* Backward compatible GRT Identifiers */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  832   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> rtB                            vdptop_B
+</SPAN><SPAN><SPAN class="LN">  833   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> BlockIO                        <A HREF=vdptop_h.html#type_BlockIO_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">BlockIO_vdptop</FONT></A>
+</SPAN><SPAN><SPAN class="LN">  834   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> rtX                            vdptop_X
+</SPAN><SPAN><SPAN class="LN">  835   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> ContinuousStates               <A HREF=vdptop_h.html#type_ContinuousStates_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">ContinuousStates_vdptop</FONT></A>
+</SPAN><SPAN><SPAN class="LN">  836   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> rtY                            vdptop_Y
+</SPAN><SPAN><SPAN class="LN">  837   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> ExternalOutputs                <A HREF=vdptop_h.html#type_ExternalOutputs_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">ExternalOutputs_vdptop</FONT></A>
+</SPAN><SPAN><SPAN class="LN">  838   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> rtDWork                        vdptop_DWork
+</SPAN><SPAN><SPAN class="LN">  839   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">define</SPAN> D_Work                         <A HREF=vdptop_h.html#type_D_Work_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">D_Work_vdptop</FONT></A>
+</SPAN><SPAN><SPAN class="LN">  840   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  841   </SPAN><SPAN class="CT">/* Real-time Model Data Structure */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  842   </SPAN><SPAN class="KW">struct</SPAN> RT_MODEL_vdptop <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  843   </SPAN>  <SPAN class="DT">const</SPAN> char_T *path;
+</SPAN><SPAN><SPAN class="LN">  844   </SPAN>  <SPAN class="DT">const</SPAN> char_T *modelName;
+</SPAN><SPAN><SPAN class="LN">  845   </SPAN>  <SPAN class="KW">struct</SPAN> SimStruct_tag * *childSfunctions;
+</SPAN><SPAN><SPAN class="LN">  846   </SPAN>  <SPAN class="DT">const</SPAN> char_T *errorStatus;
+</SPAN><SPAN><SPAN class="LN">  847   </SPAN>  SS_SimMode simMode;
+</SPAN><SPAN><SPAN class="LN">  848   </SPAN>  RTWLogInfo *rtwLogInfo;
+</SPAN><SPAN><SPAN class="LN">  849   </SPAN>  RTWExtModeInfo *extModeInfo;
+</SPAN><SPAN><SPAN class="LN">  850   </SPAN>  RTWSolverInfo solverInfo;
+</SPAN><SPAN><SPAN class="LN">  851   </SPAN>  RTWSolverInfo *solverInfoPtr;
+</SPAN><SPAN><SPAN class="LN">  852   </SPAN>  <SPAN class="DT">void</SPAN> *sfcnInfo;
+</SPAN><SPAN><SPAN class="LN">  853   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  854   </SPAN>  <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  855   </SPAN><SPAN class="CT">   * ModelData:</SPAN>
+</SPAN><SPAN><SPAN class="LN">  856   </SPAN><SPAN class="CT">   * The following substructure contains information regarding</SPAN>
+</SPAN><SPAN><SPAN class="LN">  857   </SPAN><SPAN class="CT">   * the data used in the model.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  858   </SPAN><SPAN class="CT">   */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  859   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  860   </SPAN>    <SPAN class="DT">void</SPAN> *blockIO;
+</SPAN><SPAN><SPAN class="LN">  861   </SPAN>    <SPAN class="DT">const</SPAN> <SPAN class="DT">void</SPAN> *constBlockIO;
+</SPAN><SPAN><SPAN class="LN">  862   </SPAN>    real_T *defaultParam;
+</SPAN><SPAN><SPAN class="LN">  863   </SPAN>    ZCSigState *prevZCSigState;
+</SPAN><SPAN><SPAN class="LN">  864   </SPAN>    real_T *contStates;
+</SPAN><SPAN><SPAN class="LN">  865   </SPAN>    real_T *derivs;
+</SPAN><SPAN><SPAN class="LN">  866   </SPAN>    real_T *zcSignalValues;
+</SPAN><SPAN><SPAN class="LN">  867   </SPAN>    <SPAN class="DT">void</SPAN> *inputs;
+</SPAN><SPAN><SPAN class="LN">  868   </SPAN>    <SPAN class="DT">void</SPAN> *outputs;
+</SPAN><SPAN><SPAN class="LN">  869   </SPAN>    boolean_T *contStateDisabled;
+</SPAN><SPAN><SPAN class="LN">  870   </SPAN>    boolean_T zCCacheNeedsReset;
+</SPAN><SPAN><SPAN class="LN">  871   </SPAN>    boolean_T derivCacheNeedsReset;
+</SPAN><SPAN><SPAN class="LN">  872   </SPAN>    boolean_T blkStateChange;
+</SPAN><SPAN><SPAN class="LN">  873   </SPAN>    real_T odeY[2];
+</SPAN><SPAN><SPAN class="LN">  874   </SPAN>    real_T odeF[3][2];
+</SPAN><SPAN><SPAN class="LN">  875   </SPAN>    <A HREF=vdptop_h.html#type_ODE3_IntgData TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">ODE3_IntgData</FONT></A> intgData;
+</SPAN><SPAN><SPAN class="LN">  876   </SPAN>  <B>}</B> ModelData;
+</SPAN><SPAN><SPAN class="LN">  877   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  878   </SPAN>  <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  879   </SPAN><SPAN class="CT">   * Sizes:</SPAN>
+</SPAN><SPAN><SPAN class="LN">  880   </SPAN><SPAN class="CT">   * The following substructure contains sizes information</SPAN>
+</SPAN><SPAN><SPAN class="LN">  881   </SPAN><SPAN class="CT">   * for many of the model attributes such as inputs, outputs,</SPAN>
+</SPAN><SPAN><SPAN class="LN">  882   </SPAN><SPAN class="CT">   * dwork, sample times, etc.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  883   </SPAN><SPAN class="CT">   */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  884   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  885   </SPAN>    uint32_T checksums[4];
+</SPAN><SPAN><SPAN class="LN">  886   </SPAN>    uint32_T options;
+</SPAN><SPAN><SPAN class="LN">  887   </SPAN>    int_T numContStates;
+</SPAN><SPAN><SPAN class="LN">  888   </SPAN>    int_T numU;
+</SPAN><SPAN><SPAN class="LN">  889   </SPAN>    int_T numY;
+</SPAN><SPAN><SPAN class="LN">  890   </SPAN>    int_T numSampTimes;
+</SPAN><SPAN><SPAN class="LN">  891   </SPAN>    int_T numBlocks;
+</SPAN><SPAN><SPAN class="LN">  892   </SPAN>    int_T numBlockIO;
+</SPAN><SPAN><SPAN class="LN">  893   </SPAN>    int_T numBlockPrms;
+</SPAN><SPAN><SPAN class="LN">  894   </SPAN>    int_T numDwork;
+</SPAN><SPAN><SPAN class="LN">  895   </SPAN>    int_T numSFcnPrms;
+</SPAN><SPAN><SPAN class="LN">  896   </SPAN>    int_T numSFcns;
+</SPAN><SPAN><SPAN class="LN">  897   </SPAN>    int_T numIports;
+</SPAN><SPAN><SPAN class="LN">  898   </SPAN>    int_T numOports;
+</SPAN><SPAN><SPAN class="LN">  899   </SPAN>    int_T numNonSampZCs;
+</SPAN><SPAN><SPAN class="LN">  900   </SPAN>    int_T sysDirFeedThru;
+</SPAN><SPAN><SPAN class="LN">  901   </SPAN>    int_T rtwGenSfcn;
+</SPAN><SPAN><SPAN class="LN">  902   </SPAN>  <B>}</B> Sizes;
+</SPAN><SPAN><SPAN class="LN">  903   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  904   </SPAN>  <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  905   </SPAN><SPAN class="CT">   * SpecialInfo:</SPAN>
+</SPAN><SPAN><SPAN class="LN">  906   </SPAN><SPAN class="CT">   * The following substructure contains special information</SPAN>
+</SPAN><SPAN><SPAN class="LN">  907   </SPAN><SPAN class="CT">   * related to other components that are dependent on RTW.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  908   </SPAN><SPAN class="CT">   */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  909   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  910   </SPAN>    <SPAN class="DT">const</SPAN> <SPAN class="DT">void</SPAN> *mappingInfo;
+</SPAN><SPAN><SPAN class="LN">  911   </SPAN>    <SPAN class="DT">void</SPAN> *xpcData;
+</SPAN><SPAN><SPAN class="LN">  912   </SPAN>  <B>}</B> SpecialInfo;
+</SPAN><SPAN><SPAN class="LN">  913   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  914   </SPAN>  <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  915   </SPAN><SPAN class="CT">   * Timing:</SPAN>
+</SPAN><SPAN><SPAN class="LN">  916   </SPAN><SPAN class="CT">   * The following substructure contains information regarding</SPAN>
+</SPAN><SPAN><SPAN class="LN">  917   </SPAN><SPAN class="CT">   * the timing information for the model.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  918   </SPAN><SPAN class="CT">   */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  919   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  920   </SPAN>    time_T stepSize;
+</SPAN><SPAN><SPAN class="LN">  921   </SPAN>    uint32_T clockTick0;
+</SPAN><SPAN><SPAN class="LN">  922   </SPAN>    uint32_T clockTickH0;
+</SPAN><SPAN><SPAN class="LN">  923   </SPAN>    time_T stepSize0;
+</SPAN><SPAN><SPAN class="LN">  924   </SPAN>    uint32_T clockTick1;
+</SPAN><SPAN><SPAN class="LN">  925   </SPAN>    uint32_T clockTickH1;
+</SPAN><SPAN><SPAN class="LN">  926   </SPAN>    time_T stepSize1;
+</SPAN><SPAN><SPAN class="LN">  927   </SPAN>    <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  928   </SPAN>      uint32_T TID[2];
+</SPAN><SPAN><SPAN class="LN">  929   </SPAN>    <B>}</B> TaskCounters;
+</SPAN><SPAN><SPAN class="LN">  930   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  931   </SPAN>    time_T tStart;
+</SPAN><SPAN><SPAN class="LN">  932   </SPAN>    time_T tFinal;
+</SPAN><SPAN><SPAN class="LN">  933   </SPAN>    time_T timeOfLastOutput;
+</SPAN><SPAN><SPAN class="LN">  934   </SPAN>    <SPAN class="DT">void</SPAN> *timingData;
+</SPAN><SPAN><SPAN class="LN">  935   </SPAN>    real_T *varNextHitTimesList;
+</SPAN><SPAN><SPAN class="LN">  936   </SPAN>    SimTimeStep simTimeStep;
+</SPAN><SPAN><SPAN class="LN">  937   </SPAN>    boolean_T stopRequestedFlag;
+</SPAN><SPAN><SPAN class="LN">  938   </SPAN>    time_T *sampleTimes;
+</SPAN><SPAN><SPAN class="LN">  939   </SPAN>    time_T *offsetTimes;
+</SPAN><SPAN><SPAN class="LN">  940   </SPAN>    int_T *sampleTimeTaskIDPtr;
+</SPAN><SPAN><SPAN class="LN">  941   </SPAN>    int_T *sampleHits;
+</SPAN><SPAN><SPAN class="LN">  942   </SPAN>    int_T *perTaskSampleHits;
+</SPAN><SPAN><SPAN class="LN">  943   </SPAN>    time_T *t;
+</SPAN><SPAN><SPAN class="LN">  944   </SPAN>    time_T sampleTimesArray[2];
+</SPAN><SPAN><SPAN class="LN">  945   </SPAN>    time_T offsetTimesArray[2];
+</SPAN><SPAN><SPAN class="LN">  946   </SPAN>    int_T sampleTimeTaskIDArray[2];
+</SPAN><SPAN><SPAN class="LN">  947   </SPAN>    int_T sampleHitArray[2];
+</SPAN><SPAN><SPAN class="LN">  948   </SPAN>    int_T perTaskSampleHitsArray[4];
+</SPAN><SPAN><SPAN class="LN">  949   </SPAN>    time_T tArray[2];
+</SPAN><SPAN><SPAN class="LN">  950   </SPAN>  <B>}</B> Timing;
+</SPAN><SPAN><SPAN class="LN">  951   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  952   </SPAN>  <SPAN class="CT">/*</SPAN>
+</SPAN><SPAN><SPAN class="LN">  953   </SPAN><SPAN class="CT">   * Work:</SPAN>
+</SPAN><SPAN><SPAN class="LN">  954   </SPAN><SPAN class="CT">   * The following substructure contains information regarding</SPAN>
+</SPAN><SPAN><SPAN class="LN">  955   </SPAN><SPAN class="CT">   * the work vectors in the model.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  956   </SPAN><SPAN class="CT">   */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  957   </SPAN>  <SPAN class="KW">struct</SPAN> <B>{</B>
+</SPAN><SPAN><SPAN class="LN">  958   </SPAN>    <SPAN class="DT">void</SPAN> *dwork;
+</SPAN><SPAN><SPAN class="LN">  959   </SPAN>  <B>}</B> Work;
+</SPAN><SPAN><SPAN class="LN">  960   </SPAN><B>}</B>;
+</SPAN><SPAN><SPAN class="LN">  961   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  962   </SPAN><SPAN class="CT">/* Block signals (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  963   </SPAN><SPAN class="DT">extern</SPAN> <A HREF=vdptop_h.html#type_BlockIO_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">BlockIO_vdptop</FONT></A> vdptop_B;
+</SPAN><SPAN><SPAN class="LN">  964   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  965   </SPAN><SPAN class="CT">/* Continuous states (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  966   </SPAN><SPAN class="DT">extern</SPAN> <A HREF=vdptop_h.html#type_ContinuousStates_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">ContinuousStates_vdptop</FONT></A> vdptop_X;
+</SPAN><SPAN><SPAN class="LN">  967   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  968   </SPAN><SPAN class="CT">/* Block states (auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  969   </SPAN><SPAN class="DT">extern</SPAN> <A HREF=vdptop_h.html#type_D_Work_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">D_Work_vdptop</FONT></A> vdptop_DWork;
+</SPAN><SPAN><SPAN class="LN">  970   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  971   </SPAN><SPAN class="CT">/* External outputs (root outports fed by signals with auto storage) */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  972   </SPAN><SPAN class="DT">extern</SPAN> <A HREF=vdptop_h.html#type_ExternalOutputs_vdptop TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">ExternalOutputs_vdptop</FONT></A> vdptop_Y;
+</SPAN><SPAN><SPAN class="LN">  973   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  974   </SPAN><SPAN class="CT">/* Model entry point functions */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  975   </SPAN><SPAN class="DT">extern</SPAN> <SPAN class="DT">void</SPAN> vdptop_initialize(boolean_T firstTime);
+</SPAN><SPAN><SPAN class="LN">  976   </SPAN><SPAN class="DT">extern</SPAN> <SPAN class="DT">void</SPAN> vdptop_output(int_T tid);
+</SPAN><SPAN><SPAN class="LN">  977   </SPAN><SPAN class="DT">extern</SPAN> <SPAN class="DT">void</SPAN> vdptop_update(int_T tid);
+</SPAN><SPAN><SPAN class="LN">  978   </SPAN><SPAN class="DT">extern</SPAN> <SPAN class="DT">void</SPAN> vdptop_terminate(<SPAN class="DT">void</SPAN>);
+</SPAN><SPAN><SPAN class="LN">  979   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  980   </SPAN><SPAN class="CT">/* Real-time Model object */</SPAN>
+</SPAN><SPAN><SPAN class="LN">  981   </SPAN><SPAN class="DT">extern</SPAN> RT_MODEL_vdptop *vdptop_M;
+</SPAN><SPAN><SPAN class="LN">  982   </SPAN>
+</SPAN><SPAN><SPAN class="LN">  983   </SPAN><SPAN class="CT">/*-</SPAN>
+</SPAN><SPAN><SPAN class="LN">  984   </SPAN><SPAN class="CT"> * The generated code includes comments that allow you to trace directly</SPAN>
+</SPAN><SPAN><SPAN class="LN">  985   </SPAN><SPAN class="CT"> * back to the appropriate location in the model.  The basic format</SPAN>
+</SPAN><SPAN><SPAN class="LN">  986   </SPAN><SPAN class="CT"> * is &lt;system&gt;/block_name, where system is the system number (uniquely</SPAN>
+</SPAN><SPAN><SPAN class="LN">  987   </SPAN><SPAN class="CT"> * assigned by Simulink) and block_name is the name of the block.</SPAN>
+</SPAN><SPAN><SPAN class="LN">  988   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  989   </SPAN><SPAN class="CT"> * Use the MATLAB hilite_system command to trace the generated code back</SPAN>
+</SPAN><SPAN><SPAN class="LN">  990   </SPAN><SPAN class="CT"> * to the model.  For example,</SPAN>
+</SPAN><SPAN><SPAN class="LN">  991   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  992   </SPAN><SPAN class="CT"> * hilite_system('&lt;S3&gt;')    - opens system 3</SPAN>
+</SPAN><SPAN><SPAN class="LN">  993   </SPAN><SPAN class="CT"> * hilite_system('&lt;S3&gt;/Kp') - opens and selects block Kp which resides in S3</SPAN>
+</SPAN><SPAN><SPAN class="LN">  994   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  995   </SPAN><SPAN class="CT"> * Here is the system hierarchy for this model</SPAN>
+</SPAN><SPAN><SPAN class="LN">  996   </SPAN><SPAN class="CT"> *</SPAN>
+</SPAN><SPAN><SPAN class="LN">  997   </SPAN><SPAN class="CT"> * '&lt;Root&gt;' : vdptop</SPAN>
+</SPAN><SPAN><SPAN class="LN">  998   </SPAN><SPAN class="CT"> * '&lt;S1&gt;'   : vdptop/More Info</SPAN>
+</SPAN><SPAN><SPAN class="LN">  999   </SPAN><SPAN class="CT"> * '&lt;S2&gt;'   : vdptop/More Info/Model Info</SPAN>
+</SPAN><SPAN><SPAN class="LN"> 1000   </SPAN><SPAN class="CT"> */</SPAN>
+</SPAN><SPAN><SPAN class="LN"> 1001   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PP">endif</SPAN>                                 <SPAN class="CT">/* RTW_HEADER_vdptop_h_ */</SPAN>
+</SPAN></PRE>
+</TD></TR></TABLE>
+<P>
+</BODY>
+</HTML>
