@@ -1,0 +1,353 @@
+from __future__ import division
+import numpy as np
+
+import pointcloud
+import occupiedlist
+import mrol
+import poseutil
+import util
+import visualiser.robotvisualiser
+import cPickle as pickle
+import quantizer
+
+def loadmap(fname):
+    return pickle.load(open(fname))
+
+def buildmap(scandir):
+    '''Takes a directory of range scans and builds a map.'''
+    pass
+
+def _build_Kinect_sensor_model(resolution, minR=0.5, maxR=5):
+    '''builds an occupiedlist sensor model aligned with the x-axis at the 
+    origin for free space determination'''
+    fov = np.radians(75)
+    #hres = 640
+    #vres = 480
+    hres = 320
+    vres = 240
+    dtheta = fov / hres
+    A = 0.5 * hres / np.tan(0.5 * fov)
+    # perpendicular distance of camera image plane in pixel space
+    cols = np.arange(hres) - hres * 0.5
+    rows = np.arange(vres) - vres * 0.5
+    rows.shape = -1, 1
+    # normalise by A so you can step in x-axis
+    rows /= A
+    cols /= A
+    Y = np.tile(cols, (vres, 1)).ravel()
+    Z = np.tile(rows, (1, hres)).ravel()
+
+    sensor_model_ol = occupiedlist.OccupiedList(resolution, maxvoxels=2e6)
+    # this way voxels that have multiple rays passing through them are not 
+    # tested multiple times.
+
+    xyzs = np.empty((vres * hres, 3))
+    for X in np.arange(minR, maxR, resolution):
+        # TODO this is an approximation calculate the angles
+        xyzs[:, 0] = X
+        xyzs[:, 1] = Y * X
+        xyzs[:, 2] = Z * X
+        sensor_model_ol.addpoints(xyzs)
+        print X
+    return sensor_model_ol
+
+class VoxelMap:
+    '''Mobile robot mapper capable of 2D and 3D maps.  Need to initialise with 
+    a initial pose and scan so that future scans can be aligned, poses are all 
+    poseutil objects.  Recommended way is to take a 3D scan 
+    whilst the robot is stationary to seed the map and then go from there,
+    matching 2D or 3D scans to the map for localisation within the map,
+    or incrementally growing the map.'''
+
+    # Special functions #############################################
+    # optional also include an estimate of the pose error
+    def __init__(self, resolution, levels=1):
+        # lattice_type='cubic', #alignment_method='OVL','Pt2Pt_ICP','Pt2Pl_ICP'
+        self.mrol = mrol.MROL(resolution, levels)
+        self.verbosity = 0
+        self.trajectory = [] 
+        # List of poses at which observations have been taken
+
+        # The verbosity level. Higher verbosity gives more print statements.
+        #self.set_feature_range(100) 
+        self.lattice = 'cubic' # not used anywhere yet because cubic is default
+        # for assistance in discretisation of angular increments in the 
+        # gauss_siedel optimisation
+        self._sensor_pts = None # the sensor model as voxel points
+        self._rv = None # the robot visualiser
+
+    def __len__(self):
+        ''' return the number of voxels at the lowest resolution '''
+        return len(self.mrol.mapvoxels[-1])
+        
+    #def __str__(self)
+    #    ''' return key statistics of the map as a string: e.g. mapped volume, 
+    #    extents, number of voxels, resolution levels, resolutions.
+
+    # Getter functions #############################################
+    def get_resolution(self):
+        return self.mrol.getfinest().resolution
+
+    def get_voxels(self, level=-1):
+        '''Returns the raw voxel information together
+        with the resolution of the voxelisation.'''
+        voxels = self.mrol.getvoxels(level=level)
+        resolution = self.mrol.getresolution(level=level)
+        return voxels, resolution
+            
+    def get_points(self, level=-1):
+        '''Returns the map as a point cloud of the voxel centers. If the
+        map has been setup with multiple resolutions, return the voxels at the 
+        desired resolution. Defaults to the finest resolution.'''
+        voxel_centers = self.mrol.getpoints(level=level)
+        pc = pointcloud.PointCloud(voxel_centers)
+        return pc
+
+    def get_overlap(self, pose, xyzs):
+        '''Return the overlap between a pointcloud at a given pose and the map.'''
+        ol = self.mrol.getfinest()
+        overlap = ol.calccollisions(pose, xyzs)
+        return overlap
+        
+    # other functions #############################################
+    
+    def save(self, fname):
+        outfile = open(fname, 'w')
+        self._rv = None # remove visualiser
+        pickle.dump(self, outfile, protocol=2)
+
+    def display(self,npts=1000000,changes=False):
+        '''Shows a representation of the map in a gui'''
+        if self._rv is None:
+            self._rv_changes = changes
+            self._rv = visualiser.robotvisualiser.Visualiser(npts=npts)
+            self._rv.set_orthographic(Bool=True)
+            #self._rv.setminmax(-1,1)
+
+            #if len(inliers) > 0:
+            #    vis.setrightpts(inliers)
+            #    vis.setleftpts(outliers)
+            #vis.setspinpts(FreeMapper.get_points())
+
+            # TODO visualiser should take a point cloud object
+            self._rv.addmappts(self.get_points().points)
+        #else:
+            #self._disp.se
+
+    def add_points(self, xyzs, pose, timestamp=None):
+        '''Adds the pointcloud xyzs to the map, transforming them by the given 
+        pose if required. Returns the overlap of the new points against the 
+        existing map.'''
+        xyzs = xyzs.points
+        xyzs, return_pose = poseutil.check_and_transform_points(xyzs, pose)
+        self.trajectory.append(return_pose)
+        if self._rv is not None:
+            finest = self.mrol.getfinest()
+            # determine unique new voxels convert to points and add to the map
+            ol = occupiedlist.OccupiedList(finest.resolution)
+            ol.addpoints(xyzs)
+            ol = ol - finest
+            self._rv.addmappts(ol.getpoints())
+            #self._rv.setminmax(-1,1)# TODO dynamically adjust this depending on the data
+            self._rv.setrobotpose(return_pose.getMatrix())
+            self._rv.addtrajectorypoint(return_pose.getTuple()[0:3])
+            if self._rv_changes:
+                inliers, outliers = self.mrol.getfinest().segment_ovl(None,xyzs)
+                self._rv.setrightpts(inliers)
+                self._rv.setleftpts(outliers)
+        self.mrol.addpoints(xyzs, timestamp=timestamp)
+        return self.get_overlap(return_pose.getTuple(), xyzs)
+        
+    # TODO Consider a remove_points based on timestamps?
+    def remove_points(self, xyzs, pose):
+        '''Remove points from the map. In practice, the idea is 
+        to decrement the probability of the voxel in the map having been
+        observed.
+        
+        Returns the voxels at the finest resolution that are now empty.
+        '''
+        xyzs = poseutil.check_and_transform_points(xyzs,pose)[0]
+        return self.mrol.removepoints(xyzs)
+
+    #def set_feature_range(self, feature_range):
+    #    ''' Sets the 'feature_range' variable. Used for assistance in
+    #    the discretisation of angular increments in the gauss_siedel
+    #    optimisation '''
+    #    self.feature_range = float(feature_range)
+    #    self.mrol.feature_range = self.feature_range
+    
+    # def set_options? instead of a long list of init options
+    # def get_options? so the user knows the current setup
+
+        
+    #def some_sort_of_map_maintenance_interface 
+    # - raytrace cleanup, time decay, or callable method based on number 
+    # of observations.
+    # - perhaps as a parameter to the init for auto-maintenance?
+    
+    # If we provide an interface to directly add voxels (e.g. from 
+    # pre-made maps), it would be nice to be able to merge voxels of 
+    # different resolutions and lattice types. This is a low priority
+    # feature
+    #def add_voxels(self, voxels, res, lattice_type=self.lattice_type) # perhaps rename add_map? 
+    
+    #def get_voxels(self, res/level, lattice_type=self.lattice_type) # perhaps rename get_map?
+    # return center coordinate in same format as points are added so it looks like a point cloud
+    
+    #def get_voxel_data 
+    # for things like number of observations. Can also be retrieved from 
+    # get_voxels with the raw option?
+    
+    #def get_voxel_primative(self, res, lattice_type=self.lattice_type) 
+    # return some representation of the voxel shape for visualisation purposes 
+    # (tri/quad-mesh, corner points?)
+
+    #def sample_points(self, method='volumetric') 
+    # to do some point cloud sampling (volumetric, random etc)
+        
+    def align_points(self, xyzs, guess_pose, two_D=False):
+        '''Align the point cloud xyzs with the data already contained in the 
+        map, using the guess_pose as a seed to the optimisation. Returns the 
+        pose that best fits the point cloud data to the map and the value of 
+        the objective function at that pose.
+        
+        If the map is a multi-resolution structure, then the alignment will use 
+        the data at the various resolutions to perform the alignment, which is 
+        more expensive, but more robust. To force alignment at just a single 
+        resolution, specify the level parameter.
+        
+        By default, the alignment is a 6DOF optimization. This can be 
+        constrained to the XY plane by enabling the two_D parameter.'''
+
+        xyzs = xyzs.points
+        bestpose, cost = self.mrol.optimise_alignment(xyzs, guess_pose, full_data=False)
+        bestpose = poseutil.Pose3D(bestpose)
+        return bestpose, cost
+        
+    #def align_points_to_map(self, xyzs, guess_pose):
+    #    bestpose, cost = optimization.gauss_siedel(self._performance_objectiveFast, guess_pose, args=(xyzs, 1.0), quiet=True)
+    #    xyzs_xformed = poseutil.transformPointsTuple(xyzs, bestpose)
+    #    return bestpose, cost, xyzs_xformed
+    
+    def generate_freespace(self, resolution, pose=None, minR=0.5, maxR=5):
+        '''Generates an occuplied list consisting of the observed free space at 
+        the specified resolution.  This is useful for detecting object removal 
+        from a map.'''
+        assert resolution >= self.get_resolution()
+        if self._sensor_pts is None:
+            sensor_model_ol = _build_Kinect_sensor_model(resolution, minR=minR, maxR=maxR) # for simulated data
+            self._sensor_pts = sensor_model_ol.getpoints()
+            print "Sensor model points:", len(self._sensor_pts)
+            #vis = visualiser.robotvisualiser.Visualiser(npts=1e7)
+            #vis.addmappts(self._sensor_pts)
+        
+        base_ol = self.mrol.getfinest()
+        freespace_ol = occupiedlist.OccupiedList(resolution, maxvoxels=5e6)
+        # loop through the trajectory of poses
+        # ray trace from each pose and add voxels to the free space occupied voxel list
+        if pose == None:
+            for pose in self.trajectory:
+                print pose
+                inliers, outliers = base_ol.segment_ovl(pose, self._sensor_pts) 
+                # TODO some means of not adding points that are further away than the intersection (doesn't work very well without this!)
+                # Julian suggests a masking operation whilst stepping through the layers of the model in X
+                freespace_ol.addpoints(outliers)
+                freespace_ol.removepoints(inliers)
+        else:
+            inliers, outliers = base_ol.segment_ovl(pose, self._sensor_pts) 
+            # TODO some means of not adding points that are further away than the intersection
+            freespace_ol.addpoints(outliers)
+            freespace_ol.removepoints(inliers)
+        return freespace_ol
+            
+    def generate_freespace2(self,pc=None, pose=None, resolution=None, minR=0.5, maxR=5):
+        '''
+        Uses existing ray-trace method to get 
+        around the current limitations of above implementation.
+        
+        Generates an occuplied list consisting of the observed free space at 
+        the specified resolution.  This is useful for detecting object removal 
+        from a map.
+        '''
+        if resolution == None:
+            res = self.get_resolution()
+        else:
+            res = resolution
+        assert res >= self.get_resolution()
+        free_space_ol = occupiedlist.OccupiedList(res, maxvoxels=2e6)
+        if pc==None and pose==None:
+            # generate from map using pose list
+            if self._sensor_pts is None:
+                sensor_model_ol = _build_Kinect_sensor_model(res, minR=minR, maxR=maxR)
+                self._sensor_pts = pointcloud.PointCloud(sensor_model_ol.getpoints())
+                print "Sensor model points:", len(self._sensor_pts)
+            base_ol = self.mrol.getfinest()
+
+            for pose in self.trajectory:
+                print pose
+                inliers, outliers = base_ol.segment_ovl(pose, self._sensor_pts.points)
+                inlier_pc = pointcloud.PointCloud(inliers)
+                free_pts = self.free_space_ray_trace(inliers,pose.getTuple()[:3],self.get_resolution())
+                free_space_ol.addpoints(free_pts.points)
+        else:
+            assert xyzs != None and pose != None, "Both xyzs and pose must be specified"
+            # resampling to align with grid. bad hack, but makes ray_cast easier.
+            voxs = occupiedlist.pointstovoxels(xyzs, res)
+            voxs = quantizer.uniquerows(voxs, 0)
+            X = occupiedlist.voxelstopoints(voxs, res)
+            X_pc = pointcloud.PointCloud(X)
+            free_pts = self.free_space_ray_trace(X_pc,pose.getTuple()[:3],self.get_resolution())
+            free_space_ol.addpoints(free_pts.points)
+        return free_space_ol
+
+    def free_space_ray_trace(self,pc,origin,resolution,voxel_offset=0):
+        # This is essentially independant of the VoxelMap; put elsewhere?
+        free_pts = []
+        res = resolution
+        v_off = np.ceil(voxel_offset*(res/self.get_resolution()))
+        free_pts_OL = occupiedlist.OccupiedList(res,maxvoxels=3e6)
+        count = 0
+        for point in pc.points:
+            ray_vox_hits, range2, dir_unit, all_ray_pts = self.ray_trace_pts(origin,point,return_extras=True)
+            all_ray_pts = all_ray_pts.points[:-(v_off+1)]
+            all_ray_vox = occupiedlist.pointstovoxels(all_ray_pts, res)
+
+            all_ray_vox_ol = occupiedlist.OccupiedList(1)
+            all_ray_vox_ol.addpoints(all_ray_vox)
+
+            ray_vox_hits_ol = occupiedlist.OccupiedList(1) 
+            ray_vox_hits_ol.addpoints(ray_vox_hits.points)
+
+            free_ray_vox_ol = all_ray_vox_ol - ray_vox_hits_ol
+            free_pts_OL.addpoints(free_ray_vox_ol.getpoints()*res)
+            count +=1
+            #if np.remainder(count / len(pc) * 100,1) == 0:
+            #    print count / len(pc) * 100 , '%'
+        return pointcloud.PointCloud(free_pts_OL.getpoints())
+            
+            
+
+    def ray_trace(self, pose, length, axis=0):
+        '''perform a ray-trace from the pose and return all map voxels at the
+        base resolution along the ray as a pointcloud object.
+        '''
+        return pointcloud.PointCloud(self.mrol.raytrace(pose, length, axis=axis))
+        
+    def ray_trace_pts(self, point1, point2, return_extras=False):
+        '''
+        perform a ray-trace from point1 to point2 and return all map 
+        voxels at the base resolution along the ray as a pointcloud object.
+        '''
+        if not return_extras:
+            ray_vox_hits = self.mrol.raytracepts(point1, point2, return_extras=False)
+            return pointcloud.PointCloud(ray_vox_hits)
+        else:
+            ray_vox_hits, range2, dir_unit, all_ray_pts = self.mrol.raytracepts(point1, point2, return_extras=True)
+            return pointcloud.PointCloud(ray_vox_hits), range2, dir_unit, pointcloud.PointCloud(all_ray_pts)
+        
+    def _trajectory_objective(self, guess_pose, pts, foo):           
+        return -occupiedlist.calccollisions(guess_pose, self._traj_alignment_voxel_set, self.res, pts)
+
+    def globally_localise(self, xyzs, centrepose, spreadpose):
+        return self.mrol.match(xyzs, centrepose, spreadpose)
+

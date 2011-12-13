@@ -1,0 +1,133 @@
+Ordered in approx priority, by delegation. 
+
+Julian
+	Improve execution speed
+		: Many many possible ways of doing this, some ideas
+		Cython
+			: General way of speeding up tight loops
+		Multisets
+			: Look into multisets for occupiedvoxel lists, e.g. 
+			: collections.Counter in python 2.7?
+			: These multisets seem like the way to go as they provide intersection 
+			: and union operations.  Could start by trying some benchmark code 
+			: that runs under python2.7
+		Bloom filter
+			: with counts to support deletions
+		MinHash
+			http://en.wikipedia.org/wiki/MinHash
+			http://blogs.msdn.com/b/spt/archive/2008/06/10/set-similarity-and-min-hash.aspx
+		Parrallel execution - e.g. for match, ray tracing etc.
+			speed increase is only linear in number of available cores (plus some overhead)
+			multiprocessing is now in python as standard
+		Allow for pre-allocation of working memory region in calccollisions
+			: Have a output array cache, so if requests to occupiedlist are 
+			: made with input arrays the same shape you can just use the already 
+			: created output array?
+			:
+			: Better way might be to copy how numpy does things and have 
+			: calccolision take an option argument out, which is preallocated by 
+			: the user and populated. by the function.
+			:
+			: Usually the same number of points are repeatedly transformed, so 
+			: an array to hold the transformed points/voxel could be 
+			: preallocated and reused.  However might not know in advance the 
+			: poses to tested.
+	Add cython compile to a compile/make script
+	Accelerated nearest neighbour lookup
+		: Good for doing icp without needing flann
+		: Good for testing
+		:
+		: found how to bulk load keys and values into a python dictionary
+		: d = {}
+		: d.update(zip(K, V))
+		: Only the last of multiple values in V with the same key (K) are
+		: kept
+Nick
+	Get a good 3D data set with the kinect, including multi-level.
+		: Data needs to be in IR sensor frame NOT RGB otherwise ray-traces remove the RH edge of discontinuities
+	replace uniformposes with better implementation
+		: e.g. from transformations.py in ROS?
+		: Apparently ros have moved from using transformations.py to
+		: https://github.com/matthew-brett/transforms3d/tree/master/transforms3d
+		:
+		: Probable problems with uniform poses. <- what are these?
+		: Implement uniform random rotations based on quaternion conversion
+	Get temporal decay mapping up and running
+	pointcloud test
+		: PointCloud should probably have a saveload test, make points, save 
+		: them and load them back in and check equality.
+		: Also directory loading
+	Make sure all poses are being passed around as Pose3D objects rather than 6 element arrays
+		: calccollisions should really take a pose
+	Integrate the trajectory stuff via a map maintenance interface
+		: Need a means to remove points when we realise they aren't correct.
+		: To allow for external SLAM solutions also.
+	move boxfilter to pointcloud class?
+	Implement interprocess communication with memmapped arrays?
+		: A = memmap('/tmp/test.bin', dtype=uint8, mode='w+', shape=(10,10))
+		: Although Julian is not entirely sure this is the correct way to 
+		: do it.
+	
+Both / Unallocated
+	Decide on public API, PARAMOUNT
+		: mapper.py
+		: API should NOT be a window into the underlying classes, e.g. 
+		: MROL/occupied list
+		: The tests will only test the public API.  In order to make 
+		: refactoring in the future easier the public API should be ruthlessly 
+		: kept to a minimum.  Currently the public api is defined through 
+		: mapper.py.
+		: Internal white box unit tests are not advised, Julian will not maintain 
+		: them and they will inevitable break when Julian refactors mercilessly.
+		:
+		: The public api will drive and focus development.
+	Prodive users with option against which map update mechanism to use
+		: This is useful for comparisons without having to switch revisions and 
+		: apply patches to bugs. Also, the simple mechanism may be faster and 
+		: useful where speed is of prime importance.
+			: Simple additive map update
+			: KDE based
+			: Others?
+	Add from __future__ import division to every file
+		: can still do integer division with //
+	The return_removed flag for removepoints in occupied list is a bit hacky
+		: Feel like the proper way of doing it would be to combine the point 
+		: cloud, the map and the sensor model to generate the list maybe, not 
+		: sure need to think about this.
+	Thorough test for the global localiser
+		: Take a map and scan, transform by random poses and check that it 
+		: successfully aligns.
+	Run pylint on commited code
+		: Very long lines can be especially awkward and also are less 
+		: readable.  Consider using assigment to improve readability.
+	Use enumerate rather than range(len(...
+	Copyright and licensing headers
+		: before public hosting!
+	Checkout scipy.spatial
+		: classes such as scipy.spatial.KDTree etc.
+	Organise project according
+		http://infinitemonkeycorps.net/docs/pph/
+	Fix/Add profiling script
+		: profiling of mapper to guide optimization efforts
+		: Also profiling test in align_segment_test.py
+	speed test always fails on Nick's computers (k-d tree)
+	refactor the tests into components that are clearer/better
+	Relate the code to sparse ndimensional arrays
+		: https://launchpad.net/ndsparse
+	Improve performance
+		: Possibly using cython, see http://wiki.cython.org/tutorials/numpy
+	bug/issue tracker?
+		: should we use a bug tracker? Julian thinks it is unnecessary to 
+		: begin with, might be useful later though.
+
+Never-ending
+	Remove unused functions
+		: Either write a script to search for def and look for calls or use 
+		: code coverage analysis to see which parts of code are not executed 
+		: by tests? 
+		: Also ack-grep them. The code base isn't too big yet.
+	TODOs in code
+	Lint/style checking
+		: remove unused imports, sfood-checker
+		: Use a lint/style checker
+		: pylint/pychecker output

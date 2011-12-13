@@ -1,0 +1,151 @@
+#! /usr/bin/python
+"""Displays the points in an xyz file the name of which is supplied on the 
+command line. The file should have a format like
+0 0 0
+0.2 1 0.2
+1 2 3
+1 2 3.3
+Dependencies 
+mayavi2 python-scipy and maybe others
+
+Author: Julian Ryde
+"""
+
+import os
+import time
+import numpy as np
+import visual
+import sys
+import matplotlib.cm
+
+import mrol_mapping.pointcloud as pointcloud
+import mrol_mapping.poseutil as poseutil
+
+from threading import Thread
+
+class EnableMouseThread(Thread):
+    def __init__(self, scene):
+        Thread.__init__(self)
+        self.mouse_thread_enabled = True
+        self.scene = scene
+        
+    def run(self):
+        delta = 0
+        self.dragging = False
+        while self.mouse_thread_enabled:
+            if self.scene.mouse.events:
+                m1 = self.scene.mouse.getevent()
+                if m1.click == 'left':
+                    if m1.pickpos != None:
+                        self.scene.center = m1.pickpos
+                if m1.drag == 'left' and self.dragging == False:
+                    print "drag"
+                    self.drag_pos = np.asarray(self.scene.mouse.pos)
+                    self.dragging = True
+                if m1.drop == 'left':
+                    print "drop"
+                    self.dragging = False
+            if self.dragging:
+                new_pos = np.asarray(self.scene.mouse.pos)
+                if (new_pos + delta != self.drag_pos).all(): # if mouse has moved
+                    delta = (self.drag_pos - new_pos)
+                    self.scene.center = self.scene.center + delta
+                    self.drag_pos = new_pos + delta # update drag position
+            time.sleep(0.01)
+    def stop(self):
+        self.mouse_thread_enabled = False
+
+
+def rotating(xyzs):
+    """ function used externally by other programs to show continuosly rotating 
+    plot of points """
+    plotgrid(xyzs)
+
+    az = 0
+    daz = np.radians(1)
+    visual.scene.up = (0, 0, 1)
+    while True:
+        time.sleep(0.05)
+        az += daz
+        visual.scene.forward = (np.sin(az), np.cos(az), -1)
+
+def colors(X, bounds=None):
+    if bounds == None:
+        minx = min(X)
+        maxx = max(X)
+    else:
+        minx = bounds[0]
+        maxx = bounds[1]
+
+    mcm = matplotlib.cm.jet
+    #mcm = matplotlib.cm.GnBu
+    #mcm = matplotlib.cm.gray
+    return mcm((X-minx)/(maxx-minx))[:, :3]
+
+def showpts(xyzs, pose=None, size=2, color=None):
+    if pose is not None:
+        xyzs = pose.transformPoints(xyzs)
+    if color is None:
+        C = colors(xyzs[:, 2])
+    else:
+        C = color
+    P = visual.points(pos=xyzs, color=C, shape='square', size=size)
+    #P.visible = False
+    #visual.scene.visible = False
+    #del P
+    return P
+
+def plotgrid(xyzs, separation=1, pointsize=2, grid_pt_size=1):
+    global vis_gridpts
+    mins = np.amin(xyzs, 0).astype(int)
+    maxs = np.amax(xyzs, 0).astype(int)
+    minz = np.amin(xyzs[:, 2])
+    d = separation
+    XX, YY = np.meshgrid(range(mins[0]/d, maxs[0]/d), range(mins[1]/d, maxs[1]/d)) 
+    XX = d*XX.ravel()
+    YY = d*YY.ravel()
+    ZZ = minz*np.ones_like(XX)
+    gridpts = np.vstack((XX, YY, ZZ)).T
+    visual.scene.background = (1, 1, 1)
+    vis_gridpts = visual.points(pos=gridpts, size=grid_pt_size, color=(0, 0, 0))
+    vis_pts = showpts(xyzs, size=pointsize)
+    return vis_pts
+
+# TODO merge the rotating code below with the rotating function
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print __doc__
+        sys.exit()
+    fname = sys.argv[1]
+    rotate = '--rotating' in sys.argv[1:]
+    grid = '--grid' in sys.argv[1:]
+    az = 0
+    daz = np.radians(1)
+    visual.scene.select()
+    visual.scene.up = (0, 0, 1)
+    visual.scene.forward = (np.sin(az), np.cos(az), -1)
+    M = pointcloud.load(fname)
+
+    # approximately center the view on the point cloud
+    visual.scene.center = M.mean(axis=0) 
+    if not rotate:
+        MT = EnableMouseThread(visual.scene)
+        MT.start()
+
+    while True:
+        M = pointcloud.load(fname)
+        if grid:
+            vis_pts = plotgrid(M)
+        else:
+            vis_pts = showpts(M)
+
+    # wait for file to change
+        lastmodified = os.path.getmtime(fname)
+        print 'Displaying ', len(M), 'points'
+        while lastmodified == os.path.getmtime(fname):
+            time.sleep(0.05)
+            if rotate:
+                az += daz 
+                visual.scene.forward = (np.sin(az), np.cos(az), -1)
+        vis_pts.visible = False
+        vis_gridpts.visible=False

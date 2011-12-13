@@ -1,0 +1,175 @@
+from __future__ import division 
+'''Autonomous System 3D visualiser, from data file or live from the store
+
+TODO currently reads from log file only need to add ability to read from store
+
+Author: Julian Ryde'''
+
+import visual
+import numpy as np
+import pylab
+import time
+import mrol_mapping.visualiser.dispxyz as dispxyz
+#import dispxyz
+from threading import Thread
+
+showlocal = False
+
+class RotateVisual(Thread):
+    def __init__(self, scene):
+        Thread.__init__(self)
+        self.scene_angle = 0
+        self.scene = scene
+
+    def run(self):
+        while True:
+            self.scene_angle += 0.005
+            self.scene.forward = (np.cos(self.scene_angle), np.sin(self.scene_angle), -0.5) 
+            self.scene.up = (0, 0, 1)
+            #self.scene.center += (0.1, 0, 0)
+            time.sleep(0.01)
+
+class Visualiser:
+    def __init__(self, npts=100000, Rotate=False, title=''):
+        ptsize = 3
+        mapptsize = 1
+        self.scene_angle = 0
+        self.localscene = visual.display(title=title + ' Local Coordinate System')
+        self.globalscene = visual.display(title=title + ' Global Coordinate System')
+        #self.globalscene.background = (1, 1, 1)
+        #self.globalscene.up = (0, 0, 1)
+        #self.globalscene.forward = (0, 1, -0.4)
+        self.currentrow = 0
+
+        # Set up the global coordinate frame visualiser
+        self.globalscene.select()
+
+        self.globalscene.up =(0, 0, 1.0)
+
+        #self.visualrobot = visual.box(length=3, height=2, width=1.5)
+        w = 1
+        wid = 0.2
+        self.robotpts = np.array(( (0, -wid, 0, w), (0, wid, 0, w), (3*wid, 0, 0, w), (0, -wid, 0, w) ))
+        #self.visualrobot = visual.points(pos=self.robotpts[:, :3], size=4, shape='round', color=(0, 1, 1))
+        self.visualrobot = visual.curve(pos=self.robotpts[:, :3], color=(0, 1, 1))
+
+        X = np.array([(-1, -1), (-1, 1), (1, 1), (1, -1), (-1, -1)])
+        square = visual.curve(pos=50*X)
+        self.leftmappts = visual.points(size=ptsize, shape='square', color=(1, 0, 0))
+        self.rightmappts = visual.points(size=ptsize, shape='square', color=(0, 1, 0))
+        self.spinmappts = visual.points(size=ptsize, shape='square', color=(0, 0, 1))
+        X = np.zeros((npts, 3))
+        self.mappts = visual.points(pos=X, size=mapptsize, shape='square', color=(1, 1, 1))
+        self.trajpts_ind = 0
+        self.trajpts = visual.points(pos=np.zeros((10000, 3)), color=(0, 0, 1), size=2)
+        visual.scene.show_rendertime = True
+
+        if Rotate:
+            # Enable continuous rotation
+            RV = RotateVisual(self.globalscene)
+            RV.start()
+        else:
+            # Enable mouse panning
+            MT = dispxyz.EnableMouseThread(self.globalscene)
+            MT.start()
+
+        # Set up the local coordinate frame visualiser
+        if showlocal:
+            self.localscene.select()
+            self.leftpts = visual.points(color=(1, 0, 0), size=ptsize, shape='square')
+            self.rightpts = visual.points(color=(0, 1, 0), size=ptsize, shape='square')
+            self.spinpts = visual.points(color=(0, 0, 1), size=ptsize, shape='square')
+            visual.scene.show_rendertime = True
+        
+        self.colourmin = -4
+        self.colourmax = 4
+
+    def getkeypress(self):
+        key = None
+        if self.globalscene.kb.keys:
+            key = self.globalscene.kb.getkey()
+        return key
+    
+    def setminmax(self,colourmin,colourmax):
+        self.colourmin = colourmin
+        self.colourmax = colourmax
+
+    def set_orthographic(self, Bool=False):
+        if Bool:
+            self.globalscene.fov = 1e-5
+
+    def setrobotpose(self, transform_mat): # TODO is there are more elegant way of doing this?
+        self.visualrobot.pos[:] = np.dot(transform_mat, self.robotpts.T).T[:, :3]
+
+    # TODO refactor this left and right
+    def setleftpts(self, xyzs, M=None):
+        if showlocal: self.leftpts.pos = xyzs[:, :3]
+        if M != None:
+            xyzs = np.dot(M, xyzs.T).T
+        self.leftmappts.pos = xyzs[:, :3]
+        #for i in X[:, :3]:
+            #self.leftmappts.append(i)
+
+    def setrightpts(self, xyzs, M=None):
+        if showlocal: self.rightpts.pos = xyzs[:, :3]
+        if M != None:
+            xyzs = np.dot(M, xyzs.T).T
+        self.rightmappts.pos = xyzs[:, :3]
+        #for i in X[:, :3]:
+            #self.rightmappts.append(i)
+
+    def setspinpts(self, xyzs, M=None):
+        if showlocal: self.spinpts.pos = xyzs[:, :3]
+        if M != None:
+            xyzs = np.dot(M, xyzs.T).T
+        self.spinmappts.pos = xyzs[:, :3]
+
+    # TODO make sure the ids of the pos arrays do not change to avoid memory leaks
+
+    def clear(self):
+        self.mappts.pos[:] = 0
+        self.currentrow = 0
+
+    def addmappts(self, xyzs, colour=None):
+        # add this to the array of points to visualise
+        # TODO make this more elegant so that you do not waste space at the end and 
+        # do not leave points hanging around?
+        # something like
+        # X[:, 0].put([9, 10], [99, 98], mode='wrap') for the X, Y and Z coords
+
+        # TODO fix bug if xyzs is longer than self.npts
+        assert len(xyzs) < len(self.mappts.pos), 'Adding more points than visualiser was initialised with'
+        # handle cases when xzys is empty
+        if len(xyzs) < 1: 
+            return
+        if self.currentrow+len(xyzs) > len(self.mappts.pos): 
+            # if adding the points would go off the end of the array start 
+            # adding at the beginning again
+            self.currentrow = 0 
+        cr = self.currentrow
+        self.mappts.pos[cr:cr+len(xyzs)] = xyzs[:, :3]
+        if colour == None:
+            X = xyzs[:, 2]
+            colourmin = self.colourmin#-4
+            colourmax = self.colourmax#4
+            colours = (X-colourmin)/(colourmax-colourmin)
+            self.mappts.color[cr:cr+len(xyzs)] = pylab.cm.gist_rainbow(colours)[:, :3]
+            # jet, Accent, Blues, copper, autumn, cool, gist_earth, gist_heat, 
+            # gist_rainbow, spectral, spring, summer, winter
+        else:
+            self.mappts.color[cr:cr+len(xyzs)] = colour
+        self.currentrow += len(xyzs)
+
+    def setinfostr(self, labeltext):
+        self.infolabel = visual.label()
+        self.infolabel.pos = (-20, 0, 20)
+        # TODO is this a memory leak?
+        self.infolabel.text = str(labeltext)
+
+    # TODO make a circular buffer type array as this is often needed by this 
+    # visualiser code
+    def addtrajectorypoint(self, xyz):
+        self.trajpts.pos[self.trajpts_ind, :] = xyz
+        self.trajpts_ind += 1
+        if self.trajpts_ind >= len(self.trajpts.pos):
+            self.trajpts_ind = 0

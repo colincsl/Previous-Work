@@ -1,0 +1,42 @@
+Entry into the Solutions In Perception Challenge, 2011
+University at Buffalo - Team Franklin
+Authors: Colin Lea, Julian Ryde, Nick Hillier
+Contact: colincsl@gmail.com
+
+In the current state for the preliminary code submission the detector and training functions simply act as an interface by reading ROSBag files and outputing the necessary data (and visualization). The actual trainer and detector algorithms are not currently used in the code.
+
+Most code is in Python so the instructions may be different than most teams in the competition.
+
+
+--Requirements--
+*mrol_sip folder
+*mrol_mapping
+*Numpy
+*SIFT
+
+-The mrol_mapping and kinect_tools folders should be added to PYTHONPATH.
+-mrol_sip should be added to your ROS_PACKAGE_PATH
+-install sift by running 'make' in the SIFT folder
+
+
+---Instructions---
+
+To run either the trainer or detector individually see the commands below. This is similar to the examples on the competition webpage with a minor change (viz_on is added for the detector).
+
+Note that currently the vizualizer is slow because it is trying to add all of the points from the kinect to the scene. This will be remedied before competition when only the detector objects will be shown.
+
+Data files are stored in 'mrol_sip/data/' for both the trainer and detector.
+
+--trainer.py--
+General form to run:
+rosrun tod_stub trainer -B <BAGFILE_NAME>.bag --fiducial <FIDUCIAL_NAME>.yml -C <USER_DEFINED_CONFIG_FILE>.yaml --image <IMAGE_TOPIC> --camera_info <CAMERA_INFO_TOPIC> --points <POINT_CLOUD2_TOPIC> --team_name <TEAM_NAME> --run_number <RUN_ID> --object_id <OBJECT_ID>
+
+Example command to run:
+rosrun mrol_sip trainer.py -B ~/tod_stub_dev/tod_stub/bin/obj16.bag --fiducial fiducial.yaml -C config.yaml --image image --camera_info camera_info --points points2 --team_name TeamFranklin --run_number 0 --object_id example
+
+--detector.py--
+General form to run:
+rosrun mrol_sip detector.py -B <BAGFILE_NAME>.bag -C <USER_DEFINED_CONFIG_FILE>.yaml --image <IMAGE_TOPIC> --camera_info <CAMERA_INFO_TOPIC> --points <POINT_CLOUD2_TOPIC> --team_name <TEAM_NAME> --run_number <RUN_ID> --viz_on <0 or 1 for off or on>
+
+Example command to run
+rosrun mrol_sip detector.py -B ~/tod_stub_dev/tod_stub/bin/obj16test.bag0 -C config.yaml --image image --camera_info camera_info --points points2 --team_name teamFranklin --run_number 0 --viz_on 1

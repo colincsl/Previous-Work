@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/team_franklin/!svn/ver/6
+END
+TRAIN_RUN0000_TeamFranklin_20110503_08:40:01.csv
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/team_franklin/!svn/ver/7/TRAIN_RUN0000_TeamFranklin_20110503_08:40:01.csv
+END
+TEST_RUN0001_teamFranklin_20110503_08:33:01.csv
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/team_franklin/!svn/ver/7/TEST_RUN0001_teamFranklin_20110503_08:33:01.csv
+END
+add_all_to_path.sh
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/team_franklin/!svn/ver/5/add_all_to_path.sh
+END
+test_batch.sh
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/team_franklin/!svn/ver/10/test_batch.sh
+END
+object1.png
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/team_franklin/!svn/ver/7/object1.png
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/team_franklin/!svn/ver/9/readme.txt
+END
+RUN0001_teamFranklin_20110502_01:51:00.csv
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/team_franklin/!svn/ver/5/RUN0001_teamFranklin_20110502_01:51:00.csv
+END
+generate_all_models.sh
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/team_franklin/!svn/ver/10/generate_all_models.sh
+END

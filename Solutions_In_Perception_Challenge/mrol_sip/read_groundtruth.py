@@ -1,0 +1,72 @@
+import csv
+import numpy as np
+import sys, pdb
+
+'''
+				0	 1	  2		 3	  4    5   6   7   8   9  10  11  12   13  14  15  16
+Data format: Times, Run, Frame, dID, oID, R11,R12,R13,R21,R22,R23,R31,R32,R33, Tx, Ty, Tz
+'''
+
+
+#class groundTruth:
+def getTransformations(objFile=None, fidFile=None):
+#	def __init__(self, objFile=None, fidFile=None):
+
+	baseDir = sys.argv[0][0:sys.argv[0].rfind('/')+1]
+	
+	print baseDir
+	if objFile==None:
+		objFile = csv.reader(open(baseDir+'data/RUN0000_NIST-training_20110318_17.48.31.csv'), delimiter=',')
+	if fidFile==None:
+		fidFile = csv.reader(open(baseDir+'data/RUN0_teamAwesome_11134_22.14.5.csv'), delimiter=';')
+
+	obj_line_num = 0
+	fid_line_num = 0
+	obj_data = []
+	fid_data = []
+
+	for rows in objFile:
+		if obj_line_num >0:
+			obj_data.append(rows)
+		obj_line_num+=1
+
+	for rows in fidFile:
+		if fid_line_num >0:
+			fid_data.append(rows)
+		fid_line_num+=1
+
+
+	assert fid_line_num==obj_line_num
+
+	obj_T = np.zeros((4,4,fid_line_num-1), dtype=np.float32)
+	fid_T = np.zeros((4,4,fid_line_num-1), dtype=np.float32)
+	out_T = np.zeros((4,4,fid_line_num-1), dtype=np.float32)
+
+	for i in range(fid_line_num-1):
+		obj_T[:,:,i] = np.array([[obj_data[i][5],obj_data[i][6],obj_data[i][7], obj_data[i][14]],\
+						 [obj_data[i][8],obj_data[i][9],obj_data[i][10], obj_data[i][15]],\
+						 [obj_data[i][11],obj_data[i][12],obj_data[i][13], obj_data[i][16]], \
+						 [0,0,0,1]], dtype=np.float32)
+
+	for i in range(fid_line_num-1):
+		fid_T[:,:,i] = np.array([[fid_data[i][5],fid_data[i][6],fid_data[i][7], fid_data[i][14]],\
+						 [fid_data[i][8],fid_data[i][9],fid_data[i][10], fid_data[i][15]],\
+						 [fid_data[i][11],fid_data[i][12],fid_data[i][13], fid_data[i][16]], \
+						 [0,0,0,1]], dtype=np.float32)
+						 
+
+	for i in range(fid_line_num-1):
+	#	out_T[:,:,i] = (np.matrix(fid_T[:,:,i]).I * np.matrix(obj_T[:,:,i])).I
+		out_T[:,:,i] = np.matrix(fid_T[:,:,i]).I
+	#	out_T[:,:,i] = (np.matrix(fid_T[:,:,i]).I * np.matrix(obj_T[:,:,i]))	
+
+
+	return out_T
+
+	
+#	
+#if __name__ == "__ain__":
+
+#	T = groundTruth()
+	
+	

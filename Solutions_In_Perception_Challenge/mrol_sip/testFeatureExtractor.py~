@@ -1,0 +1,162 @@
+
+'''
+Overview:
+*input: Nx6 dense pointcloud
+*Remove background
+	-Find normals in img - SVD
+	-RANSAC to find plane
+*form image
+*run SIFT on remaining pixels 
+'''
+
+import sys, os
+import numpy as np
+from numpy.linalg import svd
+import scipy.misc as sm
+import pylab as pl
+import sift
+
+import scipy.ndimage as nd
+
+#import mrol_mapping.mapper as mapper
+#import mrol_mapping.mrol as mrol
+#import mrol_mapping.poseutil as poseutil
+#import mrol_mapping.pointcloud as pointcloud
+
+#import read_groundtruth as truth
+
+import time
+import pdb
+
+
+
+if len(sys.argv) > 1:
+	input_file = sys.argv[1]
+else:
+	input_file = '/home/colin/sip_data/training_new/pointclouds_obj16/pc_1302023598.npy'
+#	input_file = '/home/colin/sip_data/training_new/pointclouds_obj16/pc_1302023524.npy'	
+#	input_file = '/home/colin/repo/perception_repo/data/obj16_best.npy'	
+	
+pc = np.load(input_file)
+
+start_time = time.time()
+pc_range = np.array([pc['x'],pc['y'], pc['z']])
+pc_color = np.array([pc['r'],pc['g'], pc['b']])
+
+x_dim =48/2
+y_dim =64/2
+n_dim =3
+sample_percent = .05 # 
+sample_iter = int(1/sample_percent)# * 480*460 / x_dim / y_dim)
+total_dim = int(np.sqrt(480*640 / (x_dim*y_dim)))
+pos = np.reshape(pc_range.T, (480, 640, 3))
+img = np.reshape(pc_color.T, (480, 640, 3))
+pos_svd = np.reshape(pos, (-1, x_dim, y_dim, 3))
+
+part = np.empty((pos_svd.shape[0],x_dim*y_dim, 3))
+part_sq = np.empty((pos_svd.shape[0],x_dim,y_dim,3))
+k = 0
+
+#pdb.set_trace()
+for i in range(total_dim):
+	for j in range(total_dim):
+		part_sq[k]=pos[i*x_dim:(i+1)*x_dim,j*y_dim:(j+1)*y_dim,:]
+		part[k] = np.reshape(pos[i*x_dim:(i+1)*x_dim,j*y_dim:(j+1)*y_dim,:], (x_dim*y_dim, 3))
+		k+=1
+
+
+N_x = np.zeros((pos_svd.shape[0], 3))
+N_y = np.zeros((pos_svd.shape[0], 3))
+N_z = np.zeros((pos_svd.shape[0], 3))
+
+
+for i in range(pos_svd.shape[0]):
+#	print i
+	if -np.isnan(np.nansum(part[i])): #make sure the sum isn't 'nan'
+		tmp = np.reshape(part[i], (-1, 1))
+		tmp2 = tmp[np.nonzero(-np.isnan(tmp) > 0)]
+		part_svd = np.reshape(tmp2,(-1, 3))
+		centroids = np.mean(part_svd, axis=0)
+
+		_,_,V = svd(part_svd[::sample_iter,:]-centroids)
+		V = V.T.conj()
+		N_x[i,:] = np.array(V[:,0])
+		N_y[i,:] = np.array(V[:,1])
+		N_z[i,:] = np.array(V[:,2])
+
+
+
+#pdb.set_trace()
+N_img_x = np.reshape(N_x, (total_dim,total_dim,3))
+N_img_y = np.reshape(N_y, (total_dim,total_dim,3))
+N_img_z = np.reshape(N_z, (total_dim,total_dim,3))
+
+while 0:
+	try:
+		V
+	except:
+		print "Error: All points are NaN"
+	#	return
+
+	i=0
+	while np.all(N_x[i,:]==0):
+		i+=1
+
+	i=47
+	Ns_x = N_x[i,:]
+	Ns_y = N_y[i,:]
+	Ns_z = N_z[i,:]
+
+	#Look at all normals
+
+	accept_x = np.sum((pc_range*Ns_x[:,np.newaxis]), axis=0)
+	accept_y = np.sum((pc_range*Ns_y[:,np.newaxis]), axis=0)
+	accept_z = np.sum((pc_range*Ns_z[:,np.newaxis]), axis=0)
+
+	# All accept values should be -1:1
+	accept = (accept_z < -.2) * (np.abs(accept_x) < .0)* (np.abs(accept_y) > 0.)
+
+	v = -.5
+	accept = np.abs(accept_x) > v
+	pos_vec = pc_range * accept
+	pos = np.reshape(pos_vec.T, (480, 640, 3))
+	#pl.imshow(pos[:,:,2])
+
+	color_vec = pc_color * accept
+	img = np.reshape(color_vec.T, (480, 640, 3))
+
+
+max_ = np.max(N_img_z[:,:,2])
+min_ = .55*max_
+im_out = ((np.abs(N_img_z[:,:,2])>np.abs(N_img_y[:,:,2]))>min_)*np.abs(N_img_z[:,:,2])
+im_out_resize = nd.interpolation.zoom(im_out, [x_dim,y_dim], mode='nearest')
+#pl.imshow(im_out, vmin=min_, vmax=max_)
+
+#print 'Elapsed time: ', time.time()-start_time
+
+pl.imshow(img[:,:,0]*(im_out_resize>0.5))
+pl.show()
+
+pdb.set_trace()
+mask = np.reshape(im_out_resize, (480*640,1))>.5
+pc_out = pc_range.T*mask
+
+pdb.set_trace()
+
+#pl.imshow((np.abs(N_img_y[:,:,1])>0)*np.abs(N_img_y[:,:,1]))
+
+#im = sm.toimage(img[:,:,0])
+#im.save('sift/tmp_sift_img.pgm')
+#imagename = 'tmp_sift_img.pgm'
+#resultname = 'tmp_features'
+#os.system("sift/sift <"+imagename+">"+resultname)
+##os.system('chmod og=rwx tmp_sift_img2.jpg')
+##sm.imsave('tmp_sift_img.jpg', img)
+##sift.process_image('tmp_sift_img2.pgm', 'tmp_features')
+#feat = sift.read_features_from_file('tmp_features')
+
+#sift.plot_features(img, feat[0])
+
+
+
+

@@ -1,0 +1,19 @@
+<launch>
+<!-- Kinect Template launch file -->
+
+	<node name="kinect" pkg="kinect_template" type="kinect_openni_template.py" output="screen"/>
+
+
+<!--
+ 	View images on screen output from the Kinect Template:
+	In this case the Kinect Python file publishes img_out and img_out2
+ -->
+
+	<node name="image" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+		<remap from="image" to="img_out"/>
+	</node>
+	<node name="image2" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+		<remap from="image" to="img_out2"/>
+	</node>
+
+</launch>

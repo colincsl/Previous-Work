@@ -1,0 +1,24 @@
+Library for scan matching and map building using Multi-Resolution Occupied Voxel lists.
+
+The algorithms are described in the following papers
+
+J. Ryde and H. Hu. 3D mapping with multi-resolution occupied voxel lists. Autonomous Robots, 2009.
+J. Ryde and N. Hillier. Alignment and 3D scene change detection for segmentation in autonomous earth moving. ICRA 2011.
+
+Please cite these publications if you use this.
+
+Required packages
+mayavi2 python2.6 python-scipy python-matplotlib python-tk python-nose python-numpy cython python2.6-dev
+
+Optional packages
+python-visual
+python-coverage
+
+For Ubuntu/Debian run
+sudo apt-get install mayavi2 python2.6 python-scipy python-matplotlib python-tk cython
+
+
+Make sure that this directory is on the PYTHONPATH
+
+To run tests, execute tests.py in the test directory.
+

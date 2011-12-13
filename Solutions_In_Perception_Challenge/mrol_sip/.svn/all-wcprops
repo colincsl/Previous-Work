@@ -1,0 +1,299 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/team_franklin/!svn/ver/5/mrol_sip
+END
+feature_detection.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/team_franklin/!svn/ver/2/mrol_sip/feature_detection.py
+END
+detectorPoseEstimation.py~
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectorPoseEstimation.py~
+END
+detectionObjectFinder.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionObjectFinder.py
+END
+pc_to_img.py~
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/team_franklin/!svn/ver/5/mrol_sip/pc_to_img.py~
+END
+pc_to_img.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/team_franklin/!svn/ver/5/mrol_sip/pc_to_img.py
+END
+detectionPoseEstimation.py~
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionPoseEstimation.py~
+END
+detectionObjectFinder.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionObjectFinder.pyc
+END
+detectionPoseEstimation.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionPoseEstimation.py
+END
+trainingModelGenerator.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingModelGenerator.py
+END
+write_csv.py~
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/team_franklin/!svn/ver/5/mrol_sip/write_csv.py~
+END
+trainingModelGenerator.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingModelGenerator.pyc
+END
+detector.py~
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/team_franklin/!svn/ver/9/mrol_sip/detector.py~
+END
+trainer.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainer.pyc
+END
+txt_to_npy.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/team_franklin/!svn/ver/5/mrol_sip/txt_to_npy.py
+END
+read_groundtruth.py~
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/team_franklin/!svn/ver/5/mrol_sip/read_groundtruth.py~
+END
+config.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/team_franklin/!svn/ver/2/mrol_sip/config.yaml
+END
+read_groundtruth.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/team_franklin/!svn/ver/5/mrol_sip/read_groundtruth.py
+END
+trainingFeatureExtractor.py~
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingFeatureExtractor.py~
+END
+detectionClassifier.py~
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionClassifier.py~
+END
+run_training.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/team_franklin/!svn/ver/3/mrol_sip/run_training.sh
+END
+run_training.bash~
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/team_franklin/!svn/ver/5/mrol_sip/run_training.bash~
+END
+mrol_sip_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/team_franklin/!svn/ver/5/mrol_sip/mrol_sip_test.py
+END
+ransac_plane.py~
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/team_franklin/!svn/ver/5/mrol_sip/ransac_plane.py~
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/team_franklin/!svn/ver/2/mrol_sip/Makefile
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/team_franklin/!svn/ver/2/mrol_sip/CMakeLists.txt
+END
+ransac_plane.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/team_franklin/!svn/ver/5/mrol_sip/ransac_plane.py
+END
+trainingFeatureExtractor_DEMO.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingFeatureExtractor_DEMO.py
+END
+testFeatureExtractor.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/team_franklin/!svn/ver/5/mrol_sip/testFeatureExtractor.py
+END
+feature_detection.py~
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/team_franklin/!svn/ver/5/mrol_sip/feature_detection.py~
+END
+detectionObjectFinder.py~
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionObjectFinder.py~
+END
+trainingModelGenerator.py~
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingModelGenerator.py~
+END
+trainer.py~
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/team_franklin/!svn/ver/9/mrol_sip/trainer.py~
+END
+trainer.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/team_franklin/!svn/ver/9/mrol_sip/trainer.py
+END
+detectionPoseEstimation.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionPoseEstimation.pyc
+END
+write_csv.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/team_franklin/!svn/ver/5/mrol_sip/write_csv.py
+END
+txt_to_npy.py~
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/team_franklin/!svn/ver/5/mrol_sip/txt_to_npy.py~
+END
+write_csv.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/team_franklin/!svn/ver/5/mrol_sip/write_csv.pyc
+END
+detector.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/team_franklin/!svn/ver/9/mrol_sip/detector.py
+END
+manifest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/team_franklin/!svn/ver/2/mrol_sip/manifest.xml
+END
+run_training.sh~
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/team_franklin/!svn/ver/5/mrol_sip/run_training.sh~
+END
+mrol_sip_test.py~
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/team_franklin/!svn/ver/5/mrol_sip/mrol_sip_test.py~
+END
+readme.txt~
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/team_franklin/!svn/ver/5/mrol_sip/readme.txt~
+END
+read_groundtruth.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/team_franklin/!svn/ver/5/mrol_sip/read_groundtruth.pyc
+END
+mainpage.dox
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/team_franklin/!svn/ver/2/mrol_sip/mainpage.dox
+END
+detectionClassifier.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionClassifier.py
+END
+trainingFeatureExtractor.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingFeatureExtractor.py
+END
+testFeatureExtractor.py~
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/team_franklin/!svn/ver/5/mrol_sip/testFeatureExtractor.py~
+END
+detectionClassifier.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/team_franklin/!svn/ver/5/mrol_sip/detectionClassifier.pyc
+END
+trainingFeatureExtractor.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/team_franklin/!svn/ver/5/mrol_sip/trainingFeatureExtractor.pyc
+END

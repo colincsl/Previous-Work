@@ -1,0 +1,46 @@
+
+import sys, os, pdb
+
+folder = sys.argv[1]
+
+os.system('sh add_all_to_path.sh')
+
+dirs = os.walk(folder)
+
+root = []
+folders = []
+files = []
+
+for i in dirs:
+	root.append(i[0])
+	folders.append(i[1])
+	files.append(i[2])
+
+data_files = files[0]
+data_files.sort()
+print data_files
+#pdb.set_trace()
+
+#for i in range(len(data_files)):
+#	if data_files[i].rfind('.bag')>=0:
+#		if data_files[i].rfind('.zip')>=0:
+#			os.system('unzip'+data_files[i])
+#			data_files[i] = data_files[0:data_files.find('.zip')]
+
+#		fname = root[0]+data_files[i]
+#			
+##		os.system('rosrun mrol_sip detector.py -B %s  --fiducial fiducial.yaml -C config.yaml --camera_info /camera/rgb/camera_info --image  /camera/rgb/image_color --point /camera/rgb/points --team_name TeamFranklin --run_number 0 --pose pose' % data_files[i])
+#		os.system('rosrun mrol_sip trainer.py -B %s  --fiducial fiducial.yaml -C config.yaml --camera_info camera_info --image image_color --points points --team_name TeamFranklin --run_number 0 --pose pose' % fname)
+		
+for file_i in data_files:
+	if file_i.rfind('.bag')>=0 and file_i.rfind('.csv') < 0:
+		if file_i.rfind('.zip')>=0:
+			os.system('unzip '+file_i)
+			file_i = file_i[0:file_i.find('.zip')]
+			
+		fname = root[0]+file_i
+
+		num_ind = file_i.rfind('.bag')
+		oname = 'object'+file_i[num_ind-2:num_ind]
+		
+		os.system('rosrun mrol_sip detector.py -B %s -C config.yaml --camera_info camera_info --image image_color --points points2 --team_name TeamFranklin --run_number 0 --viz_on 1' % fname)

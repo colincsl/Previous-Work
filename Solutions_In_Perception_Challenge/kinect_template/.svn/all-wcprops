@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/team_franklin/!svn/ver/2/kinect_template
+END
+run_openni_template.launch
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/team_franklin/!svn/ver/2/kinect_template/run_openni_template.launch
+END
+run_freenect_template.launch
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/team_franklin/!svn/ver/2/kinect_template/run_freenect_template.launch
+END
+manifest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/team_franklin/!svn/ver/2/kinect_template/manifest.xml
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/team_franklin/!svn/ver/2/kinect_template/__init__.py
+END
+kinect_openni_template.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/team_franklin/!svn/ver/2/kinect_template/kinect_openni_template.py
+END
+kinect_freenect_template.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/team_franklin/!svn/ver/2/kinect_template/kinect_freenect_template.py
+END
+mainpage.dox
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/team_franklin/!svn/ver/2/kinect_template/mainpage.dox
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/team_franklin/!svn/ver/2/kinect_template/readme.txt
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/team_franklin/!svn/ver/2/kinect_template/CMakeLists.txt
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/team_franklin/!svn/ver/2/kinect_template/Makefile
+END

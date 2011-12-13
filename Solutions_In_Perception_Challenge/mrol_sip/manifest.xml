@@ -1,0 +1,24 @@
+<package>
+  <description brief="mrol_sip">
+
+     Some utilities to make interacting with ROS a bit easier.
+
+  </description>
+  <author>Nick Hillier, Colin Lea and Julian Ryde</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mrol_ros_utils</url>
+  <depend package="rospy"/>
+  <depend package="tf"/>
+  <depend package="flann"/>
+  <depend package="rosbag"/>
+  <depend package="kinect_template"/>
+  <depend package="pcl"/>
+  <depend package="cv_bridge"/>
+  <depend package="image_view"/>
+  <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+
+</package>
+
+

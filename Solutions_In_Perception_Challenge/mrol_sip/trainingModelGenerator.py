@@ -1,0 +1,290 @@
+#!/usr/bin/env python
+
+import sys, os
+
+import mrol_mapping.mapper as mapper
+import numpy as np
+import mrol_mapping.mrol as mrol
+import mrol_mapping.poseutil as poseutil
+import mrol_mapping.pointcloud as pointcloud
+import time
+#import read_groundtruth as truth
+
+import pdb
+
+
+class modelGenerator:
+
+	def __init__(self, objectName, poses, boxFilter=[-.08, .08,-.08, .08, 0.012, .4] , \
+		mrolLevels = 4, res = .002, transThresh=.04, rotThresh=55.0, viz = 0):
+	
+		self.objectName  = objectName
+		self.boxFilter   = boxFilter 		#[-x, x, -y, y, -z, z] for boxFilter
+		self.mrolLevels  = mrolLevels 		#number of self.resolution layers for MROL
+		self.res 		 = res				#self.resolution in meters
+		self.transThresh = transThresh 		# Threshold for merging PCs -- in meters
+		self.rotThresh   = rotThresh 		# Threshold for merging PCs -- in degrees		
+		
+#		self.baseDir = 'data/'+objectName+'/'
+		self.baseDir = sys.argv[0][0:sys.argv[0].rfind('/')+1] + 'data/' + objectName+'/'
+		
+		
+		self.pose_list = []
+		
+#		if poses == []:
+#			self.truth_T = truth.getTransformations()
+
+#			for i in range(self.truth_T.shape[2]):
+#				P =  poseutil.Pose3D()
+#				P.setMatrix(self.truth_T[:,:,i])
+#				self.pose_list.append(P)	
+#		else:
+		self.pose_list = poses
+
+
+		print self.pose_list
+		P =  poseutil.Pose3D()
+		point_clouds = {}
+		PCs = []
+		self.vmap = mapper.VoxelMap(self.res, levels = self.mrolLevels)
+		
+		if viz:
+			self.vmap.display(npts=4e5)
+			
+		self.run()
+
+	
+	def run(self):
+		self.walk_dirs()
+		self.create_model()
+		self.save_PC()
+
+	''' Get all pointcloud filenames '''
+	def walk_dirs(self):
+
+		dirs = os.walk(self.baseDir)
+
+		root = []
+		folders = []
+		files = []
+#		self.PC_files_reg = []
+		self.PC_files = []
+#		self.PC_files_reg_all = []
+
+		for i in dirs:
+			root.append(i[0])
+			folders.append(i[1])
+			files.append(i[2])
+
+		for i in range(len(root)):
+		#			for j in range(len(folders)):
+			for j in range(len(files[i])):
+				if files[i][j].find(".npy")>-1 and files[i][j].find('reg_')>-1:
+					pass
+#					self.PC_files_reg.append(root[i]+files[i][j])			
+				elif files[i][j].find(".npy")>-1 and files[i][j].find('pc_')>-1:
+					self.PC_files.append(root[i]+files[i][j])
+				elif files[i][j].find(".npz")>-1 and files[i][j].find('reg_')>-1:
+					pass
+#					self.PC_files_reg_all.append(root[i]+files[i][j])			
+
+#		self.PC_files_reg.sort()
+#		self.PC_files_reg_all.sort()
+		self.PC_files.sort()
+		self.fileCount = len(self.PC_files)
+
+
+
+	'''Match -- original test data'''
+	def match_original(self):
+	
+		cloud1 = np.load(self.PC_files[0]) #use self.PC_files_reg
+		xyzs = np.array((cloud1['x'], cloud1['y'], cloud1['z'])).T
+		pc = pointcloud.PointCloud(xyzs)
+		#pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],ymin=self.boxFilter[2], ymax=self.boxFilter[3],zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+		pose = self.pose_list[0]#np.load(self.PC_files_reg_all[0])['pose']
+		pc.set(pose)
+		PCs.append(pc)
+		self.vmap.add_points(PCs[0], PCs[0].pose)
+	
+		guessPose = PCs[0].pose
+	
+		cloud2 = np.load(self.PC_files_reg[1])	
+		xyzs = np.array((cloud2['x'], cloud2['y'], cloud2['z'])).T
+		pc = pointcloud.PointCloud(xyzs)
+	
+		start = time.time()
+		bestpose, maxcost = self.vmap.align_points(pc, guessPose)
+		taken = time.time() - start
+		print 'Scanmatch time:', taken, 'seconds'
+		print "Pose: ", bestpose
+		print "Max cost: ", maxcost
+
+		#PCs[0].display(color=(1,0,0))
+		#check_localise(bestpose, truepose)
+
+
+	'''Create 3D model using MROL align -- NIST data'''
+	def create_model(self):
+		PCs_added = 0
+		if self.fileCount > 1:
+			for j in range(0,self.fileCount, 1):
+
+				data = np.load(self.PC_files[j]) #should be self.PC_files_reg
+				xyzs = np.array((data['x'], data['y'], data['z'])).T
+				xyzs = xyzs[(np.nonzero(np.nansum(xyzs<100, axis=1)>0)[0])]
+
+				pose = poseutil.Pose3D(self.pose_list[j])
+				pose_zero = poseutil.Pose3D()
+				pose_zero.set((0,0,0,0,0,0))
+
+				xyzs = poseutil.transformPoints(xyzs, pose.getMatrix())
+				pc = pointcloud.PointCloud(xyzs)
+				pc.pose = pose_zero#pose
+
+#				pc.boxfilter(xmin=-.1, xmax=.1, ymin=-.1, ymax=.1, zmin=-.1, zmax=.1)
+#				pc.boxfilter(xmin=-0.05, xmax=.05, ymin=-.05, ymax=.05, zmin=-.05, zmax=.05)
+				pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],ymin=self.boxFilter[2], ymax=self.boxFilter[3],zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+	#			print pose
+#				pdb.set_trace()
+
+				if j==0: #Don't try to align first pose
+					self.vmap.add_points(pc, pc.pose)
+				else:
+					guessPose = pose_zero#self.pose_list[i]#np.load(self.PC_files_reg_all[i])['pose']
+					bestPose = guessPose
+				
+	#				print guessPose
+					bestPose = pose_zero
+#					bestPose, maxcost = self.vmap.align_points(pc, guessPose)
+	#				bestPose, maxcost = self.vmap.align_points(pc, guessPose, True) #only 2D alignment
+					disp = np.array(bestPose.getTuple())
+					if 1: #all(np.abs(disp[:3]) < self.transThresh) and all(np.abs(disp[3:])<self.rotThresh*3.14/180.):
+						self.vmap.add_points(pc, bestPose)
+						PCs_added +=1
+#						print '%i PCs added'%PCs_added
+#					print "Best Pose: ", bestPose						
+
+	#				guessPose = bestpose
+	#				print "Pose from ground: ", guessPose	
+
+		print '%i of %i point clouds were added' %(PCs_added, self.fileCount)
+
+	#	cloud1 = np.load(self.PC_files[0]) #use self.PC_files_reg
+	#	xyzs = np.array((cloud1['x'] , cloud1['y'] , cloud1['z'] )).T
+	#	pc = pointcloud.PointCloud(xyzs)
+	#	#pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],ymin=self.boxFilter[2], ymax=self.boxFilter[3],zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+	#	pose = self.pose_list[0]#np.load(self.PC_files_reg_all[0])['pose']
+	#	pc.set(pose)
+	#	PCs.append(pc)
+	#	self.vmap.add_points(PCs[0], PCs[0].pose)
+
+
+	#	if self.fileCount > 1:
+	#		for j in range(1,self.fileCount):
+	#			data = np.load(self.PC_files[j]) #should be self.PC_files_reg
+	#			xyzs = np.array((data['x'] , data['y'] , data['z'] )).T					
+	#			pc = pointcloud.PointCloud(xyzs)
+	#			pc.pose = self.pose_list[j]#np.load(self.PC_files_reg_all[j])['pose']			
+	#			pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],ymin=self.boxFilter[2], ymax=self.boxFilter[3],zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+	##			print pc.pose
+	#			PCs.append(pc)
+
+	
+	#	for i in range(1,len(PCs)):
+	#		print 'Aligning scan', i
+	#		#Pose+pointcloud:
+	#		#Use ground truth pose as-is
+	#		guessPose = self.pose_list[i]#np.load(self.PC_files_reg_all[i])['pose']
+	#		xyzs = PCs[i]
+	#		
+	#		bestpose, maxcost = self.vmap.align_points(xyzs, guessPose)
+	#		self.vmap.add_points(xyzs, bestpose)
+	#		guessPose = bestpose
+	#		print "Pose from ground: ", guessPose	
+	#		print "Best Pose: ", guessPose			
+
+
+
+#from enthought.mayavi.mlab import *
+	'''Merge NIST dataset using the ground truth pose (no MROL)'''
+	def merge_PC_ground(self):
+		if self.fileCount > 1:
+			for j in range(self.fileCount):
+				data = np.load(self.PC_files[j]) #should be self.PC_files_reg
+				xyzs = np.array((data['x'], data['y'] , data['z'] )).T
+
+#				pose = self.pose_list[j]#np.load(self.PC_files_reg_all[j])['pose']
+				pose_zero = poseutil.Pose3D()
+				pose_zero.set((0,0,0,0,0,0))
+
+				xyzs = poseutil.transformPoints(xyzs, pose.getMatrix())
+				pc = pointcloud.PointCloud(xyzs)
+				pc.pose = pose_zero#pose
+			
+				pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],ymin=self.boxFilter[2], ymax=self.boxFilter[3],zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+				print pose
+			
+				self.vmap.add_points(pc, pc.pose)
+
+
+
+	'''Test localization of outputted model with original scene'''
+	def localize_test(self):
+		cloud1 = np.load(self.PC_files[0]) #use self.PC_files_reg
+		xyzs = np.array((cloud1['x'] , cloud1['y'] , cloud1['z'] )).T
+		pc = pointcloud.PointCloud(xyzs)
+		pc.boxfilter(xmin=self.boxFilter[0], xmax=self.boxFilter[1],\
+					 ymin=self.boxFilter[2], ymax=self.boxFilter[3],\
+					 zmin=self.boxFilter[4], zmax=self.boxFilter[5])
+		pose = self.pose_list[0]#(0,0,0,0,0,0)#
+	#	pc.pose = pose
+		PCs.append(pc)
+
+		self.vmap.add_points(PCs[0], PCs[0].pose)
+
+		''' Import object '''
+		data = np.load('data/merged_PC_aligned.npy')
+		xyzs = np.array((data[:,0], data[:,1], data[:,2])).T
+		centroid = np.mean(xyzs, axis=0)
+		xyzs[:,0] -= centroid[0]
+		xyzs[:,1] -= centroid[1]
+		xyzs[:,2] -= centroid[2]
+	
+	#	pose = (0,0,0,0,0,0)#self.pose_list[0]
+		centroid_self.vmap = np.mean(self.vmap.get_points().points, axis=0)
+		guessPose = (centroid_self.vmap[0], centroid_self.vmap[1], centroid_self.vmap[2], 0, 0, 0) #(0,0,0,0,0,0)#self.pose_list[0]#(0,0,0,0,0,0)
+	#	xyzs = np.array((data['x'], data['y'], data['z'])).T
+		pc = pointcloud.PointCloud(xyzs)
+	
+		bestpose, maxcost = self.vmap.align_points(pc, guessPose)
+		pdb.set_trace()
+		self.vmap.add_points(pc, bestpose)
+		print "GuessPose: ", guessPose
+		print "BestPose: ", bestpose
+		print "Max cost: ", maxcost
+
+
+
+	def display(self):
+		data = self.vmap.get_points()
+	#	rad = .1
+	#	data.boxfilter(xmin=-rad, xmax=rad,ymin=-rad, ymax=rad,zmin=-.1, zmax=self.boxFilter[5])
+		data.display()
+
+
+	def save_PC(self):
+		data = self.vmap.get_points()
+		data_p = data.points
+		np.save(self.baseDir+self.objectName+'_PC', data)
+		
+		save_file = self.baseDir+self.objectName+'.txt'
+		f = file(save_file, 'w')
+		for i in range(data_p.shape[0]):
+			f.write("%f %f %f\n" % (float(data_p[i,0]), float(data_p[i,1]), float(data_p[i,2])))
+
+
+
+if __name__ == "__main__":
+	pass
+        
